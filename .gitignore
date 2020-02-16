@@ -14,3 +14,4 @@
 *.iml
 */out
 *\out
+*.code-workspace
