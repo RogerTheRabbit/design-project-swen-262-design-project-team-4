@@ -1,0 +1,7 @@
+This file will contain information for the user named "example-user-name"
+
+We need to decided how this will be formatted. It will def be a CSV file but we need to decide how the fields will work.
+
+Kevin's thought of how to format:
+GUID, GUID, GUID, GUID, GUID
+Where each GUID will be the GUID for a searchable(aka a Song or a Release or an Artist).  We then add each searchable to the library for each person.
