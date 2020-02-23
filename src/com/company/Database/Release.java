@@ -39,4 +39,14 @@ public class Release implements Searchable {
     public Searchable getArtist() {
         return artist;
     }
+
+    @Override
+    public String getName() {
+        return name;
+    }
+
+    @Override
+    public String getGUID() {
+        return guid;
+    }
 }
