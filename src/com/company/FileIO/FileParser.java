@@ -6,27 +6,50 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class FileParser {
-    private Scanner scan;
 
-    public FileParser(String filePath, String filename) {
-        try {
+    private String filePath;
+    private String fileName;
 
-            var path = Paths.get(filePath, filename);
+    public FileParser(String filePath, String fileName) {
+        this.filePath = filePath;
+        this.fileName = fileName;
+
+    }
+
+    public String getFilePath() {
+        return filePath;
+    }
+
+    public void setFilePath(String filePath) {
+        this.filePath = filePath;
+    }
+
+    public String getFileName() {
+        return fileName;
+    }
+
+    public void setFileName(String fileName) {
+        this.fileName = fileName;
+    }
+
+    public ArrayList<String[]> readFile(){
+        try{
+            var path = Paths.get(filePath, fileName);
             File file = path.toFile();
-            this.scan = new Scanner(file);
+            Scanner scan = new Scanner(file);
+
+            ArrayList<String[]> allLines = new ArrayList<>();
+            while(scan.hasNext()){
+                String[] lineArray = scan.nextLine().split(",");
+                allLines.add(lineArray);
+            }
+
+            return allLines;
         }
         catch (Exception e){
             System.err.println(e);
         }
-    }
-
-    public ArrayList<String[]> readFile(){
-        ArrayList<String[]> allLines = new ArrayList<>();
-        while(scan.hasNext()){
-            String[] lineArray = scan.nextLine().split(",");
-            allLines.add(lineArray);
-        }
-        return allLines;
+        return null;
     }
 
 }
