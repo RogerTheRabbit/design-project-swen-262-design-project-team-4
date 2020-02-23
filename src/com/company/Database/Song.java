@@ -1,20 +1,35 @@
 package com.company.Database;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Song implements Searchable {
+    private String name;
+    private String guid;
+    private int duration;
+    private Searchable artist;
+
+    public Song(String name, String guid, int duration, Searchable artist) {
+        this.name = name;
+        this.guid = guid;
+        this.duration = duration;
+        this.artist = artist;
+    }
+
     @Override
     public int getTotalDuration() {
-        return 0;
+        return duration;
     }
 
     @Override
     public List<Searchable> getSongList() {
-        return null;
+        List<Searchable> song = new ArrayList<>();
+        song.add(this);
+        return song;
     }
 
     @Override
     public Searchable getArtist() {
-        return null;
+        return artist;
     }
 }
