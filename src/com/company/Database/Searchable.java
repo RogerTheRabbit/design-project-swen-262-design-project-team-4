@@ -1,4 +1,9 @@
 package com.company.Database;
 
-public class Searchable {
+import java.util.List;
+
+public interface Searchable {
+    public int getTotalDuration();
+    public List<Searchable> getSongList();
+    public Searchable getArtist();
 }
