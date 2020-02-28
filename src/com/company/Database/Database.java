@@ -3,6 +3,7 @@ package com.company.Database;
 import com.company.FileIO.FileParser;
 import com.company.FileIO.FileSaver;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Database {
@@ -31,15 +32,21 @@ public class Database {
 
     private void initializeSongs(){
         FILEREADER.setFileName("songs.csv");
-        FILEREADER.setFilePath("");
+        FILEREADER.setFilePath("src/data/global/");
+        ArrayList<String[]> splitData = FILEREADER.readFile();
+
     }
 
     private void initializeArtists(){
-
+        FILEREADER.setFileName("artists.csv");
+        FILEREADER.setFilePath("src/data/global/");
+        ArrayList<String[]> splitData = FILEREADER.readFile();
     }
 
     private void initializeAlbums(){
-
+        FILEREADER.setFileName("releases.csv");
+        FILEREADER.setFilePath("src/data/global/");
+        ArrayList<String[]> splitData = FILEREADER.readFile();
     }
 
     private void AddSearchableToUserLibrary(String guid){

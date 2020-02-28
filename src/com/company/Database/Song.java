@@ -5,15 +5,15 @@ import java.util.List;
 
 public class Song implements Searchable {
     private String name;
-    private String guid;
+    private String GUID;
     private int duration;
-    private Searchable artist;
+    private String artistGUID;
 
-    public Song(String name, String guid, int duration, Searchable artist) {
-        this.name = name;
-        this.guid = guid;
+    public Song(String GUID, String artistGUID, int duration, String title) {
+        this.name = title;
+        this.GUID = GUID;
         this.duration = duration;
-        this.artist = artist;
+        this.artistGUID = artistGUID;
     }
 
     @Override
@@ -29,8 +29,8 @@ public class Song implements Searchable {
     }
 
     @Override
-    public Searchable getArtist() {
-        return artist;
+    public String getArtistGUID() {
+        return artistGUID;
     }
 
     @Override
@@ -40,6 +40,6 @@ public class Song implements Searchable {
 
     @Override
     public String getGUID() {
-        return guid;
+        return GUID;
     }
 }

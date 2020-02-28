@@ -6,14 +6,14 @@ public class Release implements Searchable {
     private String name;
     private String guid;
     private int duration;
-    private Searchable artist;
+    private String artistGUID;
     private List<Searchable> songList;
 
-    public Release(String name, String guid, Searchable artist, List<Searchable> songList) {
+    public Release( String guid, String artistGUID, String name,String issueDate, Enum medium,  List<String> songGUIDList) {
         this.name = name;
         this.guid = guid;
         this.duration = calculateDuration(songList);
-        this.artist = artist;
+        this.artistGUID = artistGUID;
         this.songList = songList;
     }
 
@@ -36,8 +36,8 @@ public class Release implements Searchable {
     }
 
     @Override
-    public Searchable getArtist() {
-        return artist;
+    public String getArtistGUID() {
+        return artistGUID;
     }
 
     @Override
