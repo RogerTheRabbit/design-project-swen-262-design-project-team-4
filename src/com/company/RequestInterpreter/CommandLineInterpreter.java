@@ -34,7 +34,7 @@ public class CommandLineInterpreter {
             } else if(input.equals("exit")) {
                 break;
             } else {
-                System.out.printf("Invalid command: %s\nPlease use one of the following commands:\n- %s\n", command, String.join("- \n", COMMANDS.keySet()));
+                System.out.printf("Invalid command: %s\nPlease use one of the following commands:\n- %s\n- exit\n", command, String.join("- \n", COMMANDS.keySet()));
             }
         }
 
