@@ -8,12 +8,14 @@ public class Artist implements Searchable {
     private String guid;
     private int duration;
     private List<Searchable> discography;
+    private String disambiguation;
 
-    public Artist(String name, String guid, List<Searchable> discography) {
+    public Artist(String name, String guid, List<Searchable> discography, String disambiguation) {
         this.name = name;
         this.guid = guid;
         this.duration = calculateDuration(discography);
         this.discography = discography;
+        this.disambiguation = disambiguation;
     }
 
     public int calculateDuration(List<Searchable> discography){
@@ -56,5 +58,10 @@ public class Artist implements Searchable {
     @Override
     public String getGUID() {
         return guid;
+    }
+
+    //TODO: How to handle this because songs and releases do not have disambiguations
+    public String getDisambiguation() {
+        return disambiguation;
     }
 }
