@@ -1,4 +1,4 @@
 package com.company.FileIO;
 
-public class FileWriter {
+public class FileSaver {
 }

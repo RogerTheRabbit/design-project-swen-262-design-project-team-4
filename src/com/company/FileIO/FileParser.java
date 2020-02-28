@@ -26,12 +26,10 @@ public class FileParser {
 
     /**
      * Constructor
-     * @param filePath
-     * @param fileName
      */
-    public FileParser(String filePath, String fileName) {
-        this.filePath = filePath;
-        this.fileName = fileName;
+    public FileParser() {
+        this.filePath = "";
+        this.fileName = "";
     }
 
     /**
