@@ -5,6 +5,7 @@ import com.company.FileIO.FileSaver;
 import com.sun.java.accessibility.util.GUIInitializedListener;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 
 public class Database {
@@ -25,66 +26,66 @@ public class Database {
         initializeDatabase();
     }
 
-    private void initializeDatabase(){
+    private void initializeDatabase() {
         SearchableMaker maker = new SearchableMaker(this);
         initializeArtists(maker);
         initializeSongs(maker);
         initializeAlbums(maker);
-        //initializeLibrary();
+        // initializeLibrary();
     }
 
-    private void initializeLibrary(String signedInUser){
+    private void initializeLibrary(String signedInUser) {
 
     }
 
-    private void initializeSongs(SearchableMaker maker){
+    private void initializeSongs(SearchableMaker maker) {
         FILEREADER.setFileName("songs.csv");
         FILEREADER.setFilePath("src/data/global/");
         ArrayList<String[]> splitData = FILEREADER.readFile();
-        for(String[] fields: splitData){
+        for (String[] fields : splitData) {
             Searchable entry = maker.makeSearchable("Song", fields);
-            songs.put(entry.getGUID(), (Song)entry);
+            songs.put(entry.getGUID(), (Song) entry);
             addToArtistDiscography(entry);
         }
     }
 
-    private void initializeArtists(SearchableMaker maker){
+    private void initializeArtists(SearchableMaker maker) {
         FILEREADER.setFileName("artists.csv");
         FILEREADER.setFilePath("src/data/global/");
         ArrayList<String[]> splitData = FILEREADER.readFile();
-        for(String[] fields: splitData){
+        for (String[] fields : splitData) {
             Searchable entry = maker.makeSearchable("Artist", fields);
-            artists.put(entry.getGUID(), (Artist)entry);
+            artists.put(entry.getGUID(), (Artist) entry);
         }
     }
 
-    private void initializeAlbums(SearchableMaker maker){
+    private void initializeAlbums(SearchableMaker maker) {
         FILEREADER.setFileName("releases.csv");
         FILEREADER.setFilePath("src/data/global/");
         ArrayList<String[]> splitData = FILEREADER.readFile();
-        for(String[] fields: splitData){
+        for (String[] fields : splitData) {
             Searchable entry = maker.makeSearchable("Release", fields);
             releases.put(entry.getGUID(), (Release) entry);
             addToArtistDiscography(entry);
         }
     }
 
-    private void AddSearchableToUserLibrary(String guid){
+    private void AddSearchableToUserLibrary(String guid) {
 
     }
 
-    private void addToArtistDiscography(Searchable entry){
+    private void addToArtistDiscography(Searchable entry) {
         String artistGUID = entry.getArtistGUID();
         Artist artist = artists.get(artistGUID);
         artist.addSearchable(entry);
     }
 
-    public Song getSong(String GUID){
+    public Song getSong(String GUID) {
         return songs.get(GUID);
     }
 
-    public HashMap<String, Song> getSongs() {
-        return songs;
+    public Collection<Song> getSongs() {
+        return songs.values();
     }
 
     public Artist getArtist(String GUID){
