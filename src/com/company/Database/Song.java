@@ -16,11 +16,10 @@ public class Song implements Searchable {
     /**
      * Attributes
      */
-    private String name;
     private String GUID;
-    private int duration;
     private String artistGUID;
-
+    private int duration;
+    private String title;
 
     /**
      *
@@ -32,7 +31,7 @@ public class Song implements Searchable {
      * @param title
      */
     public Song(String GUID, String artistGUID, int duration, String title) {
-        this.name = title;
+        this.title = title;
         this.GUID = GUID;
         this.duration = duration;
         this.artistGUID = artistGUID;
@@ -73,7 +72,7 @@ public class Song implements Searchable {
      */
     @Override
     public String getName() {
-        return name;
+        return title;
     }
 
     /**
@@ -85,13 +84,17 @@ public class Song implements Searchable {
         return GUID;
     }
 
+    public String formatToCsv(){
+        return GUID  + "," + artistGUID + "," + duration + "," + title;
+    }
+
     @Override
     public String toString() {
         return "Song{" +
-                "name='" + name + '\'' +
-                ", GUID='" + GUID + '\'' +
-                ", duration=" + duration +
+                "GUID='" + GUID + '\'' +
                 ", artistGUID='" + artistGUID + '\'' +
-                '}' + '\n';
+                ", duration=" + duration +
+                ", title='" + title + '\'' +
+                '}';
     }
 }

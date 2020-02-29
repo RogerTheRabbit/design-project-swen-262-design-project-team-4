@@ -1,6 +1,9 @@
 package com.company.FileIO;
 
+import com.company.Database.Artist;
+import com.company.Database.Release;
 import com.company.Database.Searchable;
+import com.company.Database.Song;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -36,24 +39,33 @@ public class FileSaver {
 
     }
 
-    private <T> ArrayList<T> seperateSearchables(Collection<Searchable> searchables, String searchableType){
-        if(searchableType.equalsIgnoreCase("Artist")){
+    private ArrayList<Searchable> seperateSearchables(Collection<Searchable> searchables, String searchableType){
 
+        ArrayList<Searchable> seperatedSearchables = new ArrayList<>();
+
+        if(searchableType.equalsIgnoreCase("Artist")){
+            for(Searchable searchable: searchables){
+                if (searchable instanceof Artist){
+                    seperatedSearchables.add(searchable);
+                }
+            }
         }
         else if(searchableType.equalsIgnoreCase("Release")){
-
+            for(Searchable searchable: searchables){
+                if (searchable instanceof Release){
+                    seperatedSearchables.add(searchable);
+                }
+            }
         }
         else if(searchableType.equalsIgnoreCase("Song")){
-
+            for(Searchable searchable: searchables){
+                if (searchable instanceof Song){
+                    seperatedSearchables.add(searchable);
+                }
+            }
         }
-        else{
 
-        }
-
-        for(Searchable searchable: searchables){
-
-        }
-        return null;
+        return seperatedSearchables;
     }
 
     private File makeFile(String username, String searchableType){
