@@ -13,7 +13,7 @@ public class Release implements Searchable {
     private Date issueDate;
 
 
-    public Release(String guid, String artistGUID, String title, Date issueDate, Medium medium, List<String> songGUIDList) {
+    public Release(String guid, String artistGUID, String title, Date issueDate, Medium medium, List<Searchable> songList) {
         this.title = title;
         this.guid = guid;
         this.duration = calculateDuration(songList);

@@ -1,6 +1,8 @@
 package com.company.Database;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class SearchableMaker {
     private Database database;
@@ -32,14 +34,35 @@ public class SearchableMaker {
         return searchable;
     }
 
-    private Searchable makeRelease(String[] fields){
-        ArrayList<String> songs = new ArrayList<>();
-        for(int i = 4; i < fields.length; i++){
-            songs.add(fields[i]);
-        }
+    private Searchable makeRelease(String[] fields) {
+        try {
+            ArrayList<Searchable> songs = new ArrayList<>();
 
-        return null;
-        //TODO return new Release(fields[0], fields[1], fields[2], fields[3], , songs);
+            for (int i = 5; i < fields.length; i++) {
+                Song song = database.getSong(fields[i]);
+                songs.add(song);
+            }
+
+            Date date = new SimpleDateFormat("").parse(fields[3]);
+
+            Medium medium = Medium.ERROR;
+            if(fields[4].equalsIgnoreCase("CD")){
+                medium = Medium.CD;
+            }
+            else if(fields[4].equalsIgnoreCase("Digital")){
+                medium = Medium.Digital;
+            }
+            else{
+                medium = Medium.Vinyl;
+            }
+
+            Searchable searchable = new Release(fields[0], fields[1], fields[2], date, medium, songs);
+            return searchable;
+        }
+        catch (Exception e){
+            System.err.println(e);
+            return null;
+        }
     }
 
     private Searchable makeArtist(String[] fields){

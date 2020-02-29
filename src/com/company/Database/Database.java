@@ -2,6 +2,7 @@ package com.company.Database;
 
 import com.company.FileIO.FileParser;
 import com.company.FileIO.FileSaver;
+import com.sun.java.accessibility.util.GUIInitializedListener;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -43,6 +44,7 @@ public class Database {
         for(String[] fields: splitData){
             Searchable entry = maker.makeSearchable("Song", fields);
             songs.put(entry.getGUID(), (Song)entry);
+            addToArtistDiscography(entry);
         }
     }
 
@@ -60,9 +62,32 @@ public class Database {
         FILEREADER.setFileName("releases.csv");
         FILEREADER.setFilePath("src/data/global/");
         ArrayList<String[]> splitData = FILEREADER.readFile();
+        for(String[] fields: splitData){
+            Searchable entry = maker.makeSearchable("Release", fields);
+            releases.put(entry.getGUID(), (Release) entry);
+            addToArtistDiscography(entry);
+        }
     }
 
     private void AddSearchableToUserLibrary(String guid){
 
+    }
+
+    private void addToArtistDiscography(Searchable entry){
+        String artistGUID = entry.getArtistGUID();
+        Artist artist = artists.get(artistGUID);
+        artist.addSearchable(entry);
+    }
+
+    public Song getSong(String GUID){
+        return songs.get(GUID);
+    }
+
+    public Artist getArtist(String GUID){
+        return artists.get(GUID);
+    }
+
+    public Release getRelease(String GUID){
+        return releases.get(GUID);
     }
 }
