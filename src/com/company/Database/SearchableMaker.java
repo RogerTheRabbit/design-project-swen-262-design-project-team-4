@@ -42,18 +42,19 @@ public class SearchableMaker {
                 songs.add(song);
             }
 
-            Date date = new SimpleDateFormat("yyyy-MM-dd").parse(fields[3]);
-
             Medium medium = Medium.ERROR;
-            if(fields[4].equalsIgnoreCase("CD")){
+            if(fields[3].equalsIgnoreCase("CD")){
                 medium = Medium.CD;
             }
-            else if(fields[4].equalsIgnoreCase("Digital")){
+            else if(fields[3].equalsIgnoreCase("Digital Media")){
                 medium = Medium.Digital;
             }
             else{
                 medium = Medium.Vinyl;
             }
+
+            Date date = makeDate(fields[4]);
+
 
             Searchable searchable = new Release(fields[0], fields[1], fields[2], date, medium, songs);
             return searchable;
@@ -66,5 +67,20 @@ public class SearchableMaker {
 
     private Searchable makeArtist(String[] fields){
         return new Artist(fields[0], fields[1], fields[2]);
+    }
+
+    private Date makeDate(String date) throws Exception{
+        String[] dateFields = date.split("-");
+        Date dates;
+        if(dateFields.length == 3){
+            dates = new SimpleDateFormat("yyyy-MM-dd").parse(date);
+        }
+        else if(dateFields.length == 2){
+            dates = new SimpleDateFormat("yyyy-MM").parse(date);
+        }
+        else{
+            dates = new SimpleDateFormat("yyyy").parse(date);
+        }
+        return dates;
     }
 }
