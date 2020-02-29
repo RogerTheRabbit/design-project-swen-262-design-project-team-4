@@ -16,7 +16,6 @@ public class CommandLineInterpreter {
         COMMANDS = new HashMap<>();
         // Add Commands here
         // Note: Keys should always be lowercase
-        COMMANDS.put("test", new testRequest());
         COMMANDS.put("add", new AddToLibraryRequest());
         COMMANDS.put("query", new QueryRequest());
         COMMANDS.put("rate", new RateRequest());
