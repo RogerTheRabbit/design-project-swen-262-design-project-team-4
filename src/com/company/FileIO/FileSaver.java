@@ -30,14 +30,13 @@ public class FileSaver {
         File songsFile = makeFile(username, "Songs");
         File releasesFile = makeFile(username, "Releases");
 
+
+
         File ratingFile = makeFile(username, "Ratings");
         saveRatings(ratingFile, ratings);
 
     }
 
-    private void outputFormat(Collection<Searchable> searchables){
-
-    }
 
     private ArrayList<Searchable> seperateSearchables(Collection<Searchable> searchables, String searchableType){
 

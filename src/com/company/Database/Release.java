@@ -12,13 +12,18 @@ import java.util.List;
  * role in pattern: Composite
  */
 public class Release implements Searchable {
-    private String title;
+
+    /**
+     * Attributes
+     */
     private String guid;
-    private int duration;
     private String artistGUID;
-    private List<Searchable> songList;
-    private Medium medium;
+    private String title;
     private Date issueDate;
+    private Medium medium;
+    private List<Searchable> songList;
+    private int duration;
+
 
 
     public Release(String guid, String artistGUID, String title, Date issueDate, Medium medium, List<Searchable> songList) {
@@ -89,16 +94,24 @@ public class Release implements Searchable {
         return guid;
     }
 
+    public String formatToCsv(){
+        String result = guid + "," + artistGUID + "," + title + "," + issueDate + "," + medium;
+        for(Searchable song: songList){
+            result += song.getGUID();
+        }
+        return result;
+    }
+
     @Override
     public String toString() {
         return "Release{" +
-                "title='" + title + '\'' +
-                ", guid='" + guid + '\'' +
-                ", duration=" + duration +
+                "guid='" + guid + '\'' +
                 ", artistGUID='" + artistGUID + '\'' +
-                ", songList=" + songList +
-                ", medium=" + medium +
+                ", title='" + title + '\'' +
                 ", issueDate=" + issueDate +
+                ", medium=" + medium +
+                ", songList=" + songList +
+                ", duration=" + duration +
                 '}';
     }
 }

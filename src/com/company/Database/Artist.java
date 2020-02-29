@@ -17,8 +17,8 @@ public class Artist implements Searchable {
     /**
      * Attributes
      */
-    private String name;
     private String guid;
+    private String name;
     private String disambiguation;
     private int duration;
     private List<Searchable> discography;
@@ -108,22 +108,15 @@ public class Artist implements Searchable {
         return guid;
     }
 
-    @Override
-    public String toString() {
-        return "Artist{" +
-                "name='" + name + '\'' +
-                ", guid='" + guid + '\'' +
-                ", disambiguation='" + disambiguation + '\'' +
-                ", duration=" + duration +
-                ", discography=" + discography +
-                '}';
+    public String formatToCsv(){
+        return guid + "," + name + "," + disambiguation;
     }
 
     @Override
     public String toString() {
         return "Artist{" +
-                "name='" + name + '\'' +
-                ", guid='" + guid + '\'' +
+                "guid='" + guid + '\'' +
+                ", name='" + name + '\'' +
                 ", disambiguation='" + disambiguation + '\'' +
                 ", duration=" + duration +
                 ", discography=" + discography +

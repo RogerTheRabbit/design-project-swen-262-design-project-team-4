@@ -15,4 +15,5 @@ public interface Searchable {
     public String getArtistGUID();
     public String getName();
     public String getGUID();
+    public String formatToCsv();
 }
