@@ -10,4 +10,6 @@ public interface Request {
 
     public Response handle(String args);
 
+    public String getUsageDesc();
+
 }

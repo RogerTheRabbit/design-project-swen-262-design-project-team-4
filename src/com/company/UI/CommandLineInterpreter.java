@@ -3,8 +3,7 @@ package com.company.UI;
 import java.util.HashMap;
 import java.util.Scanner;
 
-import com.company.RequestInterpreter.Requests.Request;
-import com.company.RequestInterpreter.Requests.testRequest;
+import com.company.RequestInterpreter.Requests.*;
 
 /**
  * CommandLineInterpreter
@@ -16,8 +15,14 @@ public class CommandLineInterpreter {
     static {
         COMMANDS = new HashMap<>();
         // Add Commands here
-        // Note: Values should always be lowercase
-        COMMANDS.put("test", new testRequest());  
+        // Note: Keys should always be lowercase
+        COMMANDS.put("test", new testRequest());
+        COMMANDS.put("add", new AddToLibraryRequest());
+        COMMANDS.put("query", new QueryRequest());
+        COMMANDS.put("rate", new RateRequest());
+        COMMANDS.put("remove", new RemoveFromLibraryRequest());
+        COMMANDS.put("help", new help(COMMANDS));
+        
     }
 
     public static void main(String[] args) {
@@ -42,7 +47,7 @@ public class CommandLineInterpreter {
                 break;
             } else {
                 // Command is invalid so display help.
-                System.out.printf("Invalid command: %s\nPlease use one of the following commands:\n- %s\n- exit\n", command, String.join("- \n", COMMANDS.keySet()));
+                System.out.printf("Type 'help' to get command usage");
             }
         }
 
