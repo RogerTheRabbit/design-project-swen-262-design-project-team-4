@@ -108,7 +108,14 @@ public class Artist implements Searchable {
         return guid;
     }
 
-    public String getDisambiguation() {
-        return disambiguation;
+    @Override
+    public String toString() {
+        return "Artist{" +
+                "name='" + name + '\'' +
+                ", guid='" + guid + '\'' +
+                ", disambiguation='" + disambiguation + '\'' +
+                ", duration=" + duration +
+                ", discography=" + discography +
+                '}';
     }
 }
