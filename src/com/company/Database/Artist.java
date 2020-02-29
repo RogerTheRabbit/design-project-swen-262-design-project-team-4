@@ -118,4 +118,15 @@ public class Artist implements Searchable {
                 ", discography=" + discography +
                 '}';
     }
+
+    @Override
+    public String toString() {
+        return "Artist{" +
+                "name='" + name + '\'' +
+                ", guid='" + guid + '\'' +
+                ", disambiguation='" + disambiguation + '\'' +
+                ", duration=" + duration +
+                ", discography=" + discography +
+                '}';
+    }
 }

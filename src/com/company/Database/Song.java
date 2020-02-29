@@ -84,4 +84,14 @@ public class Song implements Searchable {
     public String getGUID() {
         return GUID;
     }
+
+    @Override
+    public String toString() {
+        return "Song{" +
+                "name='" + name + '\'' +
+                ", GUID='" + GUID + '\'' +
+                ", duration=" + duration +
+                ", artistGUID='" + artistGUID + '\'' +
+                '}' + '\n';
+    }
 }

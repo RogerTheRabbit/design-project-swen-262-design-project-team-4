@@ -1,5 +1,7 @@
 package com.company.Database;
 
+import com.company.FileIO.FileSaver;
+
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -12,6 +14,7 @@ public class Library {
 
     private String username = "Jimmy";
     private Database database;
+    private FileSaver FILEWRITER;
     private HashSet<Searchable> searchables;
     // TODO: Decide to keep using HashMap or switch to TreeSet
     // GUID , rating
@@ -19,11 +22,9 @@ public class Library {
 
     Library(Database database) {
         this.database = database;
+        FILEWRITER = FileSaver.getInstance();
     }
 
-    public HashSet<Searchable> getSearchable() {
-        return searchables;
-    }
 
     public String getUsername() {
         return username;
@@ -57,5 +58,9 @@ public class Library {
     boolean addRating(String searchableGUID, Integer rating) {
         // TODO: Figure out how ratings are going to be stored first.
         return false;
+    }
+
+    public void saveLibrary(){
+
     }
 }
