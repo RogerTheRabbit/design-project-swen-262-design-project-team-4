@@ -18,7 +18,7 @@ public class Database {
     public Database() {
         this.FILEWRITER = new FileSaver();
         this.FILEREADER = new FileParser();
-        Library = new Library();
+        Library = new Library(this);
         this.songs = new HashMap<>();
         this.releases = new HashMap<>();
         this.artists = new HashMap<>();
@@ -89,5 +89,16 @@ public class Database {
 
     public Release getRelease(String GUID){
         return releases.get(GUID);
+    }
+
+    public Searchable getSearchable(String GUID) {
+        if(getSong(GUID) != null) {
+            return getSong(GUID);
+        } else if (getArtist(GUID) != null) {
+            return getArtist(GUID);
+        } else if (getRelease(GUID) != null) {
+            return getRelease(GUID);
+        }
+        return null;
     }
 }

@@ -2,6 +2,7 @@ package com.company.Database;
 
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 
 /**
  * Library
@@ -10,13 +11,18 @@ import java.util.HashSet;
 public class Library {
 
     private String username = "Jimmy";
-    private HashSet<Searchable> searchable;
+    private Database database;
+    private HashSet<Searchable> searchables;
     // TODO: Decide to keep using HashMap or switch to TreeSet
-    //              GUID  , rating
+    // GUID , rating
     private HashMap<String, Integer> ratings;
 
+    Library(Database database) {
+        this.database = database;
+    }
+
     public HashSet<Searchable> getSearchable() {
-        return searchable;
+        return searchables;
     }
 
     public String getUsername() {
@@ -25,10 +31,12 @@ public class Library {
 
     public boolean addSearchable(String searchableGUID) {
 
+        List<Searchable> songToAdd = database.getSearchable(searchableGUID).getSongList();
+
+        if(songToAdd != null) {
+            // TODO: Add songs here
+            return true;
+        }
         return false;
-
     }
-
-
-
 }
