@@ -83,6 +83,10 @@ public class Database {
         return songs.get(GUID);
     }
 
+    public HashMap<String, Song> getSongs() {
+        return songs;
+    }
+
     public Artist getArtist(String GUID){
         return artists.get(GUID);
     }

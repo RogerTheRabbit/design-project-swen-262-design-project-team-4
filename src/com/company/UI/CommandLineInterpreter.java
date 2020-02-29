@@ -10,8 +10,13 @@ import com.company.RequestInterpreter.Requests.*;
  * CommandLineInterpreter
  */
 public class CommandLineInterpreter {
+    
+    //TODO: Initialize everything here
 
-    // Map of all commands: key = command that user types into terminal | value = Request to handle that command.
+    static Database database = new Database();
+
+    // Map of all commands: key = command that user types into terminal | value =
+    // Request to handle that command.
     private static final HashMap<String, Request> COMMANDS;
     static {
         COMMANDS = new HashMap<>();
@@ -21,8 +26,9 @@ public class CommandLineInterpreter {
         COMMANDS.put("query", new QueryRequest());
         COMMANDS.put("rate", new RateRequest());
         COMMANDS.put("remove", new RemoveFromLibraryRequest());
+        COMMANDS.put("search", new SearchDatabaseRequest(database));
+        COMMANDS.put("searchlibrary", new SearchLibraryRequest());
         COMMANDS.put("help", new help(COMMANDS));
-        
     }
 
     public static void main(String[] args) {
@@ -30,11 +36,6 @@ public class CommandLineInterpreter {
         System.out.println("Setting everything up...");
 
         Scanner in = new Scanner(System.in);
-
-        //TODO: Initialize everything here
-
-
-        Database database = new Database();
 
         // Start main program loop
         System.out.println("Ready!");
@@ -47,7 +48,7 @@ public class CommandLineInterpreter {
                 break;
             } else {
                 // Command is invalid so display help.
-                System.out.printf("Type 'help' to get command usage");
+                System.out.println("Type 'help' to get command usage");
             }
         }
 
