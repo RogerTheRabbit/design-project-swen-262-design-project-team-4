@@ -9,7 +9,6 @@ import java.util.Collection;
 import java.util.HashMap;
 
 public class Database {
-    private FileSaver FILEWRITER;
     private FileParser FILEREADER;
     private Library Library;
     private HashMap<String, Song> songs;
@@ -17,7 +16,6 @@ public class Database {
     private HashMap<String, Artist> artists;
 
     public Database() {
-        this.FILEWRITER = new FileSaver();
         this.FILEREADER = new FileParser();
         Library = new Library(this);
         this.songs = new HashMap<>();
