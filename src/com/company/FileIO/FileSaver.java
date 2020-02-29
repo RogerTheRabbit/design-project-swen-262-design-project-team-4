@@ -27,9 +27,16 @@ public class FileSaver {
 
     public void saveLibrary(String username, Collection<Searchable> searchables, HashMap<String, Integer> ratings){
         File artistFile = makeFile(username, "Artists");
-        File songsFile = makeFile(username, "Songs");
-        File releasesFile = makeFile(username, "Releases");
+        ArrayList<Searchable> artists = seperateSearchables(searchables, "Artist");
+        writeToFile(artistFile, artists);
 
+        File songsFile = makeFile(username, "Songs");
+        ArrayList<Searchable> songs = seperateSearchables(searchables, "Song");
+        writeToFile(songsFile, songs);
+
+        File releasesFile = makeFile(username, "Releases");
+        ArrayList<Searchable> releases = seperateSearchables(searchables, "Release");
+        writeToFile(releasesFile, releases);
 
 
         File ratingFile = makeFile(username, "Ratings");
@@ -37,6 +44,18 @@ public class FileSaver {
 
     }
 
+    private void writeToFile(File file, Collection<Searchable> searchables){
+        try {
+            FileWriter myWriter = new FileWriter(file);
+            for(Searchable entry: searchables){
+                myWriter.write(entry.formatToCsv());
+            }
+            myWriter.close();
+        } catch (IOException e) {
+            System.out.println("An error occurred.");
+            e.printStackTrace();
+        }
+    }
 
     private ArrayList<Searchable> seperateSearchables(Collection<Searchable> searchables, String searchableType){
 

@@ -35,32 +35,30 @@ public class Library {
         List<Searchable> songToAdd = database.getSearchable(searchableGUID).getSongList();
 
         if(songToAdd != null) {
-            for(Searchable searchableToAdd : songToAdd) {
-                searchables.add(searchableToAdd);
-            }
+            searchables.addAll(songToAdd);
+            saveLibrary();
             return true;
         }
         return false;
     }
 
-    public boolean removeSearchables(String searchableGUID) {
+    public boolean removeSearchable(String searchableGUID) {
         List<Searchable> songToRemove = database.getSearchable(searchableGUID).getSongList();
 
         if(songToRemove != null) {
-            for(Searchable searchableToAdd : songToRemove) {
-                searchables.remove(searchableToAdd);
-            }
+            searchables.removeAll(songToRemove);
+            saveLibrary();
             return true;
         }
         return false;
     }
 
     boolean addRating(String searchableGUID, Integer rating) {
-        // TODO: Figure out how ratings are going to be stored first.
+        saveLibrary();
         return false;
     }
 
     public void saveLibrary(){
-
+        FILEWRITER.saveLibrary(username, searchables, ratings);
     }
 }
