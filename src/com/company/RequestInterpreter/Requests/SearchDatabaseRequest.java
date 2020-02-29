@@ -18,6 +18,10 @@ public class SearchDatabaseRequest implements Request {
 
     private Comparator<Searchable> filter = new AlphabeticalArtist();
 
+    public void setFilter(Comparator<Searchable> filter) {
+        this.filter = filter;
+    }
+
     public SearchDatabaseRequest(Database database) {
         this.database = database;
     }
@@ -26,7 +30,7 @@ public class SearchDatabaseRequest implements Request {
     public Response handle(String args) {
 
         List<Searchable> songs = new LinkedList<Searchable>();
-        songs.addAll(database.getSongs());
+        songs.addAll(database.getMusic());
         Collections.sort(songs, filter);
         
         System.out.println(songs);
