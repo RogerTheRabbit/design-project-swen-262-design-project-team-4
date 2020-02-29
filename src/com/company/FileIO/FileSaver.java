@@ -25,26 +25,7 @@ public class FileSaver {
         return fileSaver;
     }
 
-    public void saveLibrary(String username, Collection<Searchable> searchables, HashMap<String, Integer> ratings){
-        File artistFile = makeFile(username, "Artists");
-        ArrayList<Searchable> artists = seperateSearchables(searchables, "Artist");
-        writeToFile(artistFile, artists);
-
-        File songsFile = makeFile(username, "Songs");
-        ArrayList<Searchable> songs = seperateSearchables(searchables, "Song");
-        writeToFile(songsFile, songs);
-
-        File releasesFile = makeFile(username, "Releases");
-        ArrayList<Searchable> releases = seperateSearchables(searchables, "Release");
-        writeToFile(releasesFile, releases);
-
-
-        File ratingFile = makeFile(username, "Ratings");
-        saveRatings(ratingFile, ratings);
-
-    }
-
-    private void writeToFile(File file, Collection<Searchable> searchables){
+    public void saveSearchables(File file, Collection<Searchable> searchables){
         try {
             FileWriter myWriter = new FileWriter(file);
             for(Searchable entry: searchables){
@@ -57,36 +38,7 @@ public class FileSaver {
         }
     }
 
-    private ArrayList<Searchable> seperateSearchables(Collection<Searchable> searchables, String searchableType){
-
-        ArrayList<Searchable> seperatedSearchables = new ArrayList<>();
-
-        if(searchableType.equalsIgnoreCase("Artist")){
-            for(Searchable searchable: searchables){
-                if (searchable instanceof Artist){
-                    seperatedSearchables.add(searchable);
-                }
-            }
-        }
-        else if(searchableType.equalsIgnoreCase("Release")){
-            for(Searchable searchable: searchables){
-                if (searchable instanceof Release){
-                    seperatedSearchables.add(searchable);
-                }
-            }
-        }
-        else if(searchableType.equalsIgnoreCase("Song")){
-            for(Searchable searchable: searchables){
-                if (searchable instanceof Song){
-                    seperatedSearchables.add(searchable);
-                }
-            }
-        }
-
-        return seperatedSearchables;
-    }
-
-    private File makeFile(String username, String searchableType){
+    public File makeFile(String username, String searchableType){
         try {
             File myObj = new File("src/data/user/", (username + searchableType + ".csv"));
             if (myObj.createNewFile()) {
@@ -101,14 +53,14 @@ public class FileSaver {
         return null;
     }
 
-    private void saveRatings(File ratingFile, HashMap<String, Integer> ratings){
+    public <K, V> void saveHashmap(File ratingFile, HashMap<K, V> ratings){
         try {
             FileWriter myWriter = new FileWriter(ratingFile);
 
             for(Map.Entry rating: ratings.entrySet()){
-                String guid = (String) rating.getKey();
-                Integer value = (Integer) rating.getValue();
-                myWriter.write(guid + "," + value);
+                K guid = (K) rating.getKey();
+                V value = (V) rating.getValue();
+                myWriter.write(guid.toString() + "," + value.toString());
             }
 
             myWriter.close();

@@ -2,9 +2,8 @@ package com.company.Database;
 
 import com.company.FileIO.FileSaver;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
+import java.io.File;
+import java.util.*;
 
 /**
  * Library
@@ -58,7 +57,53 @@ public class Library {
         return false;
     }
 
-    public void saveLibrary(){
-        FILEWRITER.saveLibrary(username, searchables, ratings);
+    private ArrayList<Searchable> seperateSearchables(Collection<Searchable> searchables, String searchableType){
+
+        ArrayList<Searchable> seperatedSearchables = new ArrayList<>();
+
+        if(searchableType.equalsIgnoreCase("Artist")){
+            for(Searchable searchable: searchables){
+                if (searchable instanceof Artist){
+                    seperatedSearchables.add(searchable);
+                }
+            }
+        }
+        else if(searchableType.equalsIgnoreCase("Release")){
+            for(Searchable searchable: searchables){
+                if (searchable instanceof Release){
+                    seperatedSearchables.add(searchable);
+                }
+            }
+        }
+        else if(searchableType.equalsIgnoreCase("Song")){
+            for(Searchable searchable: searchables){
+                if (searchable instanceof Song){
+                    seperatedSearchables.add(searchable);
+                }
+            }
+        }
+
+        return seperatedSearchables;
     }
+
+    public void saveLibrary(){
+        File artistFile = FILEWRITER.makeFile(username, "Artists");
+        ArrayList<Searchable> artists = seperateSearchables(searchables, "Artist");
+        FILEWRITER.saveSearchables(artistFile, artists);
+
+        File songsFile = FILEWRITER.makeFile(username, "Songs");
+        ArrayList<Searchable> songs = seperateSearchables(searchables, "Song");
+        FILEWRITER.saveSearchables(songsFile, songs);
+
+        File releasesFile = FILEWRITER.makeFile(username, "Releases");
+        ArrayList<Searchable> releases = seperateSearchables(searchables, "Release");
+        FILEWRITER.saveSearchables(releasesFile, releases);
+
+
+        File ratingFile = FILEWRITER.makeFile(username, "Ratings");
+        FILEWRITER.saveHashmap(ratingFile, ratings);
+
+    }
+
+
 }
