@@ -31,10 +31,6 @@ public class Artist implements Searchable {
         duration = calculateDuration(discography);
     }
 
-    public String getDisambiguation() {
-        return disambiguation;
-    }
-
     @Override
     public int getTotalDuration() {
         return duration;
@@ -62,5 +58,10 @@ public class Artist implements Searchable {
     @Override
     public String getGUID() {
         return guid;
+    }
+
+    //TODO: How to handle this because songs and releases do not have disambiguations
+    public String getDisambiguation() {
+        return disambiguation;
     }
 }
