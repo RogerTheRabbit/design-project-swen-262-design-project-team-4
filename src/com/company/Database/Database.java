@@ -8,7 +8,16 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 
+/**
+ * @author mjh9131
+ *
+ * contains all the songs, releases, and artists on record
+ */
 public class Database {
+
+    /**
+     * Attributes
+     */
     private FileParser FILEREADER;
     private Library Library;
     private HashMap<String, Song> songs;
@@ -24,6 +33,10 @@ public class Database {
         initializeDatabase();
     }
 
+    public void saveLibrary(){
+        Library.saveLibrary();
+    }
+
     private void initializeDatabase() {
         SearchableMaker maker = new SearchableMaker(this);
         initializeArtists(maker);
@@ -33,7 +46,28 @@ public class Database {
     }
 
     private void initializeLibrary(String signedInUser) {
+        addSearchableToLibraryFromFile(signedInUser, "Artists");
+        addSearchableToLibraryFromFile(signedInUser, "Songs");
+        addSearchableToLibraryFromFile(signedInUser, "Releases");
+        addRatingToLibraryFromFile(signedInUser);
+    }
 
+    private void addSearchableToLibraryFromFile(String signedInUser, String searchableType){
+        FILEREADER.setFileName(signedInUser + searchableType + ".csv");
+        FILEREADER.setFilePath("src/data/global/");
+        ArrayList<String[]> splitData = FILEREADER.readFile();
+        for (String[] fields : splitData) {
+            Library.addSearchable(fields[0]);
+        }
+    }
+
+    private void addRatingToLibraryFromFile(String signedInUser){
+        FILEREADER.setFileName(signedInUser + "Ratings" + ".csv");
+        FILEREADER.setFilePath("src/data/global/");
+        ArrayList<String[]> splitData = FILEREADER.readFile();
+        for (String[] fields : splitData) {
+            Library.addRating(fields[0], Integer.parseInt(fields[1]));
+        }
     }
 
     private void initializeSongs(SearchableMaker maker) {
@@ -66,10 +100,6 @@ public class Database {
             releases.put(entry.getGUID(), (Release) entry);
             addToArtistDiscography(entry);
         }
-    }
-
-    private void AddSearchableToUserLibrary(String guid) {
-
     }
 
     private void addToArtistDiscography(Searchable entry) {

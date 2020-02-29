@@ -8,7 +8,6 @@ import com.company.Database.Song;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
@@ -29,7 +28,7 @@ public class FileSaver {
         try {
             FileWriter myWriter = new FileWriter(file);
             for(Searchable entry: searchables){
-                myWriter.write(entry.formatToCsv());
+                myWriter.write(entry.getGUID());
             }
             myWriter.close();
         } catch (IOException e) {
