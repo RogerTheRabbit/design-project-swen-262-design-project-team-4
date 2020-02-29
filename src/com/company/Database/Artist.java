@@ -27,9 +27,8 @@ public class Artist implements Searchable {
      * Constructor
      * @param name  name of the artist
      * @param guid  unique guid of the artist
-     * @param discography   list of all the content the artist has released
+     * @param disambiguation a unique identifier to distinguish artists with the same name
      */
-    public Artist(String name, String guid, List<Searchable> discography) {
     public Artist(String guid, String name, String disambiguation) {
         this.name = name;
         this.guid = guid;
@@ -109,7 +108,6 @@ public class Artist implements Searchable {
         return guid;
     }
 
-    //TODO: How to handle this because songs and releases do not have disambiguations
     public String getDisambiguation() {
         return disambiguation;
     }

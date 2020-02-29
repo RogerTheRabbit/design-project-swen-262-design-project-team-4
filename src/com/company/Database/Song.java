@@ -23,16 +23,14 @@ public class Song implements Searchable {
 
 
     /**
+     *
      * Constructor
      *
-     * @param name
-     * @param guid
+     * @param GUID
+     * @param artistGUID
      * @param duration
-     * @param artist
+     * @param title
      */
-    public Song(String name, String guid, int duration, Searchable artist) {
-        this.name = name;
-        this.guid = guid;
     public Song(String GUID, String artistGUID, int duration, String title) {
         this.name = title;
         this.GUID = GUID;
