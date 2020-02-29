@@ -112,7 +112,7 @@ public class Database {
         return null;
     }
 
-    public Collection<Searchable> getMusicFromLibrary() {
+    public Collection<Searchable> getSearchablesFromLibrary() {
         return library.getSearchable();
     }
 }
