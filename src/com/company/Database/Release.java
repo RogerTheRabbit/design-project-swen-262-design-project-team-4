@@ -1,20 +1,26 @@
 package com.company.Database;
 
+import java.util.Date;
 import java.util.List;
 
 public class Release implements Searchable {
-    private String name;
+    private String title;
     private String guid;
     private int duration;
     private String artistGUID;
     private List<Searchable> songList;
+    private Medium medium;
+    private Date issueDate;
 
-    public Release( String guid, String artistGUID, String name,String issueDate, Enum medium,  List<String> songGUIDList) {
-        this.name = name;
+
+    public Release(String guid, String artistGUID, String title, Date issueDate, Medium medium, List<String> songGUIDList) {
+        this.title = title;
         this.guid = guid;
         this.duration = calculateDuration(songList);
         this.artistGUID = artistGUID;
         this.songList = songList;
+        this.medium = medium;
+        this.issueDate = issueDate;
     }
 
     public int calculateDuration(List<Searchable> songList){
@@ -42,7 +48,7 @@ public class Release implements Searchable {
 
     @Override
     public String getName() {
-        return name;
+        return title;
     }
 
     @Override

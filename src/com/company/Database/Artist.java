@@ -6,14 +6,16 @@ import java.util.List;
 public class Artist implements Searchable {
     private String name;
     private String guid;
+    private String disambiguation;
     private int duration;
     private List<Searchable> discography;
 
-    public Artist(String name, String guid, List<Searchable> discography) {
+    public Artist(String guid, String name, String disambiguation) {
         this.name = name;
         this.guid = guid;
+        this.disambiguation = disambiguation;
         this.duration = calculateDuration(discography);
-        this.discography = discography;
+        this.discography = new ArrayList<>();
     }
 
     public int calculateDuration(List<Searchable> discography){
@@ -27,6 +29,10 @@ public class Artist implements Searchable {
     public void addSearchable(Searchable searchable){
         discography.add(searchable);
         duration = calculateDuration(discography);
+    }
+
+    public String getDisambiguation() {
+        return disambiguation;
     }
 
     @Override

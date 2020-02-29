@@ -10,20 +10,25 @@ public class Database {
     private FileSaver FILEWRITER;
     private FileParser FILEREADER;
     private Library Library;
-    private HashMap<String, Searchable> searchables;
+    private HashMap<String, Song> songs;
+    private HashMap<String, Release> releases;
+    private HashMap<String, Artist> artists;
 
     public Database() {
         this.FILEWRITER = new FileSaver();
         this.FILEREADER = new FileParser();
         Library = new Library();
-        this.searchables = new HashMap<>();
+        this.songs = new HashMap<>();
+        this.releases = new HashMap<>();
+        this.artists = new HashMap<>();
         initializeDatabase();
     }
 
     private void initializeDatabase(){
-        initializeArtists();
-        initializeSongs();
-        initializeAlbums();
+        SearchableMaker maker = new SearchableMaker(this);
+        initializeArtists(maker);
+        initializeSongs(maker);
+        initializeAlbums(maker);
         //initializeLibrary();
     }
 
@@ -31,20 +36,27 @@ public class Database {
 
     }
 
-    private void initializeSongs(){
+    private void initializeSongs(SearchableMaker maker){
         FILEREADER.setFileName("songs.csv");
         FILEREADER.setFilePath("src/data/global/");
         ArrayList<String[]> splitData = FILEREADER.readFile();
-
+        for(String[] fields: splitData){
+            Searchable entry = maker.makeSearchable("Song", fields);
+            songs.put(entry.getGUID(), (Song)entry);
+        }
     }
 
-    private void initializeArtists(){
+    private void initializeArtists(SearchableMaker maker){
         FILEREADER.setFileName("artists.csv");
         FILEREADER.setFilePath("src/data/global/");
         ArrayList<String[]> splitData = FILEREADER.readFile();
+        for(String[] fields: splitData){
+            Searchable entry = maker.makeSearchable("Artist", fields);
+            artists.put(entry.getGUID(), (Artist)entry);
+        }
     }
 
-    private void initializeAlbums(){
+    private void initializeAlbums(SearchableMaker maker){
         FILEREADER.setFileName("releases.csv");
         FILEREADER.setFilePath("src/data/global/");
         ArrayList<String[]> splitData = FILEREADER.readFile();

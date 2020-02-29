@@ -3,20 +3,23 @@ package com.company.Database;
 import java.util.ArrayList;
 
 public class SearchableMaker {
-    public SearchableMaker() {
+    private Database database;
+
+    public SearchableMaker(Database database) {
+        this.database = database;
     }
 
     public Searchable makeSearchable(String searchType, String[] fields){
         switch (searchType) {
-            case "song":
+            case "Song":
                 makeSong(fields);
                 break;
 
-            case "artist":
+            case "Artist":
                 makeArtist(fields);
                 break;
 
-            case "release":
+            case "Release":
                 makeRelease(fields);
                 break;
         }
@@ -40,6 +43,6 @@ public class SearchableMaker {
     }
 
     private Searchable makeArtist(String[] fields){
-        return null;
+        return new Artist(fields[0], fields[1], fields[2]);
     }
 }
