@@ -11,6 +11,7 @@ import com.company.RequestInterpreter.Requests.testRequest;
  */
 public class CommandLineInterpreter {
 
+    // Map of all commands: key = command that user types into terminal | value = Request to handle that command.
     private static final HashMap<String, Request> COMMANDS;
     static {
         COMMANDS = new HashMap<>();
@@ -25,6 +26,12 @@ public class CommandLineInterpreter {
 
         Scanner in = new Scanner(System.in);
 
+        //TODO: Initialize everything here
+
+
+
+
+        // Start main program loop
         while (true) {
             System.out.println("Ready!");
             String input = in.nextLine();
@@ -34,6 +41,7 @@ public class CommandLineInterpreter {
             } else if(input.equals("exit")) {
                 break;
             } else {
+                // Command is invalid so display help.
                 System.out.printf("Invalid command: %s\nPlease use one of the following commands:\n- %s\n- exit\n", command, String.join("- \n", COMMANDS.keySet()));
             }
         }

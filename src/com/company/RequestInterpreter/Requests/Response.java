@@ -4,6 +4,10 @@ import java.util.ArrayList;
 
 import com.company.Database.Searchable;
 
+/**
+ * Response
+ * 
+ */
 public class Response {
 
     private ArrayList<Searchable> content;
