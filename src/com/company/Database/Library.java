@@ -34,9 +34,28 @@ public class Library {
         List<Searchable> songToAdd = database.getSearchable(searchableGUID).getSongList();
 
         if(songToAdd != null) {
-            // TODO: Add songs here
+            for(Searchable searchableToAdd : songToAdd) {
+                searchables.add(searchableToAdd);
+            }
             return true;
         }
+        return false;
+    }
+
+    public boolean removeSearchables(String searchableGUID) {
+        List<Searchable> songToRemove = database.getSearchable(searchableGUID).getSongList();
+
+        if(songToRemove != null) {
+            for(Searchable searchableToAdd : songToRemove) {
+                searchables.remove(searchableToAdd);
+            }
+            return true;
+        }
+        return false;
+    }
+
+    boolean addRating(String searchableGUID, Integer rating) {
+        // TODO: Figure out how ratings are going to be stored first.
         return false;
     }
 }
