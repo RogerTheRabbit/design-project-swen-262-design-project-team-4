@@ -79,8 +79,7 @@ public class FileParser {
 
             ArrayList<String[]> allLines = new ArrayList<>();
             while(scan.hasNext()){
-                //TODO dont split commas within quotation marks
-                String[] lineArray = scan.nextLine().split(",");
+                String[] lineArray = scan.nextLine().split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)", -1);
                 allLines.add(lineArray);
             }
 

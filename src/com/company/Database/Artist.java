@@ -44,8 +44,8 @@ public class Artist implements Searchable {
     }
 
     @Override
-    public Searchable getArtist() {
-        return this;
+    public String getArtistGUID() {
+        return guid;
     }
 
     @Override

@@ -17,6 +17,7 @@ public class Database {
         this.FILEREADER = new FileParser();
         Library = new Library();
         this.searchables = new HashMap<>();
+        initializeDatabase();
     }
 
     private void initializeDatabase(){

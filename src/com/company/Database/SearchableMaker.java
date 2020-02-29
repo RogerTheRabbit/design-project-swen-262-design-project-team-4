@@ -9,15 +9,15 @@ public class SearchableMaker {
     public Searchable makeSearchable(String searchType, String[] fields){
         switch (searchType) {
             case "song":
-
+                makeSong(fields);
                 break;
 
             case "artist":
-
+                makeArtist(fields);
                 break;
 
             case "release":
-
+                makeRelease(fields);
                 break;
         }
         System.err.println("INVALID SEARCHABLE TYPE");
