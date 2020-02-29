@@ -1,4 +1,4 @@
-package com.company.RequestInterpreter;
+package com.company.UI;
 
 import java.util.HashMap;
 import java.util.Scanner;
@@ -32,8 +32,8 @@ public class CommandLineInterpreter {
 
 
         // Start main program loop
+        System.out.println("Ready!");
         while (true) {
-            System.out.println("Ready!");
             String input = in.nextLine();
             String command = input.split(" ")[0].toLowerCase();
             if(COMMANDS.containsKey(command)) {
