@@ -55,4 +55,17 @@ public class Release implements Searchable {
     public String getGUID() {
         return guid;
     }
+
+    @Override
+    public String toString() {
+        return "Release{" +
+                "title='" + title + '\'' +
+                ", guid='" + guid + '\'' +
+                ", duration=" + duration +
+                ", artistGUID='" + artistGUID + '\'' +
+                ", songList=" + songList +
+                ", medium=" + medium +
+                ", issueDate=" + issueDate +
+                '}';
+    }
 }
