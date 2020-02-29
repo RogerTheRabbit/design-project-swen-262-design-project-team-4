@@ -12,21 +12,20 @@ public class SearchableMaker {
     }
 
     public Searchable makeSearchable(String searchType, String[] fields){
-        switch (searchType) {
-            case "Song":
-                makeSong(fields);
-                break;
 
-            case "Artist":
-                makeArtist(fields);
-                break;
+        Searchable searchable = null;
 
-            case "Release":
-                makeRelease(fields);
-                break;
+        if(searchType.equalsIgnoreCase("Song")) {
+            searchable = makeSong(fields);
         }
-        System.err.println("INVALID SEARCHABLE TYPE");
-        return null;
+        else if(searchType.equalsIgnoreCase("Artist")){
+            searchable = makeArtist(fields);
+        }
+        else if(searchType.equalsIgnoreCase("Release")){
+            searchable = makeRelease(fields);
+        }
+
+        return searchable;
     }
 
     private Searchable makeSong(String[] fields){
@@ -43,7 +42,7 @@ public class SearchableMaker {
                 songs.add(song);
             }
 
-            Date date = new SimpleDateFormat("").parse(fields[3]);
+            Date date = new SimpleDateFormat("yyyy-MM-dd").parse(fields[3]);
 
             Medium medium = Medium.ERROR;
             if(fields[4].equalsIgnoreCase("CD")){

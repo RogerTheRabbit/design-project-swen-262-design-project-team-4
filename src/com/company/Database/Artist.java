@@ -14,7 +14,7 @@ public class Artist implements Searchable {
         this.name = name;
         this.guid = guid;
         this.disambiguation = disambiguation;
-        this.duration = calculateDuration(discography);
+        this.duration = 0;
         this.discography = new ArrayList<>();
     }
 

@@ -3,6 +3,7 @@ package com.company.UI;
 import java.util.HashMap;
 import java.util.Scanner;
 
+import com.company.Database.Database;
 import com.company.RequestInterpreter.Requests.*;
 
 /**
@@ -33,7 +34,7 @@ public class CommandLineInterpreter {
         //TODO: Initialize everything here
 
 
-
+        Database database = new Database();
 
         // Start main program loop
         System.out.println("Ready!");
