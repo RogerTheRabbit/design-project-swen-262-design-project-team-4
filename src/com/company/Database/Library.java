@@ -7,6 +7,11 @@ import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 
+import com.company.FileIO.FileSaver;
+
+import java.io.File;
+import java.util.*;
+
 /**
  * Library
  * 
@@ -15,6 +20,7 @@ public class Library {
 
     private String username = "Jimmy";
     private Database database;
+    private FileSaver FILEWRITER;
     private HashSet<Searchable> searchables;
     // TODO: Decide to keep using HashMap or switch to TreeSet
     // GUID , rating
@@ -22,6 +28,7 @@ public class Library {
 
     Library(Database database) {
         this.database = database;
+        FILEWRITER = FileSaver.getInstance();
     }
 
     public Collection<Searchable> getSearchable() {
@@ -37,28 +44,76 @@ public class Library {
         List<Searchable> songToAdd = database.getSearchable(searchableGUID).getSongList();
 
         if(songToAdd != null) {
-            for(Searchable searchableToAdd : songToAdd) {
-                searchables.add(searchableToAdd);
-            }
+            searchables.addAll(songToAdd);
+            saveLibrary();
             return true;
         }
         return false;
     }
 
-    public boolean removeSearchables(String searchableGUID) {
+    public boolean removeSearchable(String searchableGUID) {
         List<Searchable> songToRemove = database.getSearchable(searchableGUID).getSongList();
 
         if(songToRemove != null) {
-            for(Searchable searchableToAdd : songToRemove) {
-                searchables.remove(searchableToAdd);
-            }
+            searchables.removeAll(songToRemove);
+            saveLibrary();
             return true;
         }
         return false;
     }
 
     boolean addRating(String searchableGUID, Integer rating) {
-        // TODO: Figure out how ratings are going to be stored first.
+        saveLibrary();
         return false;
     }
+
+    private ArrayList<Searchable> seperateSearchables(Collection<Searchable> searchables, String searchableType){
+
+        ArrayList<Searchable> seperatedSearchables = new ArrayList<>();
+
+        if(searchableType.equalsIgnoreCase("Artist")){
+            for(Searchable searchable: searchables){
+                if (searchable instanceof Artist){
+                    seperatedSearchables.add(searchable);
+                }
+            }
+        }
+        else if(searchableType.equalsIgnoreCase("Release")){
+            for(Searchable searchable: searchables){
+                if (searchable instanceof Release){
+                    seperatedSearchables.add(searchable);
+                }
+            }
+        }
+        else if(searchableType.equalsIgnoreCase("Song")){
+            for(Searchable searchable: searchables){
+                if (searchable instanceof Song){
+                    seperatedSearchables.add(searchable);
+                }
+            }
+        }
+
+        return seperatedSearchables;
+    }
+
+    public void saveLibrary(){
+        File artistFile = FILEWRITER.makeFile(username, "Artists");
+        ArrayList<Searchable> artists = seperateSearchables(searchables, "Artist");
+        FILEWRITER.saveSearchables(artistFile, artists);
+
+        File songsFile = FILEWRITER.makeFile(username, "Songs");
+        ArrayList<Searchable> songs = seperateSearchables(searchables, "Song");
+        FILEWRITER.saveSearchables(songsFile, songs);
+
+        File releasesFile = FILEWRITER.makeFile(username, "Releases");
+        ArrayList<Searchable> releases = seperateSearchables(searchables, "Release");
+        FILEWRITER.saveSearchables(releasesFile, releases);
+
+
+        File ratingFile = FILEWRITER.makeFile(username, "Ratings");
+        FILEWRITER.saveHashmap(ratingFile, ratings);
+
+    }
+
+
 }

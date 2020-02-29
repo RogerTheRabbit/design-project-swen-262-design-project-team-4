@@ -11,7 +11,6 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class Database {
-    private FileSaver FILEWRITER;
     private FileParser FILEREADER;
     private Library library;
     private HashMap<String, Song> songs;
@@ -19,7 +18,6 @@ public class Database {
     private HashMap<String, Artist> artists;
 
     public Database() {
-        this.FILEWRITER = new FileSaver();
         this.FILEREADER = new FileParser();
         library = new Library(this);
         this.songs = new HashMap<>();
