@@ -4,6 +4,7 @@ import com.company.FileIO.FileParser;
 import com.company.FileIO.FileSaver;
 import com.sun.java.accessibility.util.GUIInitializedListener;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
@@ -78,38 +79,54 @@ public class Database {
         addSearchableToLibraryFromFile(signedInUser, "Songs");
         addSearchableToLibraryFromFile(signedInUser, "Releases");
         addRatingToLibraryFromFile(signedInUser);
+        addAcquisitionDateFromFile(signedInUser);
     }
 
 
     private void initializeSongs(SearchableMaker maker) {
         FILEREADER.setFileName("songs.csv");
         FILEREADER.setFilePath("src/data/global/");
-        ArrayList<String[]> splitData = FILEREADER.readFile();
-        for (String[] fields : splitData) {
-            Searchable entry = maker.makeSearchable("Song", fields);
-            songs.put(entry.getGUID(), (Song) entry);
-            addToArtistDiscography(entry);
+        try{
+            ArrayList<String[]> splitData = FILEREADER.readFile();
+            for (String[] fields : splitData) {
+                Searchable entry = maker.makeSearchable("Song", fields);
+                songs.put(entry.getGUID(), (Song) entry);
+                addToArtistDiscography(entry);
+            }
+        }
+        catch (java.io.IOException e){
+            System.err.println(e);
         }
     }
 
     private void initializeArtists(SearchableMaker maker) {
         FILEREADER.setFileName("artists.csv");
         FILEREADER.setFilePath("src/data/global/");
-        ArrayList<String[]> splitData = FILEREADER.readFile();
-        for (String[] fields : splitData) {
-            Searchable entry = maker.makeSearchable("Artist", fields);
-            artists.put(entry.getGUID(), (Artist) entry);
+        try {
+            ArrayList<String[]> splitData = FILEREADER.readFile();
+            for (String[] fields : splitData) {
+                Searchable entry = maker.makeSearchable("Artist", fields);
+                artists.put(entry.getGUID(), (Artist) entry);
+            }
+        }
+        catch (java.io.IOException e){
+            System.err.println(e);
         }
     }
 
     private void initializeAlbums(SearchableMaker maker) {
         FILEREADER.setFileName("releases.csv");
         FILEREADER.setFilePath("src/data/global/");
-        ArrayList<String[]> splitData = FILEREADER.readFile();
-        for (String[] fields : splitData) {
-            Searchable entry = maker.makeSearchable("Release", fields);
-            releases.put(entry.getGUID(), (Release) entry);
-            addToArtistDiscography(entry);
+        try {
+            ArrayList<String[]> splitData = FILEREADER.readFile();
+            for (String[] fields : splitData) {
+                Searchable entry = maker.makeSearchable("Release", fields);
+                releases.put(entry.getGUID(), (Release) entry);
+                addToArtistDiscography(entry);
+            }
+        }
+        catch (Exception e){
+            System.err.println(e);
         }
     }
 
@@ -122,18 +139,44 @@ public class Database {
     private void addSearchableToLibraryFromFile(String signedInUser, String searchableType){
         FILEREADER.setFileName(signedInUser + searchableType + ".csv");
         FILEREADER.setFilePath("src/data/user/");
-        ArrayList<String[]> splitData = FILEREADER.readFile();
-        for (String[] fields : splitData) {
-            library.addSearchable(fields[0]);
+        try {
+            ArrayList<String[]> splitData = FILEREADER.readFile();
+            for (String[] fields : splitData) {
+
+                library.addSearchable(fields[0]);
+            }
+        }
+        catch (java.io.IOException e){
+            System.err.println(e);
         }
     }
 
     private void addRatingToLibraryFromFile(String signedInUser){
         FILEREADER.setFileName(signedInUser + "Ratings" + ".csv");
         FILEREADER.setFilePath("src/data/user/");
-        ArrayList<String[]> splitData = FILEREADER.readFile();
-        for (String[] fields : splitData) {
-            library.addRating(fields[0], Integer.parseInt(fields[1]));
+        try {
+            ArrayList<String[]> splitData = FILEREADER.readFile();
+            for (String[] fields : splitData) {
+                library.addRating(fields[0], Integer.parseInt(fields[1]));
+            }
+        }
+        catch (java.io.IOException e){
+            System.err.println(e);
+        }
+    }
+
+    private void addAcquisitionDateFromFile(String signedInUser){
+        FILEREADER.setFileName(signedInUser + "Dates" + ".csv");
+        FILEREADER.setFilePath("src/data/user/");
+        try {
+            ArrayList<String[]> splitData = FILEREADER.readFile();
+            for (String[] fields : splitData) {
+
+                library.addAcquisitionDate(fields[0], SearchableMaker.makeDate(fields[1]));
+            }
+        }
+        catch (Exception e){
+            System.err.println(e);
         }
     }
 
@@ -191,7 +234,8 @@ public class Database {
     }
 
 	public void addSearchableToLibrary(String searchableGUID, Date aquDate) {
-        library.addSearchable(searchableGUID, aquDate);
+        library.addAcquisitionDate(searchableGUID, aquDate);
+        library.addSearchable(searchableGUID);
     }
 
 	public void removeSearchableFromLibrary(String searchableGUID) {

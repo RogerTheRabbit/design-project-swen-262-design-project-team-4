@@ -25,14 +25,14 @@ public class Library {
     // TODO: Decide to keep using HashMap or switch to TreeSet
     // GUID , rating
     private HashMap<String, Integer> ratings;
-    private HashMap<String, Date> acquisitionDate;
+    private HashMap<String, Date> acquisitionDates;
 
     Library(Database database) {
         this.database = database;
         FILEWRITER = FileSaver.getInstance();
         searchables = new HashSet<>();
         ratings = new HashMap<String, Integer>();
-        acquisitionDate = new HashMap<String, Date>();
+        acquisitionDates = new HashMap<String, Date>();
     }
 
     public Collection<Searchable> getSearchables(String searchableGUID) {
@@ -43,7 +43,7 @@ public class Library {
         return username;
     }
 
-    public boolean addSearchable(String searchableGUID, Date aquDate) {
+    public boolean addSearchable(String searchableGUID) {
 
         Searchable songToAdd = database.getSearchable(searchableGUID);
 
@@ -52,6 +52,10 @@ public class Library {
             return true;
         }
         return false;
+    }
+
+    public void addAcquisitionDate(String guid, Date accDate){
+        acquisitionDates.put(guid, accDate);
     }
 
     public boolean removeSearchable(String searchableGUID) {
@@ -71,6 +75,7 @@ public class Library {
     }
 
     boolean addRating(String searchableGUID, Integer rating) {
+        ratings.put(searchableGUID, rating);
         return false;
     }
 
@@ -119,6 +124,9 @@ public class Library {
 
         File ratingFile = FILEWRITER.makeFile(username, "Ratings");
         FILEWRITER.saveHashmap(ratingFile, ratings);
+
+        File acquisitionDateFile = FILEWRITER.makeFile(username, "Dates");
+        FILEWRITER.saveHashmap(acquisitionDateFile, acquisitionDates);
     }
 
 

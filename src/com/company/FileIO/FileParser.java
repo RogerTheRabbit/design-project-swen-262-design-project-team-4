@@ -71,8 +71,7 @@ public class FileParser {
      *
      * @return Arraylist of all the lines, which are String arrays containg the csvs
      */
-    public ArrayList<String[]> readFile(){
-        try{
+    public ArrayList<String[]> readFile() throws java.io.IOException{
             var path = Paths.get(filePath, fileName);
             File file = path.toFile();
             Scanner scan = new Scanner(file);
@@ -84,11 +83,7 @@ public class FileParser {
             }
 
             return allLines;
-        }
-        catch (Exception e){
-            System.err.println(e);
-        }
-        return null;
+
     }
 
 }
