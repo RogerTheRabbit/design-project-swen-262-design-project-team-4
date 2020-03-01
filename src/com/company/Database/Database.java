@@ -147,7 +147,7 @@ public class Database {
             }
         }
         catch (java.io.IOException e){
-            System.err.println(e);
+            //System.err.println(e);
         }
     }
 
@@ -161,7 +161,7 @@ public class Database {
             }
         }
         catch (java.io.IOException e){
-            System.err.println(e);
+            //System.err.println(e);
         }
     }
 
@@ -176,7 +176,7 @@ public class Database {
             }
         }
         catch (Exception e){
-            System.err.println(e);
+            //System.err.println(e);
         }
     }
 
