@@ -253,29 +253,13 @@ public class Database {
         FILTERS.put("artist", new DateRangeFilter());
         FILTERS.put("duration", new DateRangeFilter());
         FILTERS.put("GUID", new DateRangeFilter());
-    }
-
-    private static final HashMap<String, Filter> SONG_FILTERS;
-    static {
-        SONG_FILTERS = new HashMap<>();
-        // Add Commands here
-        // Note: Keys should always be lowercase
-    }
-
-    private static final HashMap<String, Filter> RELEASE_FILTERS;
-    static {
-        RELEASE_FILTERS = new HashMap<>();
-        // Add Commands here
-        // Note: Keys should always be lowercase
-        RELEASE_FILTERS.put("date-range", new DateRangeFilter());
+        FILTERS.put("date-range", new DateRangeFilter());
     }
 
 	public Collection<Song> getSongs(String searchFilter, String searchValue) {
         
         if(FILTERS.containsKey(searchFilter)) {
             return FILTERS.get(searchFilter).filterSongs(songs.values(), searchValue);
-        } else if(SONG_FILTERS.containsKey(searchFilter)) {
-            return SONG_FILTERS.get(searchFilter).filterSongs(songs.values(), searchValue);
         } else {
             System.err.printf("Invalid search filter '%s' for songs\n", searchFilter);
             return new LinkedList<Song>();
@@ -285,8 +269,6 @@ public class Database {
 	public Collection<Release> getReleases(String searchFilter, String searchValue) {
         if(FILTERS.containsKey(searchFilter)) {
             return FILTERS.get(searchFilter).filterReleases(releases.values(), searchValue);
-        } else if(RELEASE_FILTERS.containsKey(searchFilter)) {
-            return RELEASE_FILTERS.get(searchFilter).filterReleases(releases.values(), searchValue);
         } else {
             System.err.printf("Invalid search filter '%s' for releases\n", searchFilter);
             return new LinkedList<Release>();
