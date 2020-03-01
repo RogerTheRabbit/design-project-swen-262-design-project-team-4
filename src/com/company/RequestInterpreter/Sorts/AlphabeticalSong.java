@@ -1,12 +1,11 @@
-package com.company.RequestInterpreter.Filters;
+package com.company.RequestInterpreter.Sorts;
 
 import com.company.Database.Searchable;
 
-public class AcquisitionDate implements Filter {
+public class AlphabeticalSong implements Sort {
 
     @Override
     public int compare(Searchable o1, Searchable o2) {
         return 0;
     }
-
 }

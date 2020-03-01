@@ -7,7 +7,7 @@ import java.util.List;
 
 import com.company.Database.Database;
 import com.company.Database.Searchable;
-import com.company.RequestInterpreter.Filters.AlphabeticalArtist;
+import com.company.RequestInterpreter.Sorts.AlphabeticalArtist;
 
 /**
  * SearchDatabaseRequest
@@ -16,10 +16,10 @@ public class SearchDatabaseRequest implements Request {
 
     private Database database;
 
-    private Comparator<Searchable> filter = new AlphabeticalArtist();
+    private Comparator<Searchable> sort = new AlphabeticalArtist();
 
-    public void setFilter(Comparator<Searchable> filter) {
-        this.filter = filter;
+    public void setSort(Comparator<Searchable> sort) {
+        this.sort = sort;
     }
 
     public SearchDatabaseRequest(Database database) {
@@ -33,14 +33,15 @@ public class SearchDatabaseRequest implements Request {
 
         String[] params = args.split(" ");
 
-        if(params.length != 3) {
+        if(params.length >= 3) {
             System.err.println("Invalid number of params.  Must use 3 params: [search type (song, release)] [search filter (title, name, artists, duration, GUID, date-range)] [search value]");
             return null;
         }
 
-        String searchType = params[0];   // Should be set from args
-        String searchFilter = params[1]; // Should be set from args
-        String searchValue = params[2];  // Should be set from args
+        String searchType = params[0];
+        String searchFilter = params[1];
+        // Rest of string is song
+        String searchValue = args.substring(params[0].length() + params[1].length());
 
         // Get data
         switch (searchType) {
@@ -57,7 +58,7 @@ public class SearchDatabaseRequest implements Request {
 
         // Sort results by alphabetical order
         // This is not required for searching the database, but why not do it anyways
-        Collections.sort(songs, filter);
+        Collections.sort(songs, sort);
         
         System.out.println(songs);
         return null;
@@ -65,7 +66,7 @@ public class SearchDatabaseRequest implements Request {
 
     @Override
     public String getUsageDesc() {
-        return "[search type (song, release)] [search filter (title, name, artists, duration, GUID, date-range)] [search value]";
+        return "[search type (song, release)] [search filter (name, artists, duration, GUID, date-range)] [search value]";
     }
 
 }

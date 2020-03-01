@@ -7,7 +7,7 @@ import java.util.List;
 
 import com.company.Database.Database;
 import com.company.Database.Searchable;
-import com.company.RequestInterpreter.Filters.AlphabeticalArtist;
+import com.company.RequestInterpreter.Sorts.AlphabeticalArtist;
 
 /**
  * SearchLibraryRequest
@@ -20,10 +20,10 @@ public class SearchLibraryRequest implements Request {
         this.database = database;
     }
 
-    private Comparator<Searchable> filter = new AlphabeticalArtist();
+    private Comparator<Searchable> sort = new AlphabeticalArtist();
 
-    public void setFilter(Comparator<Searchable> filter) {
-        this.filter = filter;
+    public void setSort(Comparator<Searchable> sort) {
+        this.sort = sort;
     }
 
     // TODO: Make it so this doesn't show artists.  Currently shows all types of searchables but should only show songs and releases.
@@ -32,7 +32,7 @@ public class SearchLibraryRequest implements Request {
 
         List<Searchable> songs = new LinkedList<Searchable>();
         songs.addAll(database.getSearchablesFromLibrary(args));
-        Collections.sort(songs, filter);
+        Collections.sort(songs, sort);
         
         System.out.println(songs);
         return null;

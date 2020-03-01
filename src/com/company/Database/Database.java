@@ -1,6 +1,9 @@
 package com.company.Database;
 
 import com.company.FileIO.FileParser;
+import com.company.RequestInterpreter.Filters.DateRangeFilter;
+import com.company.RequestInterpreter.Filters.Filter;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
@@ -241,12 +244,53 @@ public class Database {
         library.addRating(searchableGUID, rating);
     }
 
+    private static final HashMap<String, Filter> FILTERS;
+    static {
+        FILTERS = new HashMap<>();
+        // Add Commands here
+        // Note: Keys should always be lowercase
+        FILTERS.put("name", new DateRangeFilter());
+        FILTERS.put("artist", new DateRangeFilter());
+        FILTERS.put("duration", new DateRangeFilter());
+        FILTERS.put("GUID", new DateRangeFilter());
+    }
+
+    private static final HashMap<String, Filter> SONG_FILTERS;
+    static {
+        SONG_FILTERS = new HashMap<>();
+        // Add Commands here
+        // Note: Keys should always be lowercase
+    }
+
+    private static final HashMap<String, Filter> RELEASE_FILTERS;
+    static {
+        RELEASE_FILTERS = new HashMap<>();
+        // Add Commands here
+        // Note: Keys should always be lowercase
+        RELEASE_FILTERS.put("date-range", new DateRangeFilter());
+    }
+
 	public Collection<Searchable> getSongs(String searchFilter, String searchValue) {
-		return new LinkedList();
+        
+        if(FILTERS.containsKey(searchFilter)) {
+            return FILTERS.get(searchFilter).filterSongs(songs.values(), searchValue);
+        } else if(SONG_FILTERS.containsKey(searchFilter)) {
+            return SONG_FILTERS.get(searchFilter).filterSongs(songs.values(), searchValue);
+        } else {
+            System.err.printf("Invalid search filter '%s' for songs\n", searchFilter);
+            return new LinkedList();
+        }
 	}
 
 	public Collection<Searchable> getReleases(String searchFilter, String searchValue) {
-		return new LinkedList();
+        if(FILTERS.containsKey(searchFilter)) {
+            return FILTERS.get(searchFilter).filterSongs(songs.values(), searchValue);
+        } else if(RELEASE_FILTERS.containsKey(searchFilter)) {
+            return RELEASE_FILTERS.get(searchFilter).filterSongs(songs.values(), searchValue);
+        } else {
+            System.err.printf("Invalid search filter '%s' for releases\n", searchFilter);
+            return new LinkedList();
+        }
 	}
 
 }

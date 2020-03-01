@@ -1,8 +1,8 @@
-package com.company.RequestInterpreter.Filters;
+package com.company.RequestInterpreter.Sorts;
 
 import com.company.Database.Searchable;
 
-public class AlphabeticalArtist implements Filter {
+public class AlphabeticalArtist implements Sort {
 
     @Override
     public int compare(Searchable o1, Searchable o2) {

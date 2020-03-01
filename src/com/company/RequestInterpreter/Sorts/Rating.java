@@ -1,9 +1,9 @@
-package com.company.RequestInterpreter.Filters;
+package com.company.RequestInterpreter.Sorts;
 
 import com.company.Database.Library;
 import com.company.Database.Searchable;
 
-public class Rating implements Filter {
+public class Rating implements Sort {
 
     Library library;
 
