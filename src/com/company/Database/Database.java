@@ -240,6 +240,10 @@ public class Database {
 
 	public void removeSearchableFromLibrary(String searchableGUID) {
         library.removeSearchable(searchableGUID);
-	}
+    }
+    
+    public void rateSearchableInLibrary(String searchableGUID, int rating) {
+        library.addRating(searchableGUID, rating);
+    }
 
 }
