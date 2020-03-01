@@ -39,7 +39,7 @@ public class SearchDatabaseRequest implements Request {
 
     @Override
     public String getUsageDesc() {
-        return "[filter type (alphabetical, )] FINISH WRITING THIS";
+        return "[search type (song, release)] [filter type (alphabetical, )]";
     }
 
 }
