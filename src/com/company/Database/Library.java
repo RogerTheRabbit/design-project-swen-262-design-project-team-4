@@ -29,6 +29,8 @@ public class Library {
     Library(Database database) {
         this.database = database;
         FILEWRITER = FileSaver.getInstance();
+        searchables = new HashSet<>();
+        ratings = new HashMap<String, Integer>();
     }
 
     public Collection<Searchable> getSearchable() {
@@ -45,7 +47,6 @@ public class Library {
 
         if(songToAdd != null) {
             searchables.addAll(songToAdd);
-            saveLibrary();
             return true;
         }
         return false;
@@ -56,18 +57,16 @@ public class Library {
 
         if(songToRemove != null) {
             searchables.removeAll(songToRemove);
-            saveLibrary();
             return true;
         }
         return false;
     }
 
     boolean addRating(String searchableGUID, Integer rating) {
-        saveLibrary();
         return false;
     }
 
-    private ArrayList<Searchable> seperateSearchables(Collection<Searchable> searchables, String searchableType){
+    public ArrayList<Searchable> seperateSearchables(String searchableType){
 
         ArrayList<Searchable> seperatedSearchables = new ArrayList<>();
 
@@ -98,21 +97,20 @@ public class Library {
 
     public void saveLibrary(){
         File artistFile = FILEWRITER.makeFile(username, "Artists");
-        ArrayList<Searchable> artists = seperateSearchables(searchables, "Artist");
+        ArrayList<Searchable> artists = seperateSearchables("Artist");
         FILEWRITER.saveSearchables(artistFile, artists);
 
         File songsFile = FILEWRITER.makeFile(username, "Songs");
-        ArrayList<Searchable> songs = seperateSearchables(searchables, "Song");
+        ArrayList<Searchable> songs = seperateSearchables("Song");
         FILEWRITER.saveSearchables(songsFile, songs);
 
         File releasesFile = FILEWRITER.makeFile(username, "Releases");
-        ArrayList<Searchable> releases = seperateSearchables(searchables, "Release");
+        ArrayList<Searchable> releases = seperateSearchables("Release");
         FILEWRITER.saveSearchables(releasesFile, releases);
 
 
         File ratingFile = FILEWRITER.makeFile(username, "Ratings");
         FILEWRITER.saveHashmap(ratingFile, ratings);
-
     }
 
 
