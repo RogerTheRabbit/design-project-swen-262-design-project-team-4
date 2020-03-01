@@ -24,7 +24,7 @@ public class RemoveFromLibraryRequest implements Request {
 
     @Override
     public String getUsageDesc() {
-        return "Remove song from your library";
+        return "[GUID]";
     }
 
     
