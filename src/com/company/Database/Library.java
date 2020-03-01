@@ -63,9 +63,6 @@ public class Library {
 
             searchables.remove(songToRemove);
 
-            getSearchables()
-
-
             return true;
         }
         return false;

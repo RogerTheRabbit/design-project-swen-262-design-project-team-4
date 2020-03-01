@@ -65,7 +65,7 @@ public class Database {
         initializeArtists(maker);
         initializeSongs(maker);
         initializeAlbums(maker);
-        initializeLibrary(Library.getUsername());
+        initializeLibrary(library.getUsername());
     }
 
     /**
@@ -124,7 +124,7 @@ public class Database {
         FILEREADER.setFilePath("src/data/user/");
         ArrayList<String[]> splitData = FILEREADER.readFile();
         for (String[] fields : splitData) {
-            Library.addSearchable(fields[0]);
+            library.addSearchable(fields[0]);
         }
     }
 
@@ -133,7 +133,7 @@ public class Database {
         FILEREADER.setFilePath("src/data/user/");
         ArrayList<String[]> splitData = FILEREADER.readFile();
         for (String[] fields : splitData) {
-            Library.addRating(fields[0], Integer.parseInt(fields[1]));
+            library.addRating(fields[0], Integer.parseInt(fields[1]));
         }
     }
 
