@@ -25,12 +25,14 @@ public class Library {
     // TODO: Decide to keep using HashMap or switch to TreeSet
     // GUID , rating
     private HashMap<String, Integer> ratings;
+    private HashMap<String, Date> acquisitionDate;
 
     Library(Database database) {
         this.database = database;
         FILEWRITER = FileSaver.getInstance();
         searchables = new HashSet<>();
         ratings = new HashMap<String, Integer>();
+        acquisitionDate = new HashMap<String, Date>();
     }
 
     public Collection<Searchable> getSearchables(String searchableGUID) {
