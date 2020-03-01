@@ -137,7 +137,6 @@ public class Database {
         try {
             ArrayList<String[]> splitData = FILEREADER.readFile();
             for (String[] fields : splitData) {
-
                 library.addSearchable(fields[0]);
             }
         }

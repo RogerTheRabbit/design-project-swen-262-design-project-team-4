@@ -37,11 +37,8 @@ public class FileSaver {
     public File makeFile(String username, String searchableType){
         try {
             File myObj = new File("src/data/user/", (username + searchableType + ".csv"));
-            if (myObj.createNewFile()) {
-                return myObj;
-            } else {
-                System.err.println("File already exists.         :err in FileSaver");
-            }
+            myObj.createNewFile();
+            return myObj;
         } catch (IOException e) {
             System.out.println("An error occurred.");
             e.printStackTrace();

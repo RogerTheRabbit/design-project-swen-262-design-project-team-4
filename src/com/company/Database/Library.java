@@ -20,8 +20,6 @@ public class Library {
     private Database database;
     private FileSaver FILEWRITER;
     private HashSet<Searchable> searchables;
-    // TODO: Decide to keep using HashMap or switch to TreeSet
-    // GUID , rating
     private HashMap<String, Integer> ratings;
     private HashMap<String, Date> acquisitionDates;
 
