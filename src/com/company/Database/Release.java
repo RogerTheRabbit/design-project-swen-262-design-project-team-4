@@ -94,6 +94,15 @@ public class Release implements Searchable {
         return guid;
     }
 
+    /**
+     * gets the issue date of the release
+     * 
+     * @return issueDate
+     */
+    public Date getIssueDate() {
+        return issueDate;
+    }
+
     public String formatToCsv(){
         String result = guid + "," + artistGUID + "," + title + "," + issueDate + "," + medium;
         for(Searchable song: songList){

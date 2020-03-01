@@ -270,7 +270,7 @@ public class Database {
         RELEASE_FILTERS.put("date-range", new DateRangeFilter());
     }
 
-	public Collection<Searchable> getSongs(String searchFilter, String searchValue) {
+	public Collection<Song> getSongs(String searchFilter, String searchValue) {
         
         if(FILTERS.containsKey(searchFilter)) {
             return FILTERS.get(searchFilter).filterSongs(songs.values(), searchValue);
@@ -278,18 +278,18 @@ public class Database {
             return SONG_FILTERS.get(searchFilter).filterSongs(songs.values(), searchValue);
         } else {
             System.err.printf("Invalid search filter '%s' for songs\n", searchFilter);
-            return new LinkedList();
+            return new LinkedList<Song>();
         }
 	}
 
-	public Collection<Searchable> getReleases(String searchFilter, String searchValue) {
+	public Collection<Release> getReleases(String searchFilter, String searchValue) {
         if(FILTERS.containsKey(searchFilter)) {
-            return FILTERS.get(searchFilter).filterSongs(songs.values(), searchValue);
+            return FILTERS.get(searchFilter).filterReleases(releases.values(), searchValue);
         } else if(RELEASE_FILTERS.containsKey(searchFilter)) {
-            return RELEASE_FILTERS.get(searchFilter).filterSongs(songs.values(), searchValue);
+            return RELEASE_FILTERS.get(searchFilter).filterReleases(releases.values(), searchValue);
         } else {
             System.err.printf("Invalid search filter '%s' for releases\n", searchFilter);
-            return new LinkedList();
+            return new LinkedList<Release>();
         }
 	}
 

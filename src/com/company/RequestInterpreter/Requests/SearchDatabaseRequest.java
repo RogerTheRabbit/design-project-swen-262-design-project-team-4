@@ -33,7 +33,7 @@ public class SearchDatabaseRequest implements Request {
 
         String[] params = args.split(" ");
 
-        if(params.length >= 3) {
+        if(params.length < 3) {
             System.err.println("Invalid number of params.  Must use 3 params: [search type (song, release)] [search filter (title, name, artists, duration, GUID, date-range)] [search value]");
             return null;
         }
@@ -41,7 +41,7 @@ public class SearchDatabaseRequest implements Request {
         String searchType = params[0];
         String searchFilter = params[1];
         // Rest of string is song
-        String searchValue = args.substring(params[0].length() + params[1].length());
+        String searchValue = args.substring(params[0].length() + params[1].length() + 2);
 
         // Get data
         switch (searchType) {
