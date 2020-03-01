@@ -36,7 +36,7 @@ public class Database {
     }
 
     public void saveLibrary(){
-        Library.saveLibrary();
+        library.saveLibrary();
     }
 
     private void initializeDatabase() {
@@ -59,7 +59,7 @@ public class Database {
         FILEREADER.setFilePath("src/data/global/");
         ArrayList<String[]> splitData = FILEREADER.readFile();
         for (String[] fields : splitData) {
-            Library.addSearchable(fields[0]);
+            library.addSearchable(fields[0]);
         }
     }
 
@@ -68,7 +68,7 @@ public class Database {
         FILEREADER.setFilePath("src/data/global/");
         ArrayList<String[]> splitData = FILEREADER.readFile();
         for (String[] fields : splitData) {
-            Library.addRating(fields[0], Integer.parseInt(fields[1]));
+            library.addRating(fields[0], Integer.parseInt(fields[1]));
         }
     }
 
