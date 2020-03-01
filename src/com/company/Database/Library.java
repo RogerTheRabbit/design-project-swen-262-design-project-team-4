@@ -41,7 +41,7 @@ public class Library {
         return username;
     }
 
-    public boolean addSearchable(String searchableGUID) {
+    public boolean addSearchable(String searchableGUID, Date aquDate) {
 
         Searchable songToAdd = database.getSearchable(searchableGUID);
 

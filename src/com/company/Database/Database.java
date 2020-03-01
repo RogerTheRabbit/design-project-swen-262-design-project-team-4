@@ -190,8 +190,8 @@ public class Database {
         return library.getSearchables(searchableGUID);
     }
 
-	public void addSearchableToLibrary(String searchableGUID, Date date) {
-        library.addSearchable(searchableGUID);
+	public void addSearchableToLibrary(String searchableGUID, Date aquDate) {
+        library.addSearchable(searchableGUID, aquDate);
     }
 
 	public void removeSearchableFromLibrary(String searchableGUID) {
