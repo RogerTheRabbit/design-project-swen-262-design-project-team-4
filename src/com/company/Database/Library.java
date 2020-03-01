@@ -33,7 +33,7 @@ public class Library {
         ratings = new HashMap<String, Integer>();
     }
 
-    public Collection<Searchable> getSearchables(String searchableName) {
+    public Collection<Searchable> getSearchables(String searchableGUID) {
         return searchables;
     }
 
@@ -43,20 +43,29 @@ public class Library {
 
     public boolean addSearchable(String searchableGUID) {
 
-        List<Searchable> songToAdd = database.getSearchable(searchableGUID).getSongList();
+        Searchable songToAdd = database.getSearchable(searchableGUID);
 
         if(songToAdd != null) {
-            searchables.addAll(songToAdd);
+            searchables.add(songToAdd);
             return true;
         }
         return false;
     }
 
     public boolean removeSearchable(String searchableGUID) {
-        List<Searchable> songToRemove = database.getSearchable(searchableGUID).getSongList();
+        Searchable songToRemove = database.getSearchable(searchableGUID);
+
+        // TODO: Make sure that if all songs from an artist are removed from the database, remove the artist as well.
 
         if(songToRemove != null) {
-            searchables.removeAll(songToRemove);
+
+            String artistGUID = songToRemove.getArtistGUID();
+
+            searchables.remove(songToRemove);
+
+            getSearchables()
+
+
             return true;
         }
         return false;

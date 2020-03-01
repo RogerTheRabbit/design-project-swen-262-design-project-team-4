@@ -141,11 +141,16 @@ public class Database {
         return null;
     }
 
-    public Collection<Searchable> getSearchablesFromLibrary(String searchableName) {
-        return library.getSearchables(searchableName);
+    public Collection<Searchable> getSearchablesFromLibrary(String searchableGUID) {
+        return library.getSearchables(searchableGUID);
     }
 
 	public void addSearchableToLibrary(String searchableGUID, Date date) {
         library.addSearchable(searchableGUID);
+    }
+
+	public void removeSearchableFromLibrary(String searchableGUID) {
+        library.removeSearchable(searchableGUID);
 	}
+
 }
