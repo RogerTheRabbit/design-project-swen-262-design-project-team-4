@@ -27,6 +27,9 @@ public class Database {
     private HashMap<String, Release> releases;
     private HashMap<String, Artist> artists;
 
+    /**
+     * Constructor
+     */
     public Database() {
         this.FILEREADER = new FileParser();
         library = new Library(this);
@@ -36,18 +39,40 @@ public class Database {
         initializeDatabase();
     }
 
+    /**
+     * saves the library's contents
+     */
     public void saveLibrary(){
         library.saveLibrary();
     }
 
+    /**
+     * ===================================================================================
+     *                              initializers
+     * ===================================================================================
+     */
+
+    /**
+     * initializes the database by:
+     *
+     * reading the csv files
+     * constructing searchables from the data in the files
+     * adding those searchables to the database
+     * then it constructs the user's library
+     */
     private void initializeDatabase() {
         SearchableMaker maker = new SearchableMaker(this);
         initializeArtists(maker);
         initializeSongs(maker);
         initializeAlbums(maker);
-        // initializeLibrary();
+        initializeLibrary(Library.getUsername());
     }
 
+    /**
+     * builds the library by adding each type of searchable to it from their coresponding files
+     * adds
+     * @param signedInUser
+     */
     private void initializeLibrary(String signedInUser) {
         addSearchableToLibraryFromFile(signedInUser, "Artists");
         addSearchableToLibraryFromFile(signedInUser, "Songs");
@@ -55,23 +80,6 @@ public class Database {
         addRatingToLibraryFromFile(signedInUser);
     }
 
-    private void addSearchableToLibraryFromFile(String signedInUser, String searchableType){
-        FILEREADER.setFileName(signedInUser + searchableType + ".csv");
-        FILEREADER.setFilePath("src/data/global/");
-        ArrayList<String[]> splitData = FILEREADER.readFile();
-        for (String[] fields : splitData) {
-            library.addSearchable(fields[0]);
-        }
-    }
-
-    private void addRatingToLibraryFromFile(String signedInUser){
-        FILEREADER.setFileName(signedInUser + "Ratings" + ".csv");
-        FILEREADER.setFilePath("src/data/global/");
-        ArrayList<String[]> splitData = FILEREADER.readFile();
-        for (String[] fields : splitData) {
-            library.addRating(fields[0], Integer.parseInt(fields[1]));
-        }
-    }
 
     private void initializeSongs(SearchableMaker maker) {
         FILEREADER.setFileName("songs.csv");
@@ -105,21 +113,51 @@ public class Database {
         }
     }
 
+    /**
+     * ===================================================================================
+     *                              getters for items in the database
+     * ===================================================================================
+     */
+
+    private void addSearchableToLibraryFromFile(String signedInUser, String searchableType){
+        FILEREADER.setFileName(signedInUser + searchableType + ".csv");
+        FILEREADER.setFilePath("src/data/user/");
+        ArrayList<String[]> splitData = FILEREADER.readFile();
+        for (String[] fields : splitData) {
+            Library.addSearchable(fields[0]);
+        }
+    }
+
+    private void addRatingToLibraryFromFile(String signedInUser){
+        FILEREADER.setFileName(signedInUser + "Ratings" + ".csv");
+        FILEREADER.setFilePath("src/data/user/");
+        ArrayList<String[]> splitData = FILEREADER.readFile();
+        for (String[] fields : splitData) {
+            Library.addRating(fields[0], Integer.parseInt(fields[1]));
+        }
+    }
+
     private void addToArtistDiscography(Searchable entry) {
         String artistGUID = entry.getArtistGUID();
         Artist artist = artists.get(artistGUID);
         artist.addSearchable(entry);
     }
 
-    public Song getSong(String GUID) {
-        return songs.get(GUID);
-    }
+    /**
+     * ===================================================================================
+     *                              getters for items in the database
+     * ===================================================================================
+     */
 
     public Collection<Searchable> getMusic() {
         Collection<Searchable> music = new LinkedList<Searchable>();
         music.addAll(songs.values());
         music.addAll(releases.values());
         return music;
+    }
+
+    public Song getSong(String GUID) {
+        return songs.get(GUID);
     }
 
     public Artist getArtist(String GUID){
@@ -130,6 +168,13 @@ public class Database {
         return releases.get(GUID);
     }
 
+    /**
+     * Given a string of a guid, will search the database and
+     * retrieve a searchable of that guid if it exists
+     *
+     * @param GUID the guid of the searchable to be added to the database
+     * @return the searchable of
+     */
     public Searchable getSearchable(String GUID) {
         if(getSong(GUID) != null) {
             return getSong(GUID);
