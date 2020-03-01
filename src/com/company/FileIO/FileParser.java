@@ -72,17 +72,19 @@ public class FileParser {
      * @return Arraylist of all the lines, which are String arrays containg the csvs
      */
     public ArrayList<String[]> readFile() throws java.io.IOException{
-            var path = Paths.get(filePath, fileName);
-            File file = path.toFile();
-            Scanner scan = new Scanner(file);
+        var path = Paths.get(filePath, fileName);
+        File file = path.toFile();
+        Scanner scan = new Scanner(file);
 
-            ArrayList<String[]> allLines = new ArrayList<>();
-            while(scan.hasNext()){
-                String[] lineArray = scan.nextLine().split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)", -1);
-                allLines.add(lineArray);
-            }
+        ArrayList<String[]> allLines = new ArrayList<>();
+        while(scan.hasNext()){
+            String[] lineArray = scan.nextLine().split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)", -1);
+            allLines.add(lineArray);
+        }
 
-            return allLines;
+        scan.close();
+
+        return allLines;
 
     }
 
