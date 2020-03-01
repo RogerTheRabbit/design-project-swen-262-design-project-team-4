@@ -31,7 +31,7 @@ public class SearchLibraryRequest implements Request {
     public Response handle(String args) {
 
         List<Searchable> songs = new LinkedList<Searchable>();
-        songs.addAll(database.getSearchablesFromLibrary());
+        songs.addAll(database.getSearchablesFromLibrary(args));
         Collections.sort(songs, filter);
         
         System.out.println(songs);

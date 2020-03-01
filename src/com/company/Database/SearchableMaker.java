@@ -69,7 +69,7 @@ public class SearchableMaker {
         return new Artist(fields[0], fields[1], fields[2]);
     }
 
-    private Date makeDate(String date) throws Exception{
+    public static Date makeDate(String date) throws Exception{
         String[] dateFields = date.split("-");
         Date dates;
         if(dateFields.length == 3){

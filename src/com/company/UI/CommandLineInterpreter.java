@@ -22,7 +22,7 @@ public class CommandLineInterpreter {
         COMMANDS = new HashMap<>();
         // Add Commands here
         // Note: Keys should always be lowercase
-        COMMANDS.put("add", new AddToLibraryRequest());
+        COMMANDS.put("add", new AddToLibraryRequest(database));
         COMMANDS.put("rate", new RateRequest());
         COMMANDS.put("remove", new RemoveFromLibraryRequest());
         COMMANDS.put("search", new SearchDatabaseRequest(database));
@@ -42,8 +42,9 @@ public class CommandLineInterpreter {
             String input = in.nextLine();
             String command = input.split(" ")[0].toLowerCase();
             if(COMMANDS.containsKey(command)) {
-                COMMANDS.get(command).handle(input.substring(command.length()));
+                COMMANDS.get(command).handle(input.substring(command.length()).trim());
             } else if(input.equals("exit")) {
+                // TODO: Save library
                 break;
             } else {
                 // Command is invalid so display help.

@@ -33,7 +33,7 @@ public class Library {
         ratings = new HashMap<String, Integer>();
     }
 
-    public Collection<Searchable> getSearchable() {
+    public Collection<Searchable> getSearchables(String searchableName) {
         return searchables;
     }
 

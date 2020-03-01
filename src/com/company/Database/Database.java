@@ -6,6 +6,7 @@ import com.sun.java.accessibility.util.GUIInitializedListener;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -140,7 +141,11 @@ public class Database {
         return null;
     }
 
-    public Collection<Searchable> getSearchablesFromLibrary() {
-        return library.getSearchable();
+    public Collection<Searchable> getSearchablesFromLibrary(String searchableName) {
+        return library.getSearchables(searchableName);
     }
+
+	public void addSearchableToLibrary(String GUID, Date date) {
+        library.addSearchable(searchableGUID)
+	}
 }
