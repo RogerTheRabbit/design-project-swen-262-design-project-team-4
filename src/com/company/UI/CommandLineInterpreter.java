@@ -44,7 +44,7 @@ public class CommandLineInterpreter {
             if(COMMANDS.containsKey(command)) {
                 COMMANDS.get(command).handle(input.substring(command.length()).trim());
             } else if(input.equals("exit")) {
-                // TODO: Save library
+                database.saveLibrary();
                 break;
             } else {
                 // Command is invalid so display help.

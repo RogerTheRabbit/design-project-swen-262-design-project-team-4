@@ -34,7 +34,7 @@ public class RateRequest implements Request {
 
     @Override
     public String getUsageDesc() {
-        return "[GUID] [rating(1-5)]";
+        return "[GUID] [rating (1-5)]";
     }
 
     
