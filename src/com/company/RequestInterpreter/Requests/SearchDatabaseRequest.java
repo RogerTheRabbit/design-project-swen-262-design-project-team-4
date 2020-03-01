@@ -30,7 +30,33 @@ public class SearchDatabaseRequest implements Request {
     public Response handle(String args) {
 
         List<Searchable> songs = new LinkedList<Searchable>();
-        songs.addAll(database.getMusic());
+
+        String[] params = args.split(" ");
+
+        if(params.length != 3) {
+            System.err.println("Invalid number of params.  Must use 3 params: [search type (song, release)] [search filter (title, name, artists, duration, GUID, date-range)] [search value]");
+            return null;
+        }
+
+        String searchType = params[0];   // Should be set from args
+        String searchFilter = params[1]; // Should be set from args
+        String searchValue = params[2];  // Should be set from args
+
+        // Get data
+        switch (searchType) {
+            case "song":
+                songs.addAll(database.getSongs(searchFilter, searchValue));
+                break;
+            case "release":
+                songs.addAll(database.getReleases(searchFilter, searchValue));
+                break;
+            default:
+                System.err.println("Invalid search type. Please specify either 'song' or 'release'.");
+                return null;
+        }
+
+        // Sort results by alphabetical order
+        // This is not required for searching the database, but why not do it anyways
         Collections.sort(songs, filter);
         
         System.out.println(songs);
@@ -39,7 +65,7 @@ public class SearchDatabaseRequest implements Request {
 
     @Override
     public String getUsageDesc() {
-        return "[search type (song, release)] [filter type (alphabetical, )]";
+        return "[search type (song, release)] [search filter (title, name, artists, duration, GUID, date-range)] [search value]";
     }
 
 }

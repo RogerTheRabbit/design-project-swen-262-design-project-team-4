@@ -6,6 +6,7 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.List;
 
 /**
  * @author mjh9131
@@ -239,5 +240,13 @@ public class Database {
     public void rateSearchableInLibrary(String searchableGUID, int rating) {
         library.addRating(searchableGUID, rating);
     }
+
+	public Collection<Searchable> getSongs(String searchFilter, String searchValue) {
+		return new LinkedList();
+	}
+
+	public Collection<Searchable> getReleases(String searchFilter, String searchValue) {
+		return new LinkedList();
+	}
 
 }
