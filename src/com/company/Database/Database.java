@@ -145,7 +145,7 @@ public class Database {
         return library.getSearchables(searchableName);
     }
 
-	public void addSearchableToLibrary(String GUID, Date date) {
-        library.addSearchable(searchableGUID)
+	public void addSearchableToLibrary(String searchableGUID, Date date) {
+        library.addSearchable(searchableGUID);
 	}
 }
