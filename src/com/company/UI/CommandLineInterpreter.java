@@ -23,11 +23,10 @@ public class CommandLineInterpreter {
         // Add Commands here
         // Note: Keys should always be lowercase
         COMMANDS.put("add", new AddToLibraryRequest());
-        COMMANDS.put("query", new QueryRequest());
         COMMANDS.put("rate", new RateRequest());
         COMMANDS.put("remove", new RemoveFromLibraryRequest());
         COMMANDS.put("search", new SearchDatabaseRequest(database));
-        COMMANDS.put("searchlibrary", new SearchLibraryRequest());
+        COMMANDS.put("searchlibrary", new SearchLibraryRequest(database));
         COMMANDS.put("help", new help(COMMANDS));
     }
 

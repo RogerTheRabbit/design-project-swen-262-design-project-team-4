@@ -1,6 +1,13 @@
 package com.company.RequestInterpreter.Requests;
 
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.LinkedList;
+import java.util.List;
+
 import com.company.Database.Database;
+import com.company.Database.Searchable;
+import com.company.RequestInterpreter.Filters.AlphabeticalArtist;
 
 /**
  * SearchDatabaseRequest
@@ -9,6 +16,12 @@ public class SearchDatabaseRequest implements Request {
 
     private Database database;
 
+    private Comparator<Searchable> filter = new AlphabeticalArtist();
+
+    public void setFilter(Comparator<Searchable> filter) {
+        this.filter = filter;
+    }
+
     public SearchDatabaseRequest(Database database) {
         this.database = database;
     }
@@ -16,7 +29,11 @@ public class SearchDatabaseRequest implements Request {
     @Override
     public Response handle(String args) {
 
-        System.out.println(database.getSongs().values());
+        List<Searchable> songs = new LinkedList<Searchable>();
+        songs.addAll(database.getMusic());
+        Collections.sort(songs, filter);
+        
+        System.out.println(songs);
         return null;
     }
 
@@ -25,5 +42,4 @@ public class SearchDatabaseRequest implements Request {
         return null;
     }
 
-    
 }

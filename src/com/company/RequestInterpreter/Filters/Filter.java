@@ -1,5 +1,9 @@
 package com.company.RequestInterpreter.Filters;
 
-public interface Filter {
-    public void sort();
+import java.util.Comparator;
+
+import com.company.Database.Searchable;
+
+public interface Filter extends Comparator<Searchable> {
+
 }

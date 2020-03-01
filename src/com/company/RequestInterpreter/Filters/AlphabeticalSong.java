@@ -1,4 +1,11 @@
 package com.company.RequestInterpreter.Filters;
 
-public class AlphabeticalSong {
+import com.company.Database.Searchable;
+
+public class AlphabeticalSong implements Filter {
+
+    @Override
+    public int compare(Searchable o1, Searchable o2) {
+        return 0;
+    }
 }

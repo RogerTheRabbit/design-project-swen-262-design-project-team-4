@@ -1,5 +1,12 @@
 package com.company.Database;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.List;
+
 import com.company.FileIO.FileSaver;
 
 import java.io.File;
@@ -26,6 +33,9 @@ public class Library {
         ratings = new HashMap<String, Integer>();
     }
 
+    public Collection<Searchable> getSearchable() {
+        return searchables;
+    }
 
     public String getUsername() {
         return username;

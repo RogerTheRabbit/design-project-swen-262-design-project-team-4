@@ -7,6 +7,8 @@ import com.sun.java.accessibility.util.GUIInitializedListener;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * @author mjh9131
@@ -19,7 +21,7 @@ public class Database {
      * Attributes
      */
     private FileParser FILEREADER;
-    private Library Library;
+    private Library library;
     private HashMap<String, Song> songs;
     private HashMap<String, Release> releases;
     private HashMap<String, Artist> artists;
@@ -29,7 +31,7 @@ public class Database {
      */
     public Database() {
         this.FILEREADER = new FileParser();
-        Library = new Library(this);
+        library = new Library(this);
         this.songs = new HashMap<>();
         this.releases = new HashMap<>();
         this.artists = new HashMap<>();
@@ -40,7 +42,7 @@ public class Database {
      * saves the library's contents
      */
     public void saveLibrary(){
-        Library.saveLibrary();
+        library.saveLibrary();
     }
 
     /**
@@ -146,8 +148,11 @@ public class Database {
      * ===================================================================================
      */
 
-    public Collection<Song> getSongs() {
-        return songs.values();
+    public Collection<Searchable> getMusic() {
+        Collection<Searchable> music = new LinkedList<Searchable>();
+        music.addAll(songs.values());
+        music.addAll(releases.values());
+        return music;
     }
 
     public Song getSong(String GUID) {
@@ -178,5 +183,9 @@ public class Database {
             return getRelease(GUID);
         }
         return null;
+    }
+
+    public Collection<Searchable> getSearchablesFromLibrary() {
+        return library.getSearchable();
     }
 }
