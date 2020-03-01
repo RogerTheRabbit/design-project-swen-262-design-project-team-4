@@ -1,11 +1,9 @@
 package com.company.RequestInterpreter.Filters;
 
 import java.util.Collection;
-import java.util.Date;
 import java.util.LinkedList;
 
 import com.company.Database.Release;
-import com.company.Database.Searchable;
 import com.company.Database.SearchableMaker;
 import com.company.Database.Song;
 
@@ -13,11 +11,6 @@ import com.company.Database.Song;
  * DateRangeFilter
  */
 public class DateRangeFilter implements Filter {
-
-    @Override
-    public Collection<Searchable> filter(Collection<Searchable> toFilter, String filterParam) {
-        return null;
-    }
 
     @Override
     public Collection<Release> filterReleases(Collection<Release> values, String searchValue) {

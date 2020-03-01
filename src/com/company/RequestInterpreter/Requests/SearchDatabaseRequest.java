@@ -46,10 +46,10 @@ public class SearchDatabaseRequest implements Request {
         // Get data
         switch (searchType) {
             case "song":
-                songs.addAll(database.getSongs(searchFilter, searchValue));
+                songs.addAll(database.getSongs(searchFilter, searchValue.trim()));
                 break;
             case "release":
-                songs.addAll(database.getReleases(searchFilter, searchValue));
+                songs.addAll(database.getReleases(searchFilter, searchValue.trim()));
                 break;
             default:
                 System.err.println("Invalid search type. Please specify either 'song' or 'release'.");

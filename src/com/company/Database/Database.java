@@ -3,6 +3,7 @@ package com.company.Database;
 import com.company.FileIO.FileParser;
 import com.company.RequestInterpreter.Filters.DateRangeFilter;
 import com.company.RequestInterpreter.Filters.Filter;
+import com.company.RequestInterpreter.Filters.GUIDFilter;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -252,7 +253,7 @@ public class Database {
         FILTERS.put("name", new DateRangeFilter());
         FILTERS.put("artist", new DateRangeFilter());
         FILTERS.put("duration", new DateRangeFilter());
-        FILTERS.put("GUID", new DateRangeFilter());
+        FILTERS.put("GUID", new GUIDFilter());
         FILTERS.put("date-range", new DateRangeFilter());
     }
 
