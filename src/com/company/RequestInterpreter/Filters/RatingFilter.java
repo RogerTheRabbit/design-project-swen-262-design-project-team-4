@@ -7,6 +7,10 @@ import com.company.Database.Song;
 import java.util.Collection;
 import java.util.LinkedList;
 
+/**
+ * This implementation of Filter allows you to filter search results by Ratings.
+ * The user provides a minimum rating and this filters any Searchable objects below that rating.
+ */
 public class RatingFilter implements Filter {
     @Override
     public LinkedList<Release> filterReleases(Collection<Release> values, String searchValue) {

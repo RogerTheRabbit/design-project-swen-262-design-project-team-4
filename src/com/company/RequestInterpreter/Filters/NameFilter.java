@@ -8,7 +8,8 @@ import com.company.Database.Release;
 import com.company.Database.Song;
 
 /**
- * NameFilter
+ * This implementation of Filter allows you to filter search results by Name.
+ * The user provides a name and this filters out any Searchable objects that do not contain that name.
  */
 public class NameFilter implements Filter {
 
