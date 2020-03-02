@@ -269,7 +269,6 @@ public class Database {
     static {
         FILTERS = new HashMap<>();
         FILTERS.put("name", new NameFilter());
-        // FILTERS.put("artist", new ArtistFilter());
         FILTERS.put("maxduration", new MaxDurationFilter());
         FILTERS.put("minduration", new MinDurationFilter());
         FILTERS.put("guid", new GUIDFilter());
