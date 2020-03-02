@@ -44,9 +44,8 @@ public class Database {
         this.songs = new HashMap<>();
         this.releases = new HashMap<>();
         this.artists = new HashMap<>();
-        this.filter = new NameFilter();         // Set default filtering
-        //TODO: Make sure this is sort by name because every searchable has a name.
-        this.sort = new Alphabetical();   // Set default sorting
+        this.filter = new NameFilter();     // Set default filtering
+        this.sort = new Alphabetical();     // Set default sorting
         initializeDatabase();
     }
 
@@ -387,7 +386,4 @@ public class Database {
 
         return output;
     }
-
-
-
 }
