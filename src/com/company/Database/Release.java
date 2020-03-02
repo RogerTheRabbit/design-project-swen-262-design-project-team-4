@@ -23,7 +23,6 @@ public class Release implements Searchable {
     private Medium medium;
     private List<Searchable> songList;
     private int duration;
-    private int rating;
 
 
 
@@ -106,6 +105,9 @@ public class Release implements Searchable {
                 numSongs++;
             }
         }
+        if(numSongs == 0){
+            return 0;
+        }
         return average/numSongs;
     }
 
@@ -129,13 +131,12 @@ public class Release implements Searchable {
     @Override
     public String toString() {
         return "Release{" +
-                "guid='" + guid + '\'' +
-                ", artistGUID='" + artistGUID + '\'' +
                 ", title='" + title + '\'' +
                 ", issueDate=" + issueDate +
                 ", medium=" + medium +
-                ", songList=" + songList +
+                ", rating=" + getRating() +
                 ", duration=" + duration +
                 '}';
     }
+
 }
