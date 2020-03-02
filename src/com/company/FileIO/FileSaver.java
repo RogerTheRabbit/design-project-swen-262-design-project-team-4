@@ -40,7 +40,7 @@ public class FileSaver {
         try {
             FileWriter myWriter = new FileWriter(file);
             for(Searchable entry: searchables){
-                myWriter.write(entry.getGUID());
+                myWriter.write(entry.getGUID() + "\n");
             }
             myWriter.close();
         } catch (IOException e) {
@@ -81,7 +81,7 @@ public class FileSaver {
             for(Map.Entry rating: ratings.entrySet()){
                 K guid = (K) rating.getKey();
                 V value = (V) rating.getValue();
-                myWriter.write(guid.toString() + "," + value.toString());
+                myWriter.write(guid.toString() + "," + value.toString() + "\n");
             }
 
             myWriter.close();
