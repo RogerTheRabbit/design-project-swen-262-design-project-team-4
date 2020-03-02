@@ -20,13 +20,6 @@ public class SearchLibraryRequest implements Request {
         this.database = database;
     }
 
-    private Comparator<Searchable> sort = new AlphabeticalArtist();
-
-    public void setSort(Comparator<Searchable> sort) {
-        this.sort = sort;
-    }
-
-    // TODO: Make it so this doesn't show artists.  Currently shows all types of searchables but should only show songs and releases.
     @Override
     public Response handle(String args) {
 
@@ -58,10 +51,6 @@ public class SearchLibraryRequest implements Request {
                 System.err.println("Invalid search type. Please specify either 'song' or 'release' or 'artist'.");
                 return null;
         }
-
-        // List<Searchable> songs = new LinkedList<Searchable>();
-        // songs.addAll(database.getSearchablesFromLibrary(args));
-        // Collections.sort(songs, sort);
         
         System.out.println(songs);
         return null;
