@@ -394,10 +394,10 @@ public class Database {
 	}
 
 	public Searchable getReleaseFromLibrary(String args) {
-		return library.getRelease();
+		return library.getRelease(args);
 	}
 
 	public Searchable getSongFromLibrary(String args) {
-		return library.getSong();
+		return library.getSong(args);
 	}
 }
