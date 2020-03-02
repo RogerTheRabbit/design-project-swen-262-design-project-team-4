@@ -1,13 +1,31 @@
 package com.company.RequestInterpreter.Requests;
 
+import com.company.Database.Database;
+import com.company.Database.Searchable;
+
 /**
  * SelectRequest
  */
 public class SelectArtist implements Request {
 
+    Database database;
+
+    public SelectArtist(Database database) {
+        this.database = database;
+    }
+
     @Override
     public Response handle(String args) {
-        // TODO Auto-generated method stub
+        
+        Searchable output = database.getArtistFromLibrary(args);
+
+        if (output != null) {
+            System.out.println(output);
+        } else {
+            System.out.println("This artist was not found in your personal library");
+        }
+
+
         return null;
     }
 

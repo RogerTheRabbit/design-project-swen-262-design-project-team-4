@@ -16,6 +16,10 @@ public class BrowseRequest implements Request {
     @Override
     public Response handle(String args) {
         
+        for(String artistGUID : database.getArtistMap().keySet()) {
+            System.out.println(database.getArtist(artistGUID));
+        }
+
         return null;
     }
 

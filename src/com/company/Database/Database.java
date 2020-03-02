@@ -1,14 +1,8 @@
 package com.company.Database;
 
 import com.company.FileIO.FileParser;
-import com.company.RequestInterpreter.Filters.DateRangeFilter;
-import com.company.RequestInterpreter.Filters.Filter;
-import com.company.RequestInterpreter.Filters.GUIDFilter;
-import com.company.RequestInterpreter.Filters.NameFilter;
-import com.company.RequestInterpreter.Sorts.AcquisitionDate;
-import com.company.RequestInterpreter.Sorts.Alphabetical;
-import com.company.RequestInterpreter.Sorts.Rating;
-import com.company.RequestInterpreter.Sorts.Sort;
+import com.company.RequestInterpreter.Filters.*;
+import com.company.RequestInterpreter.Sorts.*;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -224,10 +218,6 @@ public class Database {
         return null;
     }
 
-    public Collection<Searchable> getSearchablesFromLibrary(String searchableGUID) {
-        return library.getSearchables(searchableGUID);
-    }
-
     public void addSearchableToLibrary(String searchableGUID, Date aquDate) {
         library.addAcquisitionDate(searchableGUID, aquDate);
         library.addSearchable(searchableGUID);
@@ -239,6 +229,10 @@ public class Database {
 
     public void rateSearchableInLibrary(String searchableGUID, int rating) {
         library.addRating(searchableGUID, rating);
+    }
+
+    public HashMap<String, Collection<Searchable>> getArtistMap() {
+        return library.getArtistMap();
     }
 
     /**
@@ -357,7 +351,7 @@ public class Database {
         output.sort(sort);
 
         return output;
-	}
+    }
 
 	public Collection<Artist> getArtistsFromLibrary(String searchValue) {
 
@@ -377,4 +371,16 @@ public class Database {
 
         return output;
     }
+
+	public Searchable getArtistFromLibrary(String args) {
+		return library.getArtist(args);
+	}
+
+	public Searchable getReleaseFromLibrary(String args) {
+		return library.getRelease();
+	}
+
+	public Searchable getSongFromLibrary(String args) {
+		return library.getSong();
+	}
 }

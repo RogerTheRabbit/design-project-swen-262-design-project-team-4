@@ -1,13 +1,30 @@
 package com.company.RequestInterpreter.Requests;
 
+import com.company.Database.Database;
+import com.company.Database.Searchable;
+
 /**
  * SelectRequest
  */
 public class SelectRelease implements Request {
 
+    private Database database;
+
+    public SelectRelease(Database database) {
+        this.database = database;
+    }
+
     @Override
     public Response handle(String args) {
-        // TODO Auto-generated method stub
+        
+        Searchable output = database.getReleaseFromLibrary(args);
+
+        if (output != null) {
+            System.out.println(output);
+        } else {
+            System.out.println("This release was not found in your personal library");
+        }    
+
         return null;
     }
 

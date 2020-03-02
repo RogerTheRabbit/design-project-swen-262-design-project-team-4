@@ -11,7 +11,7 @@ import com.company.RequestInterpreter.Requests.*;
  */
 public class CommandLineInterpreter {
     
-    //TODO: Initialize everything here
+    // Initialize everything here
 
     private static Database database = new Database();
 
@@ -30,9 +30,9 @@ public class CommandLineInterpreter {
         COMMANDS.put("setfilter", new SetFilterRequest(database));
         COMMANDS.put("setsort", new SetSortRequest(database));
         COMMANDS.put("browse", new BrowseRequest(database));
-        COMMANDS.put("selectartist", new SelectArtist());
-        COMMANDS.put("selectrelease", new SelectRelease());
-        COMMANDS.put("selectsong", new SelectSong());
+        COMMANDS.put("selectartist", new SelectArtist(database));
+        COMMANDS.put("selectrelease", new SelectRelease(database));
+        COMMANDS.put("selectsong", new SelectSong(database));
         COMMANDS.put("help", new Help(COMMANDS));
     }
 

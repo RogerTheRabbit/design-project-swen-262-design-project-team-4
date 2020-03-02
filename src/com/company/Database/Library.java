@@ -35,6 +35,10 @@ public class Library {
         return searchables;
     }
 
+    public HashMap<String, Collection<Searchable>> getArtistMap() {
+        return artistMap;
+    }
+
     /**
      * Gets a user's name.  This is for future implementations with multiple users.
      * 
@@ -91,7 +95,7 @@ public class Library {
      * @param accDate Date to add to Searchable
      */
     public void addAcquisitionDate(String guid, Date accDate){
-        database.getSong(guid).setAcquisitionDate(accDate);
+        database.getSearchable(guid).setAcquisitionDate(accDate);
     }
 
     /**
@@ -239,4 +243,31 @@ public class Library {
         }
         return ratingsMap;
     }
+
+	public Artist getArtist(String GUID) {
+        for(Searchable artist : searchables) {
+            if(artist.getGUID().equals(GUID)) {
+                return (Artist) artist;
+            }
+        }
+		return null;
+	}
+
+	public Release getRelease(String GUID) {
+        for(Searchable artist : searchables) {
+            if(artist.getGUID().equals(GUID)) {
+                return (Release) artist;
+            }
+        }
+		return null;
+	}
+
+	public Song getSong(String GUID) {
+        for(Searchable artist : searchables) {
+            if(artist.getGUID().equals(GUID)) {
+                return (Song) artist;
+            }
+        }
+		return null;
+	}
 }
