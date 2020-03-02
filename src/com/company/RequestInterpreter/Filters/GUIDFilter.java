@@ -12,7 +12,7 @@ import com.company.Database.Song;
 public class GUIDFilter implements Filter {
 
     @Override
-    public Collection<Release> filterReleases(Collection<Release> values, String searchValue) {
+    public LinkedList<Release> filterReleases(Collection<Release> values, String searchValue) {
 
         LinkedList<Release> filteredReleases = new LinkedList<>();
 
@@ -26,7 +26,7 @@ public class GUIDFilter implements Filter {
     }
 
     @Override
-    public Collection<Song> filterSongs(Collection<Song> values, String searchValue) {
+    public LinkedList<Song> filterSongs(Collection<Song> values, String searchValue) {
 
         LinkedList<Song> filteredReleases = new LinkedList<>();
 

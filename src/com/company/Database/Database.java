@@ -4,18 +4,23 @@ import com.company.FileIO.FileParser;
 import com.company.RequestInterpreter.Filters.DateRangeFilter;
 import com.company.RequestInterpreter.Filters.Filter;
 import com.company.RequestInterpreter.Filters.GUIDFilter;
+import com.company.RequestInterpreter.Sorts.AcquisitionDate;
+import com.company.RequestInterpreter.Sorts.AlphabeticalArtist;
+import com.company.RequestInterpreter.Sorts.AlphabeticalSong;
+import com.company.RequestInterpreter.Sorts.Rating;
+import com.company.RequestInterpreter.Sorts.Sort;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedList;
-import java.util.List;
+import java.util.Set;
 
 /**
  * @author mjh9131
  *
- * contains all the songs, releases, and artists on record
+ *         contains all the songs, releases, and artists on record
  */
 public class Database {
 
@@ -23,10 +28,12 @@ public class Database {
      * Attributes
      */
     private FileParser FILEREADER;
-    private Library library;
+    private static Library library;
     private HashMap<String, Song> songs;
     private HashMap<String, Release> releases;
     private HashMap<String, Artist> artists;
+    private Filter filter;
+    private Sort sort;
 
     /**
      * Constructor
@@ -43,23 +50,22 @@ public class Database {
     /**
      * saves the library's contents
      */
-    public void saveLibrary(){
+    public void saveLibrary() {
         library.saveLibrary();
     }
 
     /**
      * ===================================================================================
-     *                              initializers
+     * initializers
      * ===================================================================================
      */
 
     /**
      * initializes the database by:
      *
-     * reading the csv files
-     * constructing searchables from the data in the files
-     * adding those searchables to the database
-     * then it constructs the user's library
+     * reading the csv files constructing searchables from the data in the files
+     * adding those searchables to the database then it constructs the user's
+     * library
      */
     private void initializeDatabase() {
         SearchableMaker maker = new SearchableMaker(this);
@@ -70,8 +76,9 @@ public class Database {
     }
 
     /**
-     * builds the library by adding each type of searchable to it from their coresponding files
-     * adds
+     * builds the library by adding each type of searchable to it from their
+     * coresponding files adds
+     * 
      * @param signedInUser
      */
     private void initializeLibrary(String signedInUser) {
@@ -82,19 +89,17 @@ public class Database {
         addAcquisitionDateFromFile(signedInUser);
     }
 
-
     private void initializeSongs(SearchableMaker maker) {
         FILEREADER.setFileName("songs.csv");
         FILEREADER.setFilePath("src/data/global/");
-        try{
+        try {
             ArrayList<String[]> splitData = FILEREADER.readFile();
             for (String[] fields : splitData) {
                 Searchable entry = maker.makeSearchable("Song", fields);
                 songs.put(entry.getGUID(), (Song) entry);
                 addToArtistDiscography(entry);
             }
-        }
-        catch (java.io.IOException e){
+        } catch (java.io.IOException e) {
             System.err.println(e);
         }
     }
@@ -108,8 +113,7 @@ public class Database {
                 Searchable entry = maker.makeSearchable("Artist", fields);
                 artists.put(entry.getGUID(), (Artist) entry);
             }
-        }
-        catch (java.io.IOException e){
+        } catch (java.io.IOException e) {
             System.err.println(e);
         }
     }
@@ -124,19 +128,18 @@ public class Database {
                 releases.put(entry.getGUID(), (Release) entry);
                 addToArtistDiscography(entry);
             }
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             System.err.println(e);
         }
     }
 
     /**
      * ===================================================================================
-     *                              getters for items in the database
+     * getters for items in the database
      * ===================================================================================
      */
 
-    private void addSearchableToLibraryFromFile(String signedInUser, String searchableType){
+    private void addSearchableToLibraryFromFile(String signedInUser, String searchableType) {
         FILEREADER.setFileName(signedInUser + searchableType + ".csv");
         FILEREADER.setFilePath("src/data/user/");
         try {
@@ -144,13 +147,12 @@ public class Database {
             for (String[] fields : splitData) {
                 library.addSearchable(fields[0]);
             }
-        }
-        catch (java.io.IOException e){
-            //System.err.println(e);
+        } catch (java.io.IOException e) {
+            // System.err.println(e);
         }
     }
 
-    private void addRatingToLibraryFromFile(String signedInUser){
+    private void addRatingToLibraryFromFile(String signedInUser) {
         FILEREADER.setFileName(signedInUser + "Ratings" + ".csv");
         FILEREADER.setFilePath("src/data/user/");
         try {
@@ -158,13 +160,12 @@ public class Database {
             for (String[] fields : splitData) {
                 library.addRating(fields[0], Integer.parseInt(fields[1]));
             }
-        }
-        catch (java.io.IOException e){
-            //System.err.println(e);
+        } catch (java.io.IOException e) {
+            // System.err.println(e);
         }
     }
 
-    private void addAcquisitionDateFromFile(String signedInUser){
+    private void addAcquisitionDateFromFile(String signedInUser) {
         FILEREADER.setFileName(signedInUser + "Dates" + ".csv");
         FILEREADER.setFilePath("src/data/user/");
         try {
@@ -173,9 +174,8 @@ public class Database {
 
                 library.addAcquisitionDate(fields[0], SearchableMaker.makeDate(fields[1]));
             }
-        }
-        catch (Exception e){
-            //System.err.println(e);
+        } catch (Exception e) {
+            // System.err.println(e);
         }
     }
 
@@ -187,7 +187,7 @@ public class Database {
 
     /**
      * ===================================================================================
-     *                              getters for items in the database
+     * getters for items in the database
      * ===================================================================================
      */
 
@@ -202,23 +202,23 @@ public class Database {
         return songs.get(GUID);
     }
 
-    public Artist getArtist(String GUID){
+    public Artist getArtist(String GUID) {
         return artists.get(GUID);
     }
 
-    public Release getRelease(String GUID){
+    public Release getRelease(String GUID) {
         return releases.get(GUID);
     }
 
     /**
-     * Given a string of a guid, will search the database and
-     * retrieve a searchable of that guid if it exists
+     * Given a string of a guid, will search the database and retrieve a searchable
+     * of that guid if it exists
      *
      * @param GUID the guid of the searchable to be added to the database
      * @return the searchable of
      */
     public Searchable getSearchable(String GUID) {
-        if(getSong(GUID) != null) {
+        if (getSong(GUID) != null) {
             return getSong(GUID);
         } else if (getArtist(GUID) != null) {
             return getArtist(GUID);
@@ -232,15 +232,15 @@ public class Database {
         return library.getSearchables(searchableGUID);
     }
 
-	public void addSearchableToLibrary(String searchableGUID, Date aquDate) {
+    public void addSearchableToLibrary(String searchableGUID, Date aquDate) {
         library.addAcquisitionDate(searchableGUID, aquDate);
         library.addSearchable(searchableGUID);
     }
 
-	public void removeSearchableFromLibrary(String searchableGUID) {
+    public void removeSearchableFromLibrary(String searchableGUID) {
         library.removeSearchable(searchableGUID);
     }
-    
+
     public void rateSearchableInLibrary(String searchableGUID, int rating) {
         library.addRating(searchableGUID, rating);
     }
@@ -257,23 +257,67 @@ public class Database {
         FILTERS.put("date-range", new DateRangeFilter());
     }
 
-	public Collection<Song> getSongs(String searchFilter, String searchValue) {
-        
-        if(FILTERS.containsKey(searchFilter)) {
-            return FILTERS.get(searchFilter).filterSongs(songs.values(), searchValue);
+    private static final HashMap<String, Sort> SORTS;
+    static {
+        SORTS = new HashMap<>();
+        // Add Commands here
+        // Note: Keys should always be lowercase
+        SORTS.put("acquisitiondate", new AcquisitionDate());
+        SORTS.put("alphasong", new AlphabeticalSong());
+        SORTS.put("alphaartist", new AlphabeticalArtist());
+        SORTS.put("rating", new Rating(library));
+    }
+
+    public void setFilter(String filter) {
+        if (FILTERS.containsKey(filter)) {
+            this.filter = FILTERS.get(filter);
         } else {
-            System.err.printf("Invalid search filter '%s' for songs\n", searchFilter);
-            return new LinkedList<Song>();
+            System.err.printf("Invalid search filter '%s' for songs\n", filter);
         }
+    }
+
+    public void setSort(String sort) {
+        if (SORTS.containsKey(sort)) {
+            this.sort = SORTS.get(sort);
+        } else {
+            System.err.printf("Invalid sort '%s' for songs\n", filter);
+        }
+    }
+
+    public Set<String> getAvailableSortTypes() {
+        return SORTS.keySet();
+    }
+
+    public Set<String> getAvailableFilterTypes() {
+        return FILTERS.keySet();
+    }
+
+	public Collection<Song> getSongs(String searchValue) {
+
+        if (filter == null) {
+            System.err.println("Filter not set, please use 'setfilter' to set the filter.");
+            return new LinkedList<>();
+        }
+
+        LinkedList<Song> output = filter.filterSongs(songs.values(), searchValue);
+
+        output.sort(sort);
+
+        return output;
 	}
 
-	public Collection<Release> getReleases(String searchFilter, String searchValue) {
-        if(FILTERS.containsKey(searchFilter)) {
-            return FILTERS.get(searchFilter).filterReleases(releases.values(), searchValue);
-        } else {
-            System.err.printf("Invalid search filter '%s' for releases\n", searchFilter);
-            return new LinkedList<Release>();
+	public Collection<Release> getReleases(String searchValue) {
+
+        if (filter == null) {
+            System.err.println("Filter not set, please use 'setfilter' to set the filter.");
+            return new LinkedList<>();
         }
+
+        LinkedList<Release> output = filter.filterReleases(releases.values(), searchValue);
+
+        output.sort(sort);
+
+        return output;
 	}
 
 }

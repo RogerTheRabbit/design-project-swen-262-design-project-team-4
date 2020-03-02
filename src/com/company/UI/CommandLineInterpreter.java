@@ -27,7 +27,8 @@ public class CommandLineInterpreter {
         COMMANDS.put("remove", new RemoveFromLibraryRequest(database));
         COMMANDS.put("search", new SearchDatabaseRequest(database));
         COMMANDS.put("searchlibrary", new SearchLibraryRequest(database));
-        COMMANDS.put("setfilter", new SetFilterRequest());
+        COMMANDS.put("setfilter", new SetFilterRequest(database));
+        COMMANDS.put("setsort", new SetSortRequest(database));
         COMMANDS.put("help", new help(COMMANDS));
     }
 

@@ -13,7 +13,7 @@ import com.company.Database.Song;
 public class DateRangeFilter implements Filter {
 
     @Override
-    public Collection<Release> filterReleases(Collection<Release> values, String searchValue) {
+    public LinkedList<Release> filterReleases(Collection<Release> values, String searchValue) {
         
         String[] params = searchValue.split(" ");
         if(params.length != 2) {
@@ -44,7 +44,7 @@ public class DateRangeFilter implements Filter {
     }
 
     @Override
-    public Collection<Song> filterSongs(Collection<Song> values, String searchValue) {
+    public LinkedList<Song> filterSongs(Collection<Song> values, String searchValue) {
         System.err.println("Error: Trying to filter songs by date range. This is not possible.");
         return new LinkedList<Song>();
     }
