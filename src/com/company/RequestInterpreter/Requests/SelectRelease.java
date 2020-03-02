@@ -3,7 +3,7 @@ package com.company.RequestInterpreter.Requests;
 /**
  * SelectRequest
  */
-public class SelectArtist implements Request {
+public class SelectRelease implements Request {
 
     @Override
     public Response handle(String args) {
@@ -13,7 +13,7 @@ public class SelectArtist implements Request {
 
     @Override
     public String getUsageDesc() {
-        return "Selects artist in your personal library {GUID of artist to select [GUID]}";
+        return "Selects for the release in your personal library; {GUID of release to select [GUID]}";
     }
 
     

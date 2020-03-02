@@ -30,7 +30,9 @@ public class CommandLineInterpreter {
         COMMANDS.put("setfilter", new SetFilterRequest(database));
         COMMANDS.put("setsort", new SetSortRequest(database));
         COMMANDS.put("browse", new BrowseRequest(database));
-        COMMANDS.put("select", new SelectArtist());
+        COMMANDS.put("selectartist", new SelectArtist());
+        COMMANDS.put("selectrelease", new SelectRelease());
+        COMMANDS.put("selectsong", new SelectSong());
         COMMANDS.put("help", new Help(COMMANDS));
     }
 
