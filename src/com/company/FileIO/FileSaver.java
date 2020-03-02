@@ -9,10 +9,20 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * @author
+ *
+ * The FileSaver saves and stores any Searchable items, including Hashmap, into a file and saves it
+ *
+ */
 public class FileSaver {
 
     private static FileSaver fileSaver = null;
 
+    /**
+     * Creates a new instance of FileSaver if there is no file to be saved
+     * @return fileSaver
+     */
     public static FileSaver getInstance(){
         if(fileSaver == null){
             fileSaver = new FileSaver();
@@ -21,6 +31,11 @@ public class FileSaver {
         return fileSaver;
     }
 
+    /**
+     * Saves the searchable items in the specific file
+     * @param file
+     * @param searchables
+     */
     public void saveSearchables(File file, Collection<Searchable> searchables){
         try {
             FileWriter myWriter = new FileWriter(file);
@@ -34,6 +49,12 @@ public class FileSaver {
         }
     }
 
+    /**
+     * Creates a new csv file
+     * @param username
+     * @param searchableType
+     * @return myObj
+     */
     public File makeFile(String username, String searchableType){
         try {
             File myObj = new File("src/data/user/", (username + searchableType + ".csv"));
@@ -46,6 +67,13 @@ public class FileSaver {
         return null;
     }
 
+    /**
+     * Saves the hashmap of song GUIDs and their ratings
+     * @param ratingFile
+     * @param ratings
+     * @param <K>
+     * @param <V>
+     */
     public <K, V> void saveHashmap(File ratingFile, HashMap<K, V> ratings){
         try {
             FileWriter myWriter = new FileWriter(ratingFile);
