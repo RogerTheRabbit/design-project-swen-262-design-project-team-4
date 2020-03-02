@@ -1,6 +1,7 @@
 package com.company.Database;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -124,6 +125,15 @@ public class Artist implements Searchable {
 
     public String formatToCsv(){
         return guid + "," + name + "," + disambiguation;
+    }
+
+    @Override
+    public void setAcquisitionDate(Date date) {
+    }
+
+    @Override
+    public Date getAcquisitionDate() {
+        return null;
     }
 
     @Override

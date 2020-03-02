@@ -12,7 +12,7 @@ import java.util.Map;
 /**
  * @author
  *
- * The FileSaver saves and stores any Searchable items, including Hashmap, into a file and saves it
+ * The FileSaver saves and stores any Searchable items, including Hashmap, into a file
  *
  */
 public class FileSaver {

@@ -85,6 +85,10 @@ public class Database {
         addAcquisitionDateFromFile(signedInUser);
     }
 
+    /**
+     *  adds all the songs to the database from the files
+     * @param maker the factory
+     */
     private void initializeSongs(SearchableMaker maker) {
         FILEREADER.setFileName("songs.csv");
         FILEREADER.setFilePath("src/data/global/");
@@ -100,6 +104,10 @@ public class Database {
         }
     }
 
+    /**
+     * adds all the artists to the database from the files
+     * @param maker the factory
+     */
     private void initializeArtists(SearchableMaker maker) {
         FILEREADER.setFileName("artists.csv");
         FILEREADER.setFilePath("src/data/global/");
@@ -114,6 +122,10 @@ public class Database {
         }
     }
 
+    /**
+     * adds all the releases to the database from the files
+     * @param maker the factory
+     */
     private void initializeAlbums(SearchableMaker maker) {
         FILEREADER.setFileName("releases.csv");
         FILEREADER.setFilePath("src/data/global/");
@@ -135,6 +147,11 @@ public class Database {
      * ===================================================================================
      */
 
+    /**
+     *
+     * @param signedInUser
+     * @param searchableType
+     */
     private void addSearchableToLibraryFromFile(String signedInUser, String searchableType) {
         FILEREADER.setFileName(signedInUser + searchableType + ".csv");
         FILEREADER.setFilePath("src/data/user/");
@@ -168,8 +185,8 @@ public class Database {
         try {
             ArrayList<String[]> splitData = FILEREADER.readFile();
             for (String[] fields : splitData) {
-                Song songToAddDate = songs.get(fields[0]);
-                songToAddDate.setAcquisitionDate(SearchableMaker.makeDate(fields[1]));
+                Searchable searchableToAddDate = songs.get(fields[0]);
+                searchableToAddDate.setAcquisitionDate(SearchableMaker.makeDate(fields[1]));
             }
         } catch (Exception e) {
             // System.err.println(e);
