@@ -7,12 +7,17 @@ import com.company.Database.Database;
 import com.company.Database.Searchable;
 
 /**
- * SearchLibraryRequest
+ * SearchLibraryRequest implements the Request class.
+ * It takes in a string from the user and searches their library for that item.
+ * Handles any invalid parameters given.
  */
 public class SearchLibraryRequest implements Request {
 
     Database database;
 
+    /**
+     * Constructor
+     */
     public SearchLibraryRequest(Database database) {
         this.database = database;
     }
