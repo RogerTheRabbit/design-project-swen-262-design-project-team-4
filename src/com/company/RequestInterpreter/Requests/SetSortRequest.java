@@ -3,26 +3,26 @@ package com.company.RequestInterpreter.Requests;
 import com.company.Database.Database;
 
 /**
- * SetFilterRequest
+ * setSortRequest
  */
-public class SetFilterRequest implements Request {
+public class SetSortRequest implements Request {
 
     private Database database;
 
-    public SetFilterRequest(Database database) {
+    public SetSortRequest(Database database) {
         this.database = database;
     }
 
     @Override
     public Response handle(String args) {
-        database.setFilter(args.trim());
+        
+        database.setSort(args.trim());
+
         return null;
     }
 
     @Override
     public String getUsageDesc() {
-        return String.format("[search filter %s]", database.getAvailableFilterTypes());
+        return String.format("[sort by %s]", database.getAvailableSortTypes());
     }
-
-    
 }
