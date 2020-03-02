@@ -6,8 +6,7 @@ import com.company.RequestInterpreter.Filters.Filter;
 import com.company.RequestInterpreter.Filters.GUIDFilter;
 import com.company.RequestInterpreter.Filters.NameFilter;
 import com.company.RequestInterpreter.Sorts.AcquisitionDate;
-import com.company.RequestInterpreter.Sorts.AlphabeticalArtist;
-import com.company.RequestInterpreter.Sorts.AlphabeticalSong;
+import com.company.RequestInterpreter.Sorts.Alphabetical;
 import com.company.RequestInterpreter.Sorts.Rating;
 import com.company.RequestInterpreter.Sorts.Sort;
 
@@ -47,7 +46,7 @@ public class Database {
         this.artists = new HashMap<>();
         this.filter = new NameFilter();         // Set default filtering
         //TODO: Make sure this is sort by name because every searchable has a name.
-        this.sort = new AlphabeticalArtist();   // Set default sorting
+        this.sort = new Alphabetical();   // Set default sorting
         initializeDatabase();
     }
 
@@ -275,8 +274,8 @@ public class Database {
         // Add Commands here
         // Note: Keys should always be lowercase
         SORTS.put("acquisitiondate", new AcquisitionDate());
-        SORTS.put("alphasong", new AlphabeticalSong());
-        SORTS.put("alphaartist", new AlphabeticalArtist());
+        SORTS.put("alphasong", new Alphabetical());
+        SORTS.put("alphaartist", new Alphabetical());
         SORTS.put("rating", new Rating());
     }
 
