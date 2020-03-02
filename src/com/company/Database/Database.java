@@ -236,6 +236,12 @@ public class Database {
     }
 
     public void addSearchableToLibrary(String searchableGUID, Date aquDate) {
+
+        if(getArtist(searchableGUID) != null) {
+            System.out.println("Artist not added to library.  Only songs and releases can be added to your library.");
+            return;
+        }
+
         library.addAcquisitionDate(searchableGUID, aquDate);
         library.addSearchable(searchableGUID);
     }
@@ -262,11 +268,12 @@ public class Database {
     private static final HashMap<String, Filter> FILTERS;
     static {
         FILTERS = new HashMap<>();
-        FILTERS.put("name", new DateRangeFilter());
-        FILTERS.put("artist", new DateRangeFilter());
-        FILTERS.put("duration", new DateRangeFilter());
-        FILTERS.put("GUID", new GUIDFilter());
+        FILTERS.put("name", new NameFilter());
+        FILTERS.put("maxduration", new MaxDurationFilter());
+        FILTERS.put("minduration", new MinDurationFilter());
+        FILTERS.put("guid", new GUIDFilter());
         FILTERS.put("date-range", new DateRangeFilter());
+        FILTERS.put("rating", new RatingFilter());
     }
 
     private static final HashMap<String, Sort> SORTS;
@@ -275,13 +282,12 @@ public class Database {
         // Add Commands here
         // Note: Keys should always be lowercase
         SORTS.put("acquisitiondate", new AcquisitionDate());
-        SORTS.put("alphasong", new Alphabetical());
-        SORTS.put("alphaartist", new Alphabetical());
+        SORTS.put("alphabetical", new Alphabetical());
         SORTS.put("rating", new Rating());
     }
 
     public void setFilter(String filter) {
-        if (FILTERS.containsKey(filter)) {
+        if (FILTERS.containsKey(filter.toLowerCase())) {
             this.filter = FILTERS.get(filter);
         } else {
             System.err.printf("Invalid search filter '%s' for songs\n", filter);
@@ -389,8 +395,8 @@ public class Database {
         return output;
     }
 
-	public Searchable getArtistFromLibrary(String args) {
-		return library.getArtist(args);
+	public Collection<Searchable> getArtistFromLibrary(String args) {
+		return library.getArtistMap().get(args);
 	}
 
 	public Searchable getReleaseFromLibrary(String args) {

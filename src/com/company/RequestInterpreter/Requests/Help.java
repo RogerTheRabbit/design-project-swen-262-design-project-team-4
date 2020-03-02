@@ -3,16 +3,25 @@ package com.company.RequestInterpreter.Requests;
 import java.util.HashMap;
 
 /**
- * help
+ * Help implements the Request class.
+ * If the user asks for help as a request,
+ * this will display the usage for each command
  */
 public class Help implements Request {
 
     private String helperString = "";
 
+    /**
+     * Constructor
+     */
     public Help(HashMap<String, Request> commands) {
         genHelperString(commands);
     }
 
+    /**
+     * Takes in all of the commands available and prints out their usage description to the user
+     * @param commands all available commands
+     */
     private void genHelperString(HashMap<String, Request> commands) {
 
         for(String key : commands.keySet()) {

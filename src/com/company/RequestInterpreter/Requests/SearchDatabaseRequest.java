@@ -1,7 +1,5 @@
 package com.company.RequestInterpreter.Requests;
 
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -9,12 +7,17 @@ import com.company.Database.Database;
 import com.company.Database.Searchable;
 
 /**
- * SearchDatabaseRequest
+ * SearchDatabaseRequest implements the Request class.
+ * It takes in a string from the user to search for in the database.
+ * It handles any invalid parameters given.
  */
 public class SearchDatabaseRequest implements Request {
 
     private Database database;
 
+    /**
+     * Constructor
+     */
     public SearchDatabaseRequest(Database database) {
         this.database = database;
     }

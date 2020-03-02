@@ -3,12 +3,16 @@ package com.company.RequestInterpreter.Requests;
 import com.company.Database.Database;
 
 /**
- * BrowseRequest
+ * BrowseRequest implements the Request class.
+ * It is a request from the user to browse for an artist within the database
  */
 public class BrowseRequest implements Request {
 
     Database database;
 
+    /**
+     * Constructor
+     */
     public BrowseRequest(Database database) {
         this.database = database;
     }

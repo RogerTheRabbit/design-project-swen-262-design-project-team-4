@@ -3,12 +3,17 @@ package com.company.RequestInterpreter.Requests;
 import com.company.Database.Database;
 
 /**
- * RateRequest
+ * RateRequest implements the Request class.
+ * Takes in a string argument in the handler to provide a rating for a searchable in
+ * a user's library
  */
 public class RateRequest implements Request {
 
     private Database database;
 
+    /**
+     * Constructor
+     */
     public RateRequest(Database database) {
         this.database = database;
     }

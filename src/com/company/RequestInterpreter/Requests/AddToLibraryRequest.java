@@ -6,12 +6,16 @@ import com.company.Database.Database;
 import com.company.Database.SearchableMaker;
 
 /**
- * AddToLibraryRequest
+ * AddToLibraryRequest is an implementation of the Request class.
+ * It adds a Searchable object to the user's library.
  */
 public class AddToLibraryRequest implements Request {
 
     private Database database;
 
+    /**
+     * Constructor
+     */
     public AddToLibraryRequest(Database database) {
         this.database = database;
     }
@@ -35,8 +39,6 @@ public class AddToLibraryRequest implements Request {
         } else {
             date = new Date();
         }
-
-        System.out.println(date);
 
         database.addSearchableToLibrary(params[0], date);
 

@@ -155,7 +155,7 @@ public class Release implements Searchable {
                 ", medium=" + medium +
                 ", rating=" + getRating() +
                 ", duration=" + duration +
-                '}';
+                "}\n";
     }
 
 }

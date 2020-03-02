@@ -1,21 +1,23 @@
 package com.company.RequestInterpreter.Requests;
 
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
 
 import com.company.Database.Database;
 import com.company.Database.Searchable;
-import com.company.RequestInterpreter.Sorts.*;
 
 /**
- * SearchLibraryRequest
+ * SearchLibraryRequest implements the Request class.
+ * It takes in a string from the user and searches their library for that item.
+ * Handles any invalid parameters given.
  */
 public class SearchLibraryRequest implements Request {
 
     Database database;
 
+    /**
+     * Constructor
+     */
     public SearchLibraryRequest(Database database) {
         this.database = database;
     }

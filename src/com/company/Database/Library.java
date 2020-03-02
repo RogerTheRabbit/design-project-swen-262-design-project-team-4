@@ -243,14 +243,16 @@ public class Library {
         return ratingsMap;
     }
 
-	public Artist getArtist(String GUID) {
-        for(Searchable artist : searchables) {
-            if(artist.getGUID().equals(GUID)) {
-                return (Artist) artist;
-            }
-        }
-		return null;
-	}
+	// public Artist getArtist(String GUID) {
+    //     System.out.println(GUID);
+    //     System.out.println(searchables);
+    //     for(Searchable artist : searchables) {
+    //         if(artist.getGUID().equals(GUID)) {
+    //             return (Artist) artist;
+    //         }
+    //     }
+	// 	return null;
+	// }
 
 	public Release getRelease(String GUID) {
         for(Searchable artist : searchables) {

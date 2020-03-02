@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import com.company.Database.Searchable;
 
 /**
- * Response
+ * Response **Not currently being used**
  * 
  */
 public class Response {

@@ -1,5 +1,7 @@
 package com.company.RequestInterpreter.Requests;
 
+import java.util.Collection;
+
 import com.company.Database.Database;
 import com.company.Database.Searchable;
 
@@ -17,7 +19,7 @@ public class SelectArtist implements Request {
     @Override
     public Response handle(String args) {
         
-        Searchable output = database.getArtistFromLibrary(args);
+        Collection<Searchable> output = database.getArtistFromLibrary(args);
 
         if (output != null) {
             System.out.println(output);
