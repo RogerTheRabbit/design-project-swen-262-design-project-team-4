@@ -50,7 +50,6 @@ public class SearchDatabaseRequest implements Request {
                 return null;
         }
 
-        
         System.out.println(songs);
         return null;
     }
