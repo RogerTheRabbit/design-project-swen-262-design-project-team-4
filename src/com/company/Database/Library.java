@@ -13,6 +13,8 @@ import java.util.*;
 /**
  * Library
  * 
+ * This class represents a user's personal library.
+ * 
  */
 public class Library {
 
@@ -33,10 +35,21 @@ public class Library {
         return searchables;
     }
 
+    /**
+     * Gets a user's name.  This is for future implementations with multiple users.
+     * 
+     * @return the users username
+     */
     public String getUsername() {
         return username;
     }
 
+    /**
+     * Adds Searchables to the user's library based on their GUID.
+     * 
+     * @param searchableGUID the GUID of the searchable to add to the user's library
+     * @return true if added successfully, false otherwise.
+     */
     public boolean addSearchable(String searchableGUID) {
 
         Searchable songToAdd = database.getSearchable(searchableGUID);
@@ -49,6 +62,12 @@ public class Library {
         return false;
     }
 
+    /**
+     * Helper function for addSearchable. This function adds a artist to the 
+     * ArtistHashMap to keep track of what artists are in a user's database.
+     * 
+     * @param songToAdd Searchable to add to user's ArtistMap.
+     */
     private void addSongToArtistMap(Searchable songToAdd){
         String artistguid = songToAdd.getArtistGUID();
 
@@ -64,14 +83,26 @@ public class Library {
         }
     }
 
+    /**
+     * Add an Acquisition date to a song.
+     * Acquisition dates are added after a searchable is made.
+     * 
+     * @param guid GUID of searchable to add an acquisition date
+     * @param accDate Date to add to Searchable
+     */
     public void addAcquisitionDate(String guid, Date accDate){
         database.getSong(guid).setAcquisitionDate(accDate);
     }
 
+    /**
+     * Remove a searchable from a user's library and update the 
+     * ArtistMap accordingly
+     * 
+     * @param searchableGUID GUID of searchable to remove from library
+     * @return true of successful, false otherwise
+     */
     public boolean removeSearchable(String searchableGUID) {
         Searchable songToRemove = database.getSearchable(searchableGUID);
-
-        // TODO: Make sure that if all songs from an artist are removed from the database, remove the artist as well.
 
         if(songToRemove != null) {
 
@@ -84,6 +115,12 @@ public class Library {
         return false;
     }
 
+    /**
+     * Helper function for removeSearchable
+     * Handles removing artists from the ArtistMap after removing a searchable
+     * 
+     * @param songToRemove Searchable song to remove from library
+     */
     private void removeSongFromArtistMap(Searchable songToRemove){
         String key = songToRemove.getArtistGUID();
 
@@ -95,11 +132,23 @@ public class Library {
         }
     }
 
-    boolean addRating(String searchableGUID, Integer rating) {
+    /**
+     * Add a rating to a song
+     * 
+     * @param searchableGUID Searchable GUID to add rating to
+     * @param rating Rating to add to searchable.  Rating should be between 1 and 5 inclusive 
+     */
+    void addRating(String searchableGUID, Integer rating) {
         database.getSong(searchableGUID).setRating(rating);
-        return false;
     }
 
+    /**
+     * Given a list of searchables, make a new list that only contains the 
+     * type of searchable.
+     * 
+     * @param searchableType The type of searchable to filter out
+     * @return An ArrayList that contains only the searchables of Type searchableType
+     */
     public ArrayList<Searchable> seperateSearchables(String searchableType){
 
         ArrayList<Searchable> seperatedSearchables = new ArrayList<>();
@@ -129,7 +178,12 @@ public class Library {
         return seperatedSearchables;
     }
 
-    public void saveLibrary(){
+    /**
+     * Saves the library to a file to be read upon system restart.
+     * 
+     * This gets called before the system exits.
+     */
+    public void saveLibrary() {
         File artistFile = FILEWRITER.makeFile(username, "Artists");
         ArrayList<Searchable> artists = seperateSearchables("Artist");
         FILEWRITER.saveSearchables(artistFile, artists);
@@ -154,7 +208,15 @@ public class Library {
         FILEWRITER.saveHashmap(acquisitionDateFile, datesToHashMap(someSongs));
     }
 
-    public  HashMap<String, Integer> ratingsToHashMap(Collection<Searchable> searchables){
+    /**
+     * Takes a collection of Searchables and converts it into a hashmap.
+     * key = GUID of Searchable
+     * value = rating of song
+     * 
+     * @param searchables Searchables to convert into hashmap
+     * @return Hashmap containing searchables in a key value pair where key = GUID of Searchable and value = rating of song
+     */
+    public HashMap<String, Integer> ratingsToHashMap(Collection<Searchable> searchables){
         HashMap<String, Integer> ratingsMap = new HashMap<>();
         for(Searchable song: searchables){
             ratingsMap.put(song.getGUID(), song.getRating());
@@ -162,14 +224,19 @@ public class Library {
         return ratingsMap;
     }
 
-
-    public  HashMap<String, Date> datesToHashMap(Collection<Song> searchables){
+    /**
+     * Converts dates to a hashmap.
+     * key = Searchable GUID
+     * value = rating
+     * 
+     * @param searchables Collection of searchables to add to convert to map
+     * @return Hashmap containing searchables in a key value pair where key = Searchable GUID and value = rating
+     */
+    public HashMap<String, Date> datesToHashMap(Collection<Song> searchables) {
         HashMap<String, Date> ratingsMap = new HashMap<>();
         for(Song song: searchables){
             ratingsMap.put(song.getGUID(), song.getAcquisitionDate());
         }
         return ratingsMap;
     }
-
-
 }
