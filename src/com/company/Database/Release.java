@@ -23,6 +23,7 @@ public class Release implements Searchable {
     private Medium medium;
     private List<Searchable> songList;
     private int duration;
+    private Date acquisitionDate;
 
 
 
@@ -34,6 +35,7 @@ public class Release implements Searchable {
         this.songList = songList;
         this.medium = medium;
         this.issueDate = issueDate;
+        this.acquisitionDate = null;
     }
 
     /**
@@ -109,6 +111,22 @@ public class Release implements Searchable {
             return 0;
         }
         return average/numSongs;
+    }
+
+    /**
+     * Gets the acquisition date
+     * @return acquisition date
+     */
+    public Date getAcquisitionDate() {
+        return acquisitionDate;
+    }
+
+    /**
+     * Sets the acquisition date
+     * @param acquisitionDate
+     */
+    public void setAcquisitionDate(Date acquisitionDate) {
+        this.acquisitionDate = acquisitionDate;
     }
 
     /**

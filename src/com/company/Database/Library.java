@@ -91,7 +91,7 @@ public class Library {
      * @param accDate Date to add to Searchable
      */
     public void addAcquisitionDate(String guid, Date accDate){
-        database.getSong(guid).setAcquisitionDate(accDate);
+        database.getSearchable(guid).setAcquisitionDate(accDate);
     }
 
     /**
@@ -201,11 +201,11 @@ public class Library {
         FILEWRITER.saveHashmap(ratingFile, ratingsToHashMap(seperateSearchables("Song")));
 
         File acquisitionDateFile = FILEWRITER.makeFile(username, "Dates");
-        Collection<Song> someSongs = new ArrayList<>();
-        for(Searchable song: songs){
-            someSongs.add((Song)song);
-        }
+        Collection<Searchable> someSongs = new ArrayList<>(songs);
         FILEWRITER.saveHashmap(acquisitionDateFile, datesToHashMap(someSongs));
+
+        Collection<Searchable> someReleases = new ArrayList<>(releases);
+        FILEWRITER.saveHashmap(acquisitionDateFile, datesToHashMap(someReleases));
     }
 
     /**
@@ -232,10 +232,10 @@ public class Library {
      * @param searchables Collection of searchables to add to convert to map
      * @return Hashmap containing searchables in a key value pair where key = Searchable GUID and value = rating
      */
-    public HashMap<String, Date> datesToHashMap(Collection<Song> searchables) {
+    public HashMap<String, Date> datesToHashMap(Collection<Searchable> searchables) {
         HashMap<String, Date> ratingsMap = new HashMap<>();
-        for(Song song: searchables){
-            ratingsMap.put(song.getGUID(), song.getAcquisitionDate());
+        for(Searchable searchable: searchables){
+            ratingsMap.put(searchable.getGUID(), searchable.getAcquisitionDate());
         }
         return ratingsMap;
     }

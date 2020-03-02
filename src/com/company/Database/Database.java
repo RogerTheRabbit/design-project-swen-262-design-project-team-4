@@ -191,8 +191,8 @@ public class Database {
         try {
             ArrayList<String[]> splitData = FILEREADER.readFile();
             for (String[] fields : splitData) {
-                Song songToAddDate = songs.get(fields[0]);
-                songToAddDate.setAcquisitionDate(SearchableMaker.makeDate(fields[1]));
+                Searchable searchableToAddDate = songs.get(fields[0]);
+                searchableToAddDate.setAcquisitionDate(SearchableMaker.makeDate(fields[1]));
             }
         } catch (Exception e) {
             // System.err.println(e);

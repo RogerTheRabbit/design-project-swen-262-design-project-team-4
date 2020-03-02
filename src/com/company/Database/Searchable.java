@@ -1,5 +1,6 @@
 package com.company.Database;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -17,4 +18,6 @@ public interface Searchable {
     public String getGUID();
     public Integer getRating();
     public String formatToCsv();
+    public void setAcquisitionDate(Date date);
+    public Date getAcquisitionDate();
 }
