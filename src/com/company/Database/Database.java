@@ -277,7 +277,7 @@ public class Database {
         SORTS.put("acquisitiondate", new AcquisitionDate());
         SORTS.put("alphasong", new AlphabeticalSong());
         SORTS.put("alphaartist", new AlphabeticalArtist());
-        SORTS.put("rating", new Rating(library));
+        SORTS.put("rating", new Rating());
     }
 
     public void setFilter(String filter) {
