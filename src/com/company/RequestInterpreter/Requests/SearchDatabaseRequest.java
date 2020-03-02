@@ -7,8 +7,6 @@ import java.util.List;
 
 import com.company.Database.Database;
 import com.company.Database.Searchable;
-import com.company.RequestInterpreter.Filters.Filter;
-import com.company.RequestInterpreter.Sorts.AlphabeticalArtist;
 
 /**
  * SearchDatabaseRequest

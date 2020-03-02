@@ -246,6 +246,13 @@ public class Database {
         library.addRating(searchableGUID, rating);
     }
 
+    /**
+     * ===================================================================================
+     * For future releases, most of the functionality below this line should be moved to
+     * a display class.
+     * ===================================================================================
+     */    
+
     private static final HashMap<String, Filter> FILTERS;
     static {
         FILTERS = new HashMap<>();
