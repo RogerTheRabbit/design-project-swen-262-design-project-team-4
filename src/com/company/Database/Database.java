@@ -265,7 +265,7 @@ public class Database {
         FILTERS.put("name", new DateRangeFilter());
         FILTERS.put("artist", new DateRangeFilter());
         FILTERS.put("duration", new DateRangeFilter());
-        FILTERS.put("GUID", new GUIDFilter());
+        FILTERS.put("guid", new GUIDFilter());
         FILTERS.put("date-range", new DateRangeFilter());
     }
 
@@ -281,7 +281,7 @@ public class Database {
     }
 
     public void setFilter(String filter) {
-        if (FILTERS.containsKey(filter)) {
+        if (FILTERS.containsKey(filter.toLowerCase())) {
             this.filter = FILTERS.get(filter);
         } else {
             System.err.printf("Invalid search filter '%s' for songs\n", filter);
