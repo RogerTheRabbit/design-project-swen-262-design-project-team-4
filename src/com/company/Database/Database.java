@@ -262,11 +262,13 @@ public class Database {
     private static final HashMap<String, Filter> FILTERS;
     static {
         FILTERS = new HashMap<>();
-        FILTERS.put("name", new DateRangeFilter());
-        FILTERS.put("artist", new DateRangeFilter());
-        FILTERS.put("duration", new DateRangeFilter());
+        FILTERS.put("name", new NameFilter());
+        // FILTERS.put("artist", new ArtistFilter());
+        FILTERS.put("maxduration", new MaxDurationFilter());
+        FILTERS.put("minduration", new MinDurationFilter());
         FILTERS.put("guid", new GUIDFilter());
         FILTERS.put("date-range", new DateRangeFilter());
+        FILTERS.put("rating", new RatingFilter());
     }
 
     private static final HashMap<String, Sort> SORTS;
@@ -275,8 +277,7 @@ public class Database {
         // Add Commands here
         // Note: Keys should always be lowercase
         SORTS.put("acquisitiondate", new AcquisitionDate());
-        SORTS.put("alphasong", new Alphabetical());
-        SORTS.put("alphaartist", new Alphabetical());
+        SORTS.put("alphabetical", new Alphabetical());
         SORTS.put("rating", new Rating());
     }
 
