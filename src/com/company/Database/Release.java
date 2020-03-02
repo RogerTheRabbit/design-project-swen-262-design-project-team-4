@@ -131,7 +131,8 @@ public class Release implements Searchable {
     @Override
     public String toString() {
         return "Release{" +
-                ", title='" + title + '\'' +
+                "guid='" + guid +
+                ", title='" + title +
                 ", issueDate=" + issueDate +
                 ", medium=" + medium +
                 ", rating=" + getRating() +
