@@ -195,13 +195,6 @@ public class Database {
      * ===================================================================================
      */
 
-    public Collection<Searchable> getMusic() {
-        Collection<Searchable> music = new LinkedList<Searchable>();
-        music.addAll(songs.values());
-        music.addAll(releases.values());
-        return music;
-    }
-
     public Song getSong(String GUID) {
         return songs.get(GUID);
     }
@@ -259,8 +252,6 @@ public class Database {
     private static final HashMap<String, Filter> FILTERS;
     static {
         FILTERS = new HashMap<>();
-        // Add Commands here
-        // Note: Keys should always be lowercase
         FILTERS.put("name", new DateRangeFilter());
         FILTERS.put("artist", new DateRangeFilter());
         FILTERS.put("duration", new DateRangeFilter());
