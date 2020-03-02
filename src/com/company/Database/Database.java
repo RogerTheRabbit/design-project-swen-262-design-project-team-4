@@ -389,8 +389,8 @@ public class Database {
         return output;
     }
 
-	public Searchable getArtistFromLibrary(String args) {
-		return library.getArtist(args);
+	public Collection<Searchable> getArtistFromLibrary(String args) {
+		return library.getArtistMap().get(args);
 	}
 
 	public Searchable getReleaseFromLibrary(String args) {
