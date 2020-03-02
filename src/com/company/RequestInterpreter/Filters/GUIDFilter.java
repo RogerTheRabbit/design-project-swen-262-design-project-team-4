@@ -18,7 +18,7 @@ public class GUIDFilter implements Filter {
         LinkedList<Release> filteredReleases = new LinkedList<>();
 
         for (Release release : values) {
-            if (release.getGUID().equals(searchValue)) {
+            if (release.getGUID().contains(searchValue)) {
                 filteredReleases.add(release);
             }
         }
@@ -32,7 +32,7 @@ public class GUIDFilter implements Filter {
         LinkedList<Song> filteredReleases = new LinkedList<>();
 
         for (Song song : values) {
-            if (song.getGUID().equals(searchValue)) {
+            if (song.getGUID().contains(searchValue)) {
                 filteredReleases.add(song);
             }
         }
@@ -45,7 +45,7 @@ public class GUIDFilter implements Filter {
         LinkedList<Artist> filteredReleases = new LinkedList<>();
 
         for (Artist artist : values) {
-            if (artist.getGUID().equals(searchValue)) {
+            if (artist.getGUID().contains(searchValue)) {
                 filteredReleases.add(artist);
             }
         }

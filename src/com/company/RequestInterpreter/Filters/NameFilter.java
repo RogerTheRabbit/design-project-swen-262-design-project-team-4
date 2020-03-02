@@ -18,7 +18,7 @@ public class NameFilter implements Filter {
         LinkedList<Release> filteredReleases = new LinkedList<>();
 
         for (Release release : values) {
-            if (release.getName().equals(searchValue)) {
+            if (release.getName().contains(searchValue)) {
                 filteredReleases.add(release);
             }
         }
@@ -32,7 +32,7 @@ public class NameFilter implements Filter {
         LinkedList<Song> filteredReleases = new LinkedList<>();
 
         for (Song song : values) {
-            if (song.getName().equals(searchValue)) {
+            if (song.getName().contains(searchValue)) {
                 filteredReleases.add(song);
             }
         }
@@ -46,7 +46,7 @@ public class NameFilter implements Filter {
         LinkedList<Artist> filteredReleases = new LinkedList<>();
 
         for (Artist artist : values) {
-            if (artist.getGUID().equals(searchValue)) {
+            if (artist.getGUID().contains(searchValue)) {
                 filteredReleases.add(artist);
             }
         }
