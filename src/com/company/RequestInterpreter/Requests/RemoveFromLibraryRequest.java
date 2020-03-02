@@ -3,12 +3,16 @@ package com.company.RequestInterpreter.Requests;
 import com.company.Database.Database;
 
 /**
- * RemoveFromLibraryRequest
+ * RemoveFromLibraryRequest implements the Request class and removes
+ * Searchables from your personal library based on the strings you enter
  */
 public class RemoveFromLibraryRequest implements Request {
 
     private Database database;
 
+    /**
+     * Constructor
+     */
     public RemoveFromLibraryRequest(Database database) {
         this.database = database;
     }
