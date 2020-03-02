@@ -8,6 +8,10 @@ import com.company.Database.Release;
 import com.company.Database.Searchable;
 import com.company.Database.Song;
 
+/**
+ * @author
+ * Interface for the different filters for songs, releases, and artists
+ */
 public interface Filter {
 
     public LinkedList<Release> filterReleases(Collection<Release> values, String searchValue);

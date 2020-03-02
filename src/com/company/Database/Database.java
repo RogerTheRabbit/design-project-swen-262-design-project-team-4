@@ -4,6 +4,7 @@ import com.company.FileIO.FileParser;
 import com.company.RequestInterpreter.Filters.DateRangeFilter;
 import com.company.RequestInterpreter.Filters.Filter;
 import com.company.RequestInterpreter.Filters.GUIDFilter;
+import com.company.RequestInterpreter.Filters.NameFilter;
 import com.company.RequestInterpreter.Sorts.AcquisitionDate;
 import com.company.RequestInterpreter.Sorts.AlphabeticalArtist;
 import com.company.RequestInterpreter.Sorts.AlphabeticalSong;
@@ -44,6 +45,9 @@ public class Database {
         this.songs = new HashMap<>();
         this.releases = new HashMap<>();
         this.artists = new HashMap<>();
+        this.filter = new NameFilter();         // Set default filtering
+        //TODO: Make sure this is sort by name because every searchable has a name.
+        this.sort = new AlphabeticalArtist();   // Set default sorting
         initializeDatabase();
     }
 
@@ -246,6 +250,13 @@ public class Database {
         library.addRating(searchableGUID, rating);
     }
 
+    /**
+     * ===================================================================================
+     * For future releases, most of the functionality below this line should be moved to
+     * a display class.
+     * ===================================================================================
+     */    
+
     private static final HashMap<String, Filter> FILTERS;
     static {
         FILTERS = new HashMap<>();
@@ -266,7 +277,7 @@ public class Database {
         SORTS.put("acquisitiondate", new AcquisitionDate());
         SORTS.put("alphasong", new AlphabeticalSong());
         SORTS.put("alphaartist", new AlphabeticalArtist());
-        SORTS.put("rating", new Rating(library));
+        SORTS.put("rating", new Rating());
     }
 
     public void setFilter(String filter) {

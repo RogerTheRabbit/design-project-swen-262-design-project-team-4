@@ -5,5 +5,5 @@ import java.util.Comparator;
 import com.company.Database.Searchable;
 
 public interface Sort extends Comparator<Searchable> {
-
+    public int compare(Searchable o1, Searchable o2);
 }
