@@ -3,6 +3,7 @@ package com.company.RequestInterpreter.Filters;
 import java.util.Collection;
 import java.util.LinkedList;
 
+import com.company.Database.Artist;
 import com.company.Database.Release;
 import com.company.Database.Song;
 
@@ -16,12 +17,12 @@ public class GUIDFilter implements Filter {
 
         LinkedList<Release> filteredReleases = new LinkedList<>();
 
-        for(Release release : values) {
-            if(release.getGUID().equals(searchValue)) {
+        for (Release release : values) {
+            if (release.getGUID().equals(searchValue)) {
                 filteredReleases.add(release);
             }
         }
-        
+
         return filteredReleases;
     }
 
@@ -30,13 +31,19 @@ public class GUIDFilter implements Filter {
 
         LinkedList<Song> filteredReleases = new LinkedList<>();
 
-        for(Song release : values) {
-            if(release.getGUID().equals(searchValue)) {
+        for (Song release : values) {
+            if (release.getGUID().equals(searchValue)) {
                 filteredReleases.add(release);
             }
         }
-        
+
         return filteredReleases;
+    }
+
+    @Override
+    public LinkedList<Artist> filterArtists(Collection<Artist> someSongs, String searchValue) {
+        // TODO Auto-generated method stub
+        return null;
     }
 
     

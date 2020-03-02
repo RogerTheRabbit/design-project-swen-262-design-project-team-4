@@ -48,12 +48,12 @@ public class SearchLibraryRequest implements Request {
             case "song":
                 songs.addAll(database.getSongsFromLibrary(searchValue.trim()));
                 break;
-            // case "release":
-            //     songs.addAll(database.getReleasesFromLibrary(searchValue.trim()));
-            //     break;
-            // case "artist":
-            //     songs.addAll(database.getArtistsFromLibrary(searchValue.trim()));
-            //     break;
+            case "release":
+                songs.addAll(database.getReleasesFromLibrary(searchValue.trim()));
+                break;
+            case "artist":
+                songs.addAll(database.getArtistsFromLibrary(searchValue.trim()));
+                break;
             default:
                 System.err.println("Invalid search type. Please specify either 'song' or 'release' or 'artist'.");
                 return null;

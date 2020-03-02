@@ -328,11 +328,56 @@ public class Database {
             return new LinkedList<>();
         }
 
-        LinkedList<Song> output = filter.filterSongs(songs.values(), searchValue);
+        Collection<Song> someSongs = new ArrayList<>();
+        for(Searchable song: library.seperateSearchables("song")){
+            someSongs.add((Song)song);
+        }
+
+        LinkedList<Song> output = filter.filterSongs(someSongs, searchValue);
 
         output.sort(sort);
 
-        return output;   
+        return output;
     }
+
+    public Collection<Release> getReleasesFromLibrary(String searchValue) {
+		
+        if (filter == null) {
+            System.err.println("Filter not set, please use 'setfilter' to set the filter.");
+            return new LinkedList<>();
+        }
+
+        Collection<Release> someSongs = new ArrayList<>();
+        for(Searchable song: library.seperateSearchables("artist")){
+            someSongs.add((Release)song);
+        }
+
+        LinkedList<Release> output = filter.filterReleases(someSongs, searchValue);
+
+        output.sort(sort);
+
+        return output;
+	}
+
+	public Collection<Artist> getArtistsFromLibrary(String searchValue) {
+
+        if (filter == null) {
+            System.err.println("Filter not set, please use 'setfilter' to set the filter.");
+            return new LinkedList<>();
+        }
+
+        Collection<Artist> someSongs = new ArrayList<>();
+        for(Searchable song: library.seperateSearchables("artist")){
+            someSongs.add((Artist)song);
+        }
+
+        LinkedList<Artist> output = filter.filterArtists(someSongs, searchValue);
+
+        output.sort(sort);
+
+        return output;
+    }
+
+
 
 }
