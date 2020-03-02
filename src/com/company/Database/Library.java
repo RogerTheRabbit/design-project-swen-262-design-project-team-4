@@ -89,6 +89,10 @@ public class Library {
 
         Collection<Searchable> songs = artistMap.get(key);
         songs.remove(songToRemove);
+        artistMap.put(key, songs);
+        if(songs.size() == 0){
+            artistMap.remove(key);
+        }
     }
 
     boolean addRating(String searchableGUID, Integer rating) {
