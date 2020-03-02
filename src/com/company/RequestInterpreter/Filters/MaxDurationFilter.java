@@ -24,7 +24,7 @@ public class MaxDurationFilter implements Filter{
             return filteredReleases;
         }
 
-        System.out.printf("No releases under %d ms were found.\n", maxLength);
+        System.out.printf("No releases less than %d ms were found.\n", maxLength);
 
         return null;
     }
@@ -45,7 +45,7 @@ public class MaxDurationFilter implements Filter{
             return filteredSongs;
         }
 
-        System.out.printf("No songs under %d ms were found.\n", maxLength);
+        System.out.printf("No songs less than %d ms were found.\n", maxLength);
 
         return null;
     }
@@ -65,7 +65,7 @@ public class MaxDurationFilter implements Filter{
             return filteredArtists;
         }
 
-        System.out.printf("No releases under %d ms were found.\n", maxLength);
+        System.out.printf("No releases less than %d ms were found.\n", maxLength);
 
         return null;
     }
