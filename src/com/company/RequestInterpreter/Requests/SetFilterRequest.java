@@ -21,7 +21,7 @@ public class SetFilterRequest implements Request {
 
     @Override
     public String getUsageDesc() {
-        return String.format("[search filter %s]", database.getAvailableFilterTypes());
+        return String.format("{search filter [%s]}", database.getAvailableFilterTypes());
     }
 
     

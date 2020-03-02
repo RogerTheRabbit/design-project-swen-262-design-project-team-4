@@ -45,7 +45,7 @@ public class AddToLibraryRequest implements Request {
 
     @Override
     public String getUsageDesc() {
-        return "[GUID] [date (YYYY-MM-DD)]";
+        return "{GUID} {date [YYYY-MM-DD]}";
     }
 
     

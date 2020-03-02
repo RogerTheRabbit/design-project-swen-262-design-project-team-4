@@ -24,7 +24,7 @@ public class RemoveFromLibraryRequest implements Request {
 
     @Override
     public String getUsageDesc() {
-        return "[GUID]";
+        return "{GUID}";
     }
 
     

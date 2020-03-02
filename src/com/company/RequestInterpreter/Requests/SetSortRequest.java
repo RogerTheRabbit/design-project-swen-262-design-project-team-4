@@ -23,6 +23,6 @@ public class SetSortRequest implements Request {
 
     @Override
     public String getUsageDesc() {
-        return String.format("[sort by %s]", database.getAvailableSortTypes());
+        return String.format("{sort by [%s]}", database.getAvailableSortTypes());
     }
 }

@@ -71,7 +71,7 @@ public class SearchDatabaseRequest implements Request {
 
     @Override
     public String getUsageDesc() {
-        return "[search type (song, release)] [search value]";
+        return "{search type (song, release)} {search value}";
     }
 
 }

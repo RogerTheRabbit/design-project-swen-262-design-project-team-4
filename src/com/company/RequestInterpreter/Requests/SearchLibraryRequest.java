@@ -40,7 +40,7 @@ public class SearchLibraryRequest implements Request {
 
     @Override
     public String getUsageDesc() {
-        return "[search type (song, release, artist)] []";
+        return "(search type [song, release, artist]) []";
     }
 
     
