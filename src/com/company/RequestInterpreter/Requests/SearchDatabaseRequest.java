@@ -7,6 +7,7 @@ import java.util.List;
 
 import com.company.Database.Database;
 import com.company.Database.Searchable;
+import com.company.RequestInterpreter.Filters.Filter;
 import com.company.RequestInterpreter.Sorts.AlphabeticalArtist;
 
 /**
@@ -17,9 +18,14 @@ public class SearchDatabaseRequest implements Request {
     private Database database;
 
     private Comparator<Searchable> sort = new AlphabeticalArtist();
+    private Filter filter;
 
     public void setSort(Comparator<Searchable> sort) {
         this.sort = sort;
+    }
+
+    public void setFilter(String filter) {
+        // Handle setting filter.
     }
 
     public SearchDatabaseRequest(Database database) {
