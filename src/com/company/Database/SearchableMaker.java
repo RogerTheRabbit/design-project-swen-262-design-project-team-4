@@ -112,6 +112,11 @@ public class SearchableMaker {
      * @throws Exception If the date created is invalid
      */
     public static Date makeDate(String date) throws Exception{
+        if(date.length()> 11){
+            return new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy").parse(date);
+
+        }
+
         String[] dateFields = date.split("-");
         Date dates;
         if(dateFields.length == 3){
