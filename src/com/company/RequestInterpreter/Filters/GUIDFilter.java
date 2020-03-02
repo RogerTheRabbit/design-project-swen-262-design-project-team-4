@@ -31,9 +31,9 @@ public class GUIDFilter implements Filter {
 
         LinkedList<Song> filteredReleases = new LinkedList<>();
 
-        for (Song release : values) {
-            if (release.getGUID().equals(searchValue)) {
-                filteredReleases.add(release);
+        for (Song song : values) {
+            if (song.getGUID().equals(searchValue)) {
+                filteredReleases.add(song);
             }
         }
 
@@ -41,10 +41,16 @@ public class GUIDFilter implements Filter {
     }
 
     @Override
-    public LinkedList<Artist> filterArtists(Collection<Artist> someSongs, String searchValue) {
-        // TODO Auto-generated method stub
-        return null;
+    public LinkedList<Artist> filterArtists(Collection<Artist> values, String searchValue) {
+        LinkedList<Artist> filteredReleases = new LinkedList<>();
+
+        for (Artist artist : values) {
+            if (artist.getGUID().equals(searchValue)) {
+                filteredReleases.add(artist);
+            }
+        }
+
+        return filteredReleases;
     }
 
-    
 }

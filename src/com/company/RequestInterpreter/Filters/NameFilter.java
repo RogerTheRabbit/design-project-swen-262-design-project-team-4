@@ -14,22 +14,44 @@ public class NameFilter implements Filter {
 
     @Override
     public LinkedList<Release> filterReleases(Collection<Release> values, String searchValue) {
-        // TODO Auto-generated method stub
-        return null;
+
+        LinkedList<Release> filteredReleases = new LinkedList<>();
+
+        for (Release release : values) {
+            if (release.getName().equals(searchValue)) {
+                filteredReleases.add(release);
+            }
+        }
+
+        return filteredReleases;
     }
+
 
     @Override
     public LinkedList<Song> filterSongs(Collection<Song> values, String searchValue) {
-        // TODO Auto-generated method stub
-        return null;
+        LinkedList<Song> filteredReleases = new LinkedList<>();
+
+        for (Song song : values) {
+            if (song.getName().equals(searchValue)) {
+                filteredReleases.add(song);
+            }
+        }
+
+        return filteredReleases;
     }
+
 
     @Override
-    public LinkedList<Artist> filterArtists(Collection<Artist> someSongs, String searchValue) {
-        // TODO Auto-generated method stub
-        return null;
+    public LinkedList<Artist> filterArtists(Collection<Artist> values, String searchValue) {
+        LinkedList<Artist> filteredReleases = new LinkedList<>();
+
+        for (Artist artist : values) {
+            if (artist.getGUID().equals(searchValue)) {
+                filteredReleases.add(artist);
+            }
+        }
+
+        return filteredReleases;
     }
-
-
     
 }
