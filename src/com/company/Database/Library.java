@@ -120,7 +120,10 @@ public class Library {
         FILEWRITER.saveHashmap(ratingFile, ratingsToHashMap(seperateSearchables("Song")));
 
         File acquisitionDateFile = FILEWRITER.makeFile(username, "Dates");
-        Collection<Song> someSongs = new ArrayList<>((Collection<? extends Song>) songs);
+        Collection<Song> someSongs = new ArrayList<>();
+        for(Searchable song: songs){
+            someSongs.add((Song)song);
+        }
         FILEWRITER.saveHashmap(acquisitionDateFile, datesToHashMap(someSongs));
     }
 

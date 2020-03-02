@@ -113,9 +113,9 @@ public class Song implements Searchable {
     public String toString() {
         return "Song{" +
                 "GUID='" + GUID + '\'' +
-                ", artistGUID='" + artistGUID + '\'' +
                 ", duration=" + duration +
                 ", title='" + title + '\'' +
-                '}';
+                ", rating=" + rating +
+                "}\n";
     }
 }
