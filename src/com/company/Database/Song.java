@@ -89,26 +89,50 @@ public class Song implements Searchable {
         return GUID;
     }
 
+    /**
+     * Gets the rating
+     * @return rating
+     */
     public Integer getRating() {
         return rating;
     }
 
+    /**
+     * Sets the rating
+     * @param rating
+     */
     public void setRating(Integer rating) {
         this.rating = rating;
     }
 
+    /**
+     * Gets the acquisition date
+     * @return acquisition date
+     */
     public Date getAcquisitionDate() {
         return acquisitionDate;
     }
 
+    /**
+     * Sets the acquisition date
+     * @param acquisitionDate
+     */
     public void setAcquisitionDate(Date acquisitionDate) {
         this.acquisitionDate = acquisitionDate;
     }
 
+    /**
+     * Formatter for converting to csv files
+     * @return the formatted string
+     */
     public String formatToCsv(){
         return GUID  + "," + artistGUID + "," + duration + "," + title;
     }
 
+    /**
+     * The formatter for Song objects
+     * @return the formatted string for Song
+     */
     @Override
     public String toString() {
         return "Song{" +
