@@ -20,7 +20,7 @@ public class Library {
     private Database database;
     private FileSaver FILEWRITER;
     private HashSet<Searchable> searchables;
-    private HashMap<Artist, Searchable> artistMap;
+    private HashMap<String, Collection<Searchable>> artistMap;
 
     Library(Database database) {
         this.database = database;
@@ -42,10 +42,26 @@ public class Library {
         Searchable songToAdd = database.getSearchable(searchableGUID);
 
         if(songToAdd != null) {
+            addSongToArtistMap(songToAdd);
             searchables.add(songToAdd);
             return true;
         }
         return false;
+    }
+
+    private void addSongToArtistMap(Searchable songToAdd){
+        String artistguid = songToAdd.getArtistGUID();
+
+        if(artistMap.containsKey(artistguid)){
+            Collection<Searchable> songs = artistMap.get(artistguid);
+            songs.add(songToAdd);
+            artistMap.put(artistguid, songs);
+        }
+        else{
+            Collection<Searchable> songs = new ArrayList<>();
+            songs.add(songToAdd);
+            artistMap.put(artistguid, songs);
+        }
     }
 
     public void addAcquisitionDate(String guid, Date accDate){
@@ -59,13 +75,20 @@ public class Library {
 
         if(songToRemove != null) {
 
-            String artistGUID = songToRemove.getArtistGUID();
+            removeSongFromArtistMap(songToRemove);
 
             searchables.remove(songToRemove);
 
             return true;
         }
         return false;
+    }
+
+    private void removeSongFromArtistMap(Searchable songToRemove){
+        String key = songToRemove.getArtistGUID();
+
+        Collection<Searchable> songs = artistMap.get(key);
+        songs.remove(songToRemove);
     }
 
     boolean addRating(String searchableGUID, Integer rating) {
