@@ -28,7 +28,7 @@ public class CommandLineInterpreter {
         COMMANDS.put("search", new SearchDatabaseRequest(database));
         COMMANDS.put("searchlibrary", new SearchLibraryRequest(database));
         COMMANDS.put("setfilter", new SetFilterRequest());
-        COMMANDS.put("help", new help(COMMANDS));
+        COMMANDS.put("help", new Help(COMMANDS));
     }
 
     public static void main(String[] args) {

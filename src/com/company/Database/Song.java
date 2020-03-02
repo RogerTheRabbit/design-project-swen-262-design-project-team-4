@@ -1,6 +1,7 @@
 package com.company.Database;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -20,6 +21,8 @@ public class Song implements Searchable {
     private String artistGUID;
     private int duration;
     private String title;
+    private Integer rating;
+    private Date acquisitionDate;
 
     /**
      *
@@ -35,6 +38,8 @@ public class Song implements Searchable {
         this.GUID = GUID;
         this.duration = duration;
         this.artistGUID = artistGUID;
+        this.rating = 0;
+        this.acquisitionDate = null;
     }
 
     /**
@@ -82,6 +87,22 @@ public class Song implements Searchable {
     @Override
     public String getGUID() {
         return GUID;
+    }
+
+    public Integer getRating() {
+        return rating;
+    }
+
+    public void setRating(Integer rating) {
+        this.rating = rating;
+    }
+
+    public Date getAcquisitionDate() {
+        return acquisitionDate;
+    }
+
+    public void setAcquisitionDate(Date acquisitionDate) {
+        this.acquisitionDate = acquisitionDate;
     }
 
     public String formatToCsv(){

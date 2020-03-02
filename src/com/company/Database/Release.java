@@ -23,6 +23,7 @@ public class Release implements Searchable {
     private Medium medium;
     private List<Searchable> songList;
     private int duration;
+    private int rating;
 
 
 
@@ -92,6 +93,20 @@ public class Release implements Searchable {
     @Override
     public String getGUID() {
         return guid;
+    }
+
+    @Override
+    public Integer getRating() {
+        int average = 0;
+        int numSongs = 0;
+        for(Searchable song: songList){
+            int rating = song.getRating();
+            average += rating;
+            if(rating != 0){
+                numSongs++;
+            }
+        }
+        return average/numSongs;
     }
 
     /**

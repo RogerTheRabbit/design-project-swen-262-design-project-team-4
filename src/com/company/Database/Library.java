@@ -20,15 +20,13 @@ public class Library {
     private Database database;
     private FileSaver FILEWRITER;
     private HashSet<Searchable> searchables;
-    private HashMap<String, Integer> ratings;
-    private HashMap<String, Date> acquisitionDates;
+    private HashMap<Artist, Searchable> artistMap;
 
     Library(Database database) {
         this.database = database;
         FILEWRITER = FileSaver.getInstance();
         searchables = new HashSet<>();
-        ratings = new HashMap<String, Integer>();
-        acquisitionDates = new HashMap<String, Date>();
+        artistMap = new HashMap<>();
     }
 
     public Collection<Searchable> getSearchables(String searchableGUID) {
@@ -51,7 +49,7 @@ public class Library {
     }
 
     public void addAcquisitionDate(String guid, Date accDate){
-        acquisitionDates.put(guid, accDate);
+        database.getSong(guid).setAcquisitionDate(accDate);
     }
 
     public boolean removeSearchable(String searchableGUID) {
@@ -71,7 +69,7 @@ public class Library {
     }
 
     boolean addRating(String searchableGUID, Integer rating) {
-        ratings.put(searchableGUID, rating);
+        database.getSong(searchableGUID).setRating(rating);
         return false;
     }
 
@@ -119,10 +117,28 @@ public class Library {
 
 
         File ratingFile = FILEWRITER.makeFile(username, "Ratings");
-        FILEWRITER.saveHashmap(ratingFile, ratings);
+        FILEWRITER.saveHashmap(ratingFile, ratingsToHashMap(seperateSearchables("Song")));
 
         File acquisitionDateFile = FILEWRITER.makeFile(username, "Dates");
-        FILEWRITER.saveHashmap(acquisitionDateFile, acquisitionDates);
+        Collection<Song> someSongs = new ArrayList<>((Collection<? extends Song>) songs);
+        FILEWRITER.saveHashmap(acquisitionDateFile, datesToHashMap(someSongs));
+    }
+
+    public  HashMap<String, Integer> ratingsToHashMap(Collection<Searchable> searchables){
+        HashMap<String, Integer> ratingsMap = new HashMap<>();
+        for(Searchable song: searchables){
+            ratingsMap.put(song.getGUID(), song.getRating());
+        }
+        return ratingsMap;
+    }
+
+
+    public  HashMap<String, Date> datesToHashMap(Collection<Song> searchables){
+        HashMap<String, Date> ratingsMap = new HashMap<>();
+        for(Song song: searchables){
+            ratingsMap.put(song.getGUID(), song.getAcquisitionDate());
+        }
+        return ratingsMap;
     }
 
 

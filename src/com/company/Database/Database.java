@@ -78,7 +78,7 @@ public class Database {
         addSearchableToLibraryFromFile(signedInUser, "Artists");
         addSearchableToLibraryFromFile(signedInUser, "Songs");
         addSearchableToLibraryFromFile(signedInUser, "Releases");
-        addRatingToLibraryFromFile(signedInUser);
+        addRatingToSongFromFile(signedInUser);
         addAcquisitionDateFromFile(signedInUser);
     }
 
@@ -150,13 +150,14 @@ public class Database {
         }
     }
 
-    private void addRatingToLibraryFromFile(String signedInUser){
+    private void addRatingToSongFromFile(String signedInUser){
         FILEREADER.setFileName(signedInUser + "Ratings" + ".csv");
         FILEREADER.setFilePath("src/data/user/");
         try {
             ArrayList<String[]> splitData = FILEREADER.readFile();
             for (String[] fields : splitData) {
-                library.addRating(fields[0], Integer.parseInt(fields[1]));
+                Song songToAddRating = songs.get(fields[0]);
+                songToAddRating.setRating(Integer.parseInt(fields[1]));
             }
         }
         catch (java.io.IOException e){
@@ -170,8 +171,8 @@ public class Database {
         try {
             ArrayList<String[]> splitData = FILEREADER.readFile();
             for (String[] fields : splitData) {
-
-                library.addAcquisitionDate(fields[0], SearchableMaker.makeDate(fields[1]));
+                Song songToAddDate = songs.get(fields[0]);
+                songToAddDate.setAcquisitionDate(SearchableMaker.makeDate(fields[1]));
             }
         }
         catch (Exception e){

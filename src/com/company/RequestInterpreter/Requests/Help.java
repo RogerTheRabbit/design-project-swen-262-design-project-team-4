@@ -5,11 +5,11 @@ import java.util.HashMap;
 /**
  * help
  */
-public class help implements Request {
+public class Help implements Request {
 
     private String helperString = "";
 
-    public help(HashMap<String, Request> commands) {
+    public Help(HashMap<String, Request> commands) {
         genHelperString(commands);
     }
 

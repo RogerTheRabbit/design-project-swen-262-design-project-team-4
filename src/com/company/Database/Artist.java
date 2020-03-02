@@ -108,6 +108,20 @@ public class Artist implements Searchable {
         return guid;
     }
 
+    @Override
+    public Integer getRating() {
+        int average = 0;
+        int numSongs = 0;
+        for(Searchable song: discography){
+            int rating = song.getRating();
+            average += rating;
+            if(rating != 0){
+                numSongs++;
+            }
+        }
+        return average/numSongs;
+    }
+
     public String formatToCsv(){
         return guid + "," + name + "," + disambiguation;
     }
@@ -119,7 +133,6 @@ public class Artist implements Searchable {
                 ", name='" + name + '\'' +
                 ", disambiguation='" + disambiguation + '\'' +
                 ", duration=" + duration +
-                ", discography=" + discography +
-                '}';
+                "}\n";
     }
 }
