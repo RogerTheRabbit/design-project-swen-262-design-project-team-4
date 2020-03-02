@@ -236,6 +236,12 @@ public class Database {
     }
 
     public void addSearchableToLibrary(String searchableGUID, Date aquDate) {
+
+        if(getArtist(searchableGUID) != null) {
+            System.out.println("Artist not added to library.  Only songs and releases can be added to your library.");
+            return;
+        }
+
         library.addAcquisitionDate(searchableGUID, aquDate);
         library.addSearchable(searchableGUID);
     }

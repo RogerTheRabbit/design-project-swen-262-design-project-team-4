@@ -48,13 +48,13 @@ public class DateRangeFilter implements Filter {
 
     @Override
     public LinkedList<Song> filterSongs(Collection<Song> values, String searchValue) {
-        System.err.println("Error: Trying to filter songs by date range. This is not possible.");
+        System.err.println("Error: Trying to filter songs by date range. This is not possible. You can only filter releases by date-range");
         return new LinkedList<Song>();
     }
 
     @Override
     public LinkedList<Artist> filterArtists(Collection<Artist> someSongs, String searchValue) {
-        // TODO Auto-generated method stub
-        return null;
+        System.err.println("Error: Trying to filter artists by date range. This is not possible. You can only filter releases by date-range");
+        return new LinkedList<Artist>();
     }
 }

@@ -40,8 +40,6 @@ public class AddToLibraryRequest implements Request {
             date = new Date();
         }
 
-        System.out.println(date);
-
         database.addSearchableToLibrary(params[0], date);
 
         return null;
