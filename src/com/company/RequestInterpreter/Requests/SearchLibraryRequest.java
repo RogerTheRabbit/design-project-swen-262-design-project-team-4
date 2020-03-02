@@ -31,8 +31,37 @@ public class SearchLibraryRequest implements Request {
     public Response handle(String args) {
 
         List<Searchable> songs = new LinkedList<Searchable>();
-        songs.addAll(database.getSearchablesFromLibrary(args));
-        Collections.sort(songs, sort);
+
+        String[] params = args.split(" ");
+
+        if(params.length < 2) {
+            System.err.println("Invalid number of params.  Must use 2 params: [search type (song, release)] [search value]");
+            return null;
+        }
+
+        String searchType = params[0];
+        // Rest of string is song
+        String searchValue = args.substring(params[0].length() + 1);
+
+        // Get data
+        switch (searchType) {
+            case "song":
+                songs.addAll(database.getSongsFromLibrary(searchValue.trim()));
+                break;
+            // case "release":
+            //     songs.addAll(database.getReleasesFromLibrary(searchValue.trim()));
+            //     break;
+            // case "artist":
+            //     songs.addAll(database.getArtistsFromLibrary(searchValue.trim()));
+            //     break;
+            default:
+                System.err.println("Invalid search type. Please specify either 'song' or 'release' or 'artist'.");
+                return null;
+        }
+
+        // List<Searchable> songs = new LinkedList<Searchable>();
+        // songs.addAll(database.getSearchablesFromLibrary(args));
+        // Collections.sort(songs, sort);
         
         System.out.println(songs);
         return null;

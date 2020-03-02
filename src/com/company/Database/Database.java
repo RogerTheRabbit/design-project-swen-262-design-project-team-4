@@ -319,6 +319,20 @@ public class Database {
         output.sort(sort);
 
         return output;
-	}
+    }
+    
+    public Collection<Song> getSongsFromLibrary(String searchValue) {
+     
+        if (filter == null) {
+            System.err.println("Filter not set, please use 'setfilter' to set the filter.");
+            return new LinkedList<>();
+        }
+
+        LinkedList<Song> output = filter.filterSongs(songs.values(), searchValue);
+
+        output.sort(sort);
+
+        return output;   
+    }
 
 }

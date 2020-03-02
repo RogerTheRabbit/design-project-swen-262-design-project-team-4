@@ -17,17 +17,6 @@ public class SearchDatabaseRequest implements Request {
 
     private Database database;
 
-    private Comparator<Searchable> sort = new AlphabeticalArtist();
-    private Filter filter;
-
-    public void setSort(Comparator<Searchable> sort) {
-        this.sort = sort;
-    }
-
-    public void setFilter(String filter) {
-        // Handle setting filter.
-    }
-
     public SearchDatabaseRequest(Database database) {
         this.database = database;
     }
@@ -61,9 +50,6 @@ public class SearchDatabaseRequest implements Request {
                 return null;
         }
 
-        // Sort results by alphabetical order
-        // This is not required for searching the database, but why not do it anyways
-        Collections.sort(songs, sort);
         
         System.out.println(songs);
         return null;
