@@ -13,7 +13,7 @@ public class CommandLineInterpreter {
     
     //TODO: Initialize everything here
 
-    static Database database = new Database();
+    private static Database database = new Database();
 
     // Map of all commands: key = command that user types into terminal | value =
     // Request to handle that command.
