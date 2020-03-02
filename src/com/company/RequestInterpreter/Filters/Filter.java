@@ -5,7 +5,6 @@ import java.util.LinkedList;
 
 import com.company.Database.Artist;
 import com.company.Database.Release;
-import com.company.Database.Searchable;
 import com.company.Database.Song;
 
 /**

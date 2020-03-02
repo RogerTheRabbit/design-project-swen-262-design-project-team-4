@@ -1,13 +1,10 @@
 package com.company.RequestInterpreter.Requests;
 
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
 
 import com.company.Database.Database;
 import com.company.Database.Searchable;
-import com.company.RequestInterpreter.Sorts.*;
 
 /**
  * SearchLibraryRequest
