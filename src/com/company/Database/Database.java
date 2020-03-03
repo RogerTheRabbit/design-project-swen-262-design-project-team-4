@@ -148,9 +148,9 @@ public class Database {
      */
 
     /**
-     *
-     * @param signedInUser
-     * @param searchableType
+     * reads the user's associated searchable files and adds them to their library
+     * @param signedInUser      the user's username
+     * @param searchableType    the type of searchable file that needs to be read
      */
     private void addSearchableToLibraryFromFile(String signedInUser, String searchableType) {
         FILEREADER.setFileName(signedInUser + searchableType + ".csv");
@@ -165,6 +165,10 @@ public class Database {
         }
     }
 
+    /**
+     * reads the user's associated rating files and adds them to the corresponding searchable
+     * @param signedInUser the user's username
+     */
     private void addRatingToSongFromFile(String signedInUser){
         FILEREADER.setFileName(signedInUser + "Ratings" + ".csv");
         FILEREADER.setFilePath("src/data/user/");
@@ -179,6 +183,10 @@ public class Database {
         }
     }
 
+    /**
+     * reads the user's associated acquisition date files and adds them to the corresponding searchable
+     * @param signedInUser the user's username
+     */
     private void addAcquisitionDateFromFile(String signedInUser) {
         FILEREADER.setFileName(signedInUser + "Dates" + ".csv");
         FILEREADER.setFilePath("src/data/user/");
@@ -193,6 +201,10 @@ public class Database {
         }
     }
 
+    /**
+     * adds a searchable to the artist's discography
+     * @param entry the searchable to be added to the discography
+     */
     private void addToArtistDiscography(Searchable entry) {
         String artistGUID = entry.getArtistGUID();
         Artist artist = artists.get(artistGUID);
@@ -205,10 +217,20 @@ public class Database {
      * ===================================================================================
      */
 
+    /**
+     * given a guid will return the Song associated with the guid
+     * @param GUID the guid of the desired Song
+     * @return the Song searched for
+     */
     public Song getSong(String GUID) {
         return songs.get(GUID);
     }
 
+    /**
+     *
+     * @param GUID
+     * @return
+     */
     public Artist getArtist(String GUID) {
         return artists.get(GUID);
     }
