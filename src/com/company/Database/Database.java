@@ -510,18 +510,28 @@ public class Database {
     }
 
     /**
-     *
-     * @param args
-     * @return
+     * gets the collection of searchables in the library based on a specified artist contained in the user's library
+     * @param args the name of the artist
+     * @return the searchables by the artist in the library
      */
 	public Collection<Searchable> getArtistFromLibrary(String args) {
 		return library.getArtistMap().get(args);
 	}
 
+    /**
+     * gets a release from the user's library when given a guid
+     * @param args the guid of the release
+     * @return the release
+     */
 	public Searchable getReleaseFromLibrary(String args) {
 		return library.getRelease(args);
 	}
 
+    /**
+     * gets a song from the user's library when given a guid
+     * @param args the guid of the song
+     * @return the song
+     */
 	public Searchable getSongFromLibrary(String args) {
 		return library.getSong(args);
 	}
