@@ -20,7 +20,7 @@ public class SelectRelease implements Request {
         Searchable output = database.getReleaseFromLibrary(args);
 
         if (output != null) {
-            System.out.println(output);
+            System.out.println(output.getSongList());
         } else {
             System.out.println("This release was not found in your personal library");
         }    

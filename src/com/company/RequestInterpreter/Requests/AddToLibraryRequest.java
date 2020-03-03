@@ -23,7 +23,7 @@ public class AddToLibraryRequest implements Request {
     @Override
     public Response handle(String args) {
 
-        System.out.println("Adding song to your personal library!");
+        System.out.println("Adding music to your personal library!");
 
         String[] params = args.split(" ");
 
@@ -33,7 +33,7 @@ public class AddToLibraryRequest implements Request {
             try {
                 date = SearchableMaker.makeDate(params[1]);
             } catch (Exception e) {
-                System.err.println("Song not added. Invalid date format. Make sure date is in format YYYY-MM-DD.");
+                System.err.println("Music not added. Invalid date format. Make sure date is in format YYYY-MM-DD.");
                 return null;
             }
         } else {

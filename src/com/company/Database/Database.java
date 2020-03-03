@@ -50,9 +50,11 @@ public class Database {
         library.saveLibrary();
     }
 
-    /**
+
+
+    /*
      * ===================================================================================
-     * initializers
+     *                                  initializers
      * ===================================================================================
      */
 
@@ -141,9 +143,13 @@ public class Database {
         }
     }
 
-    /**
+
+
+
+
+    /*
      * ===================================================================================
-     * getters for items in the database
+     *                      getters for items in the database
      * ===================================================================================
      */
 
@@ -193,8 +199,15 @@ public class Database {
         try {
             ArrayList<String[]> splitData = FILEREADER.readFile();
             for (String[] fields : splitData) {
-                Searchable searchableToAddDate = songs.get(fields[0]);
-                searchableToAddDate.setAcquisitionDate(SearchableMaker.makeDate(fields[1]));
+                Searchable songToAddDate = songs.get(fields[0]);
+                Searchable releaseToAddDate = releases.get(fields[0]);
+                if(songToAddDate != null){
+                    songToAddDate.setAcquisitionDate(SearchableMaker.makeDate(fields[1]));
+                }
+                if(releaseToAddDate != null){
+                    releaseToAddDate.setAcquisitionDate(SearchableMaker.makeDate(fields[1]));
+
+                }
             }
         } catch (Exception e) {
             // System.err.println(e);
@@ -211,7 +224,10 @@ public class Database {
         artist.addSearchable(entry);
     }
 
-    /**
+
+
+
+    /*
      * ===================================================================================
      * getters for items in the database
      * ===================================================================================
@@ -227,14 +243,19 @@ public class Database {
     }
 
     /**
-     *
-     * @param GUID
-     * @return
+     * given a guid will return the Artist associated with the guid
+     * @param GUID the guid of the desired Artist
+     * @return the Artist searched for
      */
     public Artist getArtist(String GUID) {
         return artists.get(GUID);
     }
 
+    /**
+     * given a guid will return the Release associated with the guid
+     * @param GUID the guid of the desired Release
+     * @return the Release searched for
+     */
     public Release getRelease(String GUID) {
         return releases.get(GUID);
     }
@@ -257,36 +278,58 @@ public class Database {
         return null;
     }
 
+    /**
+     * given a searchable guid and acquisition date, will add the searchable to the user's library
+     * @param searchableGUID the guid of the searchable to add
+     * @param aquDate the acquisition date of the searchable to add
+     */
     public void addSearchableToLibrary(String searchableGUID, Date aquDate) {
-
         if(getArtist(searchableGUID) != null) {
             System.out.println("Artist not added to library.  Only songs and releases can be added to your library.");
             return;
         }
-
         library.addAcquisitionDate(searchableGUID, aquDate);
         library.addSearchable(searchableGUID);
     }
 
+    /**
+     * given a searchable guid, remove it from a user's library
+     * @param searchableGUID the guid of the searchable to be removed
+     */
     public void removeSearchableFromLibrary(String searchableGUID) {
         library.removeSearchable(searchableGUID);
     }
 
+    /**
+     * rates a searchable in a user's library
+     * @param searchableGUID the guid of the searchable to be rated
+     * @param rating the rating to be set
+     */
     public void rateSearchableInLibrary(String searchableGUID, int rating) {
         library.addRating(searchableGUID, rating);
     }
 
+    /**
+     * gets the hashmap of artists contained within the library
+     * @return the artist hashmap
+     */
     public HashMap<String, Collection<Searchable>> getArtistMap() {
         return library.getArtistMap();
     }
 
-    /**
+
+
+
+    /*
      * ===================================================================================
      * For future releases, most of the functionality below this line should be moved to
      * a display class.
      * ===================================================================================
-     */    
+     */
 
+    /**
+     * the hashmap of possible filters
+     */
     private static final HashMap<String, Filter> FILTERS;
     static {
         FILTERS = new HashMap<>();
@@ -298,6 +341,9 @@ public class Database {
         FILTERS.put("rating", new RatingFilter());
     }
 
+    /**
+     * the hashmap of possible sorts
+     */
     private static final HashMap<String, Sort> SORTS;
     static {
         SORTS = new HashMap<>();
@@ -308,6 +354,10 @@ public class Database {
         SORTS.put("rating", new Rating());
     }
 
+    /**
+     * sets the filter according to what was specified
+     * @param filter the name of the filter to be set
+     */
     public void setFilter(String filter) {
         if (FILTERS.containsKey(filter.toLowerCase())) {
             this.filter = FILTERS.get(filter);
@@ -316,6 +366,10 @@ public class Database {
         }
     }
 
+    /**
+     * sets the sort acording to what was specified
+     * @param sort the name of the sort to be set
+     */
     public void setSort(String sort) {
         if (SORTS.containsKey(sort)) {
             this.sort = SORTS.get(sort);
@@ -324,14 +378,28 @@ public class Database {
         }
     }
 
+    /**
+     * gets the available sort types
+     * @return the set of sort names(String)
+     */
     public Set<String> getAvailableSortTypes() {
         return SORTS.keySet();
     }
 
+    /**
+     * gets the available filter types
+     * @return the set of filter names
+     */
     public Set<String> getAvailableFilterTypes() {
         return FILTERS.keySet();
     }
 
+    /**
+     * given a search value, will search the database for content matching that search value
+     * and returns all the songs that satisfy that search
+     * @param searchValue the value to be searched for
+     * @return the songs that match that search
+     */
 	public Collection<Song> getSongs(String searchValue) {
 
         if (filter == null) {
@@ -346,6 +414,12 @@ public class Database {
         return output;
 	}
 
+    /**
+     * given a search value, will search the database for content matching that search value
+     * and returns all the releases that satisfy that search
+     * @param searchValue the value to be searched for
+     * @return the releases that match that search
+     */
 	public Collection<Release> getReleases(String searchValue) {
 
         if (filter == null) {
@@ -359,7 +433,13 @@ public class Database {
 
         return output;
     }
-    
+
+    /**
+     * given a search value, will search the library for content matching that search value
+     * and returns all the songs that satisfy that search
+     * @param searchValue the value to be searched for
+     * @return the songs that match that search
+     */
     public Collection<Song> getSongsFromLibrary(String searchValue) {
      
         if (filter == null) {
@@ -379,6 +459,12 @@ public class Database {
         return output;
     }
 
+    /**
+     * given a search value, will search the library for content matching that search value
+     * and returns all the releases that satisfy that search
+     * @param searchValue the value to be searched for
+     * @return the releases that match that search
+     */
     public Collection<Release> getReleasesFromLibrary(String searchValue) {
 		
         if (filter == null) {
@@ -398,6 +484,12 @@ public class Database {
         return output;
     }
 
+    /**
+     * given a search value, will search the library for content matching that search value
+     * and returns all the Artists that satisfy that search
+     * @param searchValue the value to be searched for
+     * @return the Artists that match that search
+     */
 	public Collection<Artist> getArtistsFromLibrary(String searchValue) {
 
         if (filter == null) {
@@ -417,6 +509,11 @@ public class Database {
         return output;
     }
 
+    /**
+     *
+     * @param args
+     * @return
+     */
 	public Collection<Searchable> getArtistFromLibrary(String args) {
 		return library.getArtistMap().get(args);
 	}
