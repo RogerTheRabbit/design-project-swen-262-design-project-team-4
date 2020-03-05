@@ -1,6 +1,8 @@
 package com.company.FileIO;
 
 import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -72,9 +74,10 @@ public class FileParser {
      * @return Arraylist of all the lines, which are String arrays containg the csvs
      */
     public ArrayList<String[]> readFile() throws java.io.IOException{
-        var path = Paths.get(filePath, fileName);
+        Path path = Paths.get(filePath, fileName);
         File file = path.toFile();
-        Scanner scan = new Scanner(file);
+        String fileContents = new String(Files.readAllBytes(path));
+        Scanner scan = new Scanner(fileContents);
 
         ArrayList<String[]> allLines = new ArrayList<>();
         while(scan.hasNext()){
