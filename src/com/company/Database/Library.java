@@ -31,10 +31,13 @@ public class Library {
         artistMap = new HashMap<>();
     }
 
-    public Collection<Searchable> getSearchables(String searchableGUID) {
-        return searchables;
-    }
-
+    /**
+     * Returns a hashmap of all the artists in a user's Library
+     * where key = GUID of artist and value = Collection of Searchables of all 
+     * songs in user's Library from the respective  
+     * 
+     * @return the hashmap of artists and their respective searchables in the user's Library.
+     */
     public HashMap<String, Collection<Searchable>> getArtistMap() {
         return artistMap;
     }
@@ -185,7 +188,7 @@ public class Library {
     /**
      * Saves the library to a file to be read upon system restart.
      * 
-     * This gets called before the system exits.
+     * This should get called before the system exits.
      */
     public void saveLibrary() {
         File artistFile = FILEWRITER.makeFile(username, "Artists");
@@ -243,17 +246,29 @@ public class Library {
         return ratingsMap;
     }
 
-	// public Artist getArtist(String GUID) {
-    //     System.out.println(GUID);
-    //     System.out.println(searchables);
-    //     for(Searchable artist : searchables) {
-    //         if(artist.getGUID().equals(GUID)) {
-    //             return (Artist) artist;
-    //         }
-    //     }
-	// 	return null;
-	// }
+    /**
+     * Returns the artist with the given GUID
+     * 
+     * @param GUID GUID of artist to get
+     * @return Artist with GUID. Null if artist not in user's library.
+     */
+	public Artist getArtist(String GUID) {
+        System.out.println(GUID);
+        System.out.println(searchables);
+        for(Searchable artist : searchables) {
+            if(artist.getGUID().equals(GUID)) {
+                return (Artist) artist;
+            }
+        }
+		return null;
+	}
 
+    /**
+     * Returns the release with the given GUID
+     * 
+     * @param GUID GUID of release to get
+     * @return Release with GUID. Null if release not in user's library.
+     */
 	public Release getRelease(String GUID) {
         for(Searchable artist : searchables) {
             if(artist.getGUID().equals(GUID)) {
@@ -263,6 +278,12 @@ public class Library {
 		return null;
 	}
 
+    /**
+     * Returns the song with the given GUID
+     * 
+     * @param GUID GUID of song to get
+     * @return Song with GUID. Null if song not in user's library.
+     */
 	public Song getSong(String GUID) {
         for(Searchable artist : searchables) {
             if(artist.getGUID().equals(GUID)) {
