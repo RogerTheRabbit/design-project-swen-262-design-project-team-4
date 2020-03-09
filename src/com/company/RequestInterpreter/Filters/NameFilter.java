@@ -13,6 +13,13 @@ import com.company.Database.Song;
  */
 public class NameFilter implements Filter {
 
+	/**
+	 * Defines how filter should handle Releases
+	 * 
+	 * @param values Collection of Releases to filter
+	 * @param searchValue Name to search for
+	 * @return The filtered Releases
+	 */
     @Override
     public LinkedList<Release> filterReleases(Collection<Release> values, String searchValue) {
 
@@ -27,7 +34,13 @@ public class NameFilter implements Filter {
         return filteredReleases;
     }
 
-
+	/**
+	 * Defines how filter should handle Songs
+	 * 
+	 * @param values Collection of Songs to filter
+	 * @param searchValue Name to search for
+	 * @return The filtered Songs
+	 */
     @Override
     public LinkedList<Song> filterSongs(Collection<Song> values, String searchValue) {
         LinkedList<Song> filteredReleases = new LinkedList<>();
@@ -41,7 +54,13 @@ public class NameFilter implements Filter {
         return filteredReleases;
     }
 
-
+	/**
+	 * Defines how filter should handle Artists
+	 * 
+	 * @param values Collection of Artists to filter
+	 * @param searchValue Name to search for
+	 * @return The filtered Artists
+	 */
     @Override
     public LinkedList<Artist> filterArtists(Collection<Artist> values, String searchValue) {
         LinkedList<Artist> filteredReleases = new LinkedList<>();
@@ -54,5 +73,5 @@ public class NameFilter implements Filter {
 
         return filteredReleases;
     }
-    
+
 }

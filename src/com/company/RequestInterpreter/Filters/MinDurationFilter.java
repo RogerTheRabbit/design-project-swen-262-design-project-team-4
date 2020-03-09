@@ -7,7 +7,19 @@ import com.company.Database.Song;
 import java.util.Collection;
 import java.util.LinkedList;
 
-public class MinDurationFilter implements Filter{
+/**
+ * MinDurationFilter. Filters based on if searchables are 
+ * over a specified duration
+ */
+public class MinDurationFilter implements Filter {
+    
+	/**
+	 * Defines how filter should handle Releases
+	 * 
+	 * @param values Collection of Releases to filter
+	 * @param searchValue Minimum duration of release
+	 * @return The filtered Releases
+	 */
     @Override
     public LinkedList<Release> filterReleases(Collection<Release> values, String searchValue) {
 
@@ -29,6 +41,13 @@ public class MinDurationFilter implements Filter{
         return null;
     }
 
+	/**
+	 * Defines how filter should handle Songs
+	 * 
+	 * @param values Collection of Songs to filter
+	 * @param searchValue Minimum duration of song
+	 * @return The filtered Songs
+	 */
     @Override
     public LinkedList<Song> filterSongs(Collection<Song> values, String searchValue) {
 
@@ -50,6 +69,13 @@ public class MinDurationFilter implements Filter{
         return null;
     }
 
+	/**
+	 * Defines how filter should handle Artists
+	 * 
+	 * @param values Collection of Artists to filter
+	 * @param searchValue Minimum duration of artist
+	 * @return The filtered Artists
+	 */
     @Override
     public LinkedList<Artist> filterArtists(Collection<Artist> values, String searchValue) {
         LinkedList<Artist> filteredArtists = new LinkedList<>();

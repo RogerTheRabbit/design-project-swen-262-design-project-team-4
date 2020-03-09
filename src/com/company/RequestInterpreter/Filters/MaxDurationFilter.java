@@ -7,7 +7,19 @@ import com.company.Database.Song;
 import java.util.Collection;
 import java.util.LinkedList;
 
-public class MaxDurationFilter implements Filter{
+/**
+ * MaxDurationFilter. Filters songs based on if they are under 
+ * a specified duration.
+ */
+public class MaxDurationFilter implements Filter {
+    
+	/**
+	 * Defines how filter should handle Releases
+	 * 
+	 * @param values Collection of Releases to filter
+	 * @param searchValue Maximum duration of song
+	 * @return The filtered Releases
+	 */
     @Override
     public LinkedList<Release> filterReleases(Collection<Release> values, String searchValue) {
 
@@ -29,6 +41,13 @@ public class MaxDurationFilter implements Filter{
         return null;
     }
 
+	/**
+	 * Defines how filter should handle Songs
+	 * 
+	 * @param values Collection of Songs to filter
+	 * @param searchValue Maximum duration of song
+	 * @return The filtered Songs
+	 */
     @Override
     public LinkedList<Song> filterSongs(Collection<Song> values, String searchValue) {
 
@@ -50,6 +69,13 @@ public class MaxDurationFilter implements Filter{
         return null;
     }
 
+	/**
+	 * Defines how filter should handle Artists
+	 * 
+	 * @param values Collection of Artists to filter
+	 * @param searchValue Maximum duration of song
+	 * @return The filtered Artists
+	 */
     @Override
     public LinkedList<Artist> filterArtists(Collection<Artist> values, String searchValue) {
         LinkedList<Artist> filteredArtists = new LinkedList<>();

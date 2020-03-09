@@ -8,10 +8,18 @@ import com.company.Database.Release;
 import com.company.Database.Song;
 
 /**
- * GUIDFilter
+ * GUIDFilter. Filters based on a given GUID. Returns searchables 
+ * that have the same GUID as a given GUID
  */
 public class GUIDFilter implements Filter {
 
+	/**
+	 * Defines how filter should handle Releases
+	 * 
+	 * @param values Collection of Releases to filter
+	 * @param searchValue GUID of desired release
+	 * @return The filtered Releases
+	 */
     @Override
     public LinkedList<Release> filterReleases(Collection<Release> values, String searchValue) {
 
@@ -26,6 +34,13 @@ public class GUIDFilter implements Filter {
         return filteredReleases;
     }
 
+	/**
+	 * Defines how filter should handle Songs
+	 * 
+	 * @param values Collection of Songs to filter
+	 * @param searchValue GUID of desired Song
+	 * @return The filtered Songs
+	 */
     @Override
     public LinkedList<Song> filterSongs(Collection<Song> values, String searchValue) {
 
@@ -40,6 +55,13 @@ public class GUIDFilter implements Filter {
         return filteredReleases;
     }
 
+	/**
+	 * Defines how filter should handle Artists
+	 * 
+	 * @param values Collection of Artists to filter
+	 * @param searchValue GUID of given Artist
+	 * @return The filtered Artists
+	 */
     @Override
     public LinkedList<Artist> filterArtists(Collection<Artist> values, String searchValue) {
         LinkedList<Artist> filteredReleases = new LinkedList<>();
