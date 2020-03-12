@@ -7,8 +7,14 @@ import com.company.Database.Database;
  */
 public class SetFilterRequest implements Request {
 
+    /**
+     * Attributes
+     */
     private Database database;
 
+    /**
+     * Constructor
+     */
     public SetFilterRequest(Database database) {
         this.database = database;
     }
@@ -19,6 +25,10 @@ public class SetFilterRequest implements Request {
         return null;
     }
 
+    /**
+     * how the request should be formatted
+     * @return  the string representation of how the request params should be formatted
+     */
     @Override
     public String getUsageDesc() {
         return String.format("{search filter [%s]}", database.getAvailableFilterTypes());

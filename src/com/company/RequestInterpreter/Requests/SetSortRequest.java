@@ -7,8 +7,14 @@ import com.company.Database.Database;
  */
 public class SetSortRequest implements Request {
 
+    /**
+     * Attributes
+     */
     private Database database;
 
+    /**
+     * Constructor
+     */
     public SetSortRequest(Database database) {
         this.database = database;
     }
@@ -21,6 +27,10 @@ public class SetSortRequest implements Request {
         return null;
     }
 
+    /**
+     * how the request should be formatted
+     * @return  the string representation of how the request params should be formatted
+     */
     @Override
     public String getUsageDesc() {
         return String.format("{sort by [%s]}", database.getAvailableSortTypes());

@@ -8,8 +8,14 @@ import com.company.Database.Searchable;
  */
 public class SelectRelease implements Request {
 
+    /**
+     * Attributes
+     */
     private Database database;
 
+    /**
+     * Constructor
+     */
     public SelectRelease(Database database) {
         this.database = database;
     }
@@ -28,6 +34,10 @@ public class SelectRelease implements Request {
         return null;
     }
 
+    /**
+     * how the request should be formatted
+     * @return  the string representation of how the request params should be formatted
+     */
     @Override
     public String getUsageDesc() {
         return "Selects for the release in your personal library; {GUID of release to select [GUID]}";

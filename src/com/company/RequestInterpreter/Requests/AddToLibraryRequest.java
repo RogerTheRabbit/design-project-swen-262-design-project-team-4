@@ -11,6 +11,9 @@ import com.company.Database.SearchableMaker;
  */
 public class AddToLibraryRequest implements Request {
 
+    /**
+     * Attributes
+     */
     private Database database;
 
     /**
@@ -20,6 +23,12 @@ public class AddToLibraryRequest implements Request {
         this.database = database;
     }
 
+    /**
+     * handles the request made by either
+     * adding the music specified to the library or not
+     * @param args the music to be added to the library
+     * @return currently nothing
+     */
     @Override
     public Response handle(String args) {
 
@@ -45,6 +54,10 @@ public class AddToLibraryRequest implements Request {
         return null;
     }
 
+    /**
+     * how the request should be formatted
+     * @return  the string representation of how the request params should be formatted
+     */
     @Override
     public String getUsageDesc() {
         return "{GUID} {date [YYYY-MM-DD]}";

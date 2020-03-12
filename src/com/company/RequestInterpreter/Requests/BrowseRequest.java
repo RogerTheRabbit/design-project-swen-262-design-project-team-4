@@ -8,6 +8,9 @@ import com.company.Database.Database;
  */
 public class BrowseRequest implements Request {
 
+    /**
+     * Attributes
+     */
     Database database;
 
     /**
@@ -17,6 +20,12 @@ public class BrowseRequest implements Request {
         this.database = database;
     }
 
+    /**
+     * handles the request to browse the user library
+     * by looping through the artists contained in the library and printing them out
+     * @param args  does nothing with the params due to the nature of browse
+     * @return      currently returns nothing
+     */
     @Override
     public Response handle(String args) {
         
@@ -27,6 +36,10 @@ public class BrowseRequest implements Request {
         return null;
     }
 
+    /**
+     * how the request should be formatted
+     * @return  the string representation of how the request params should be formatted
+     */
     @Override
     public String getUsageDesc() {
         return "No params";

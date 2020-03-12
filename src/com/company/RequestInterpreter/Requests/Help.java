@@ -9,6 +9,9 @@ import java.util.HashMap;
  */
 public class Help implements Request {
 
+    /**
+     * Attributes
+     */
     private String helperString = "";
 
     /**
@@ -30,6 +33,11 @@ public class Help implements Request {
 
     }
 
+    /**
+     * prints the helper string
+     * @param args  params are unused
+     * @return      returns nothing
+     */
     @Override
     public Response handle(String args) {
         
@@ -38,6 +46,10 @@ public class Help implements Request {
         return null;
     }
 
+    /**
+     * how the request should be formatted
+     * @return  the string representation of how the request params should be formatted
+     */
     @Override
     public String getUsageDesc() {
         return "Displays usage for each command";

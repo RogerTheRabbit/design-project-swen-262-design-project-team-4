@@ -10,8 +10,14 @@ import com.company.Database.Searchable;
  */
 public class SelectArtist implements Request {
 
+    /**
+     * Attributes
+     */
     Database database;
 
+    /**
+     * Constructor
+     */
     public SelectArtist(Database database) {
         this.database = database;
     }
@@ -31,6 +37,10 @@ public class SelectArtist implements Request {
         return null;
     }
 
+    /**
+     * how the request should be formatted
+     * @return  the string representation of how the request params should be formatted
+     */
     @Override
     public String getUsageDesc() {
         return "Selects artist in your personal library {GUID of artist to select [GUID]}";

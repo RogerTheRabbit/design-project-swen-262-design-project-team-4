@@ -13,6 +13,9 @@ import com.company.Database.Searchable;
  */
 public class SearchDatabaseRequest implements Request {
 
+    /**
+     * Attributes
+     */
     private Database database;
 
     /**
@@ -22,6 +25,11 @@ public class SearchDatabaseRequest implements Request {
         this.database = database;
     }
 
+    /**
+     * searches the database for specified searchables depending on what filter is set within the database
+     * @param args  the search parameters to query the database
+     * @return      currently nothing
+     */
     @Override
     public Response handle(String args) {
 
@@ -55,6 +63,10 @@ public class SearchDatabaseRequest implements Request {
         return null;
     }
 
+    /**
+     * how the request should be formatted
+     * @return  the string representation of how the request params should be formatted
+     */
     @Override
     public String getUsageDesc() {
         return "{search type (song, release)} {search value}";

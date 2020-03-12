@@ -9,6 +9,9 @@ import com.company.Database.Database;
  */
 public class RateRequest implements Request {
 
+    /**
+     * Attributes
+     */
     private Database database;
 
     /**
@@ -18,6 +21,11 @@ public class RateRequest implements Request {
         this.database = database;
     }
 
+    /**
+     * handles adding a rating to a song
+     * @param args  the rating and guid
+     * @return      nothing currently
+     */
     @Override
     public Response handle(String args) {
         System.out.println("Updating rating in your personal library!");
@@ -37,6 +45,10 @@ public class RateRequest implements Request {
         return null;
     }
 
+    /**
+     * how the request should be formatted
+     * @return  the string representation of how the request params should be formatted
+     */
     @Override
     public String getUsageDesc() {
         return "{GUID} {rating [1-5]}";
