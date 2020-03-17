@@ -38,7 +38,7 @@ public class SearchDatabaseRequest implements Request {
         String[] params = args.split(" ");
 
         if(params.length < 2) {
-            System.err.println("Invalid number of params.  Must use 2 params: [search type (song, release)] [search value]");
+            System.err.println("Invalid number of params.  Must use 2 params: [search type (song, release, artist)] [search value]");
             return null;
         }
 
@@ -53,6 +53,9 @@ public class SearchDatabaseRequest implements Request {
                 break;
             case "release":
                 songs.addAll(database.getReleases(searchValue.trim()));
+                break;
+            case "artist":
+                songs.addAll(database.getArtists(searchValue.trim()));
                 break;
             default:
                 System.err.println("Invalid search type. Please specify either 'song' or 'release'.");
@@ -69,7 +72,7 @@ public class SearchDatabaseRequest implements Request {
      */
     @Override
     public String getUsageDesc() {
-        return "{search type (song, release)} {search value}";
+        return "Search the database for a song, release or artist - {search type (song, release, artist)} {search value}";
     }
 
 }

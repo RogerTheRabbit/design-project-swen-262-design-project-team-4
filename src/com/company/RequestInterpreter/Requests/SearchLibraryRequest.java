@@ -38,7 +38,7 @@ public class SearchLibraryRequest implements Request {
         String[] params = args.split(" ");
 
         if(params.length < 2) {
-            System.err.println("Invalid number of params.  Must use 2 params: [search type (song, release)] [search value]");
+            System.err.println("Invalid number of params.  Must use 2 params: {search type (song, release)} {search value}");
             return null;
         }
 
@@ -72,7 +72,7 @@ public class SearchLibraryRequest implements Request {
      */
     @Override
     public String getUsageDesc() {
-        return "(search type [song, release, artist]) []";
+        return "Search your personal library for songs, releases or artists - {search type [song, release, artist]} {search value}";
     }
 
     

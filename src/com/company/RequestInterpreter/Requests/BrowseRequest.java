@@ -42,7 +42,7 @@ public class BrowseRequest implements Request {
      */
     @Override
     public String getUsageDesc() {
-        return "No params";
+        return "Show all songs in your personal library - No params";
     }
     
 }

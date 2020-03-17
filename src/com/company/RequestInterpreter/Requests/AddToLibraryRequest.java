@@ -60,7 +60,7 @@ public class AddToLibraryRequest implements Request {
      */
     @Override
     public String getUsageDesc() {
-        return "{GUID} {date [YYYY-MM-DD]}";
+        return "Add a song to your personal library - {GUID} {date (optional) [YYYY-MM-DD]}";
     }
 
     

@@ -54,7 +54,7 @@ public class CommandLineInterpreter {
                 break;
             } else {
                 // Command is invalid so display help.
-                System.out.println("Type 'help' to get command usage");
+                System.out.println("Unknown command. Type 'help' to get command usage");
             }
         }
 

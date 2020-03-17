@@ -360,9 +360,10 @@ public class Database {
      */
     public void setFilter(String filter) {
         if (FILTERS.containsKey(filter.toLowerCase())) {
+            System.out.printf("Setting filter to '%s'\n", filter);
             this.filter = FILTERS.get(filter);
         } else {
-            System.err.printf("Invalid search filter '%s' for songs\n", filter);
+            System.err.printf("Invalid search filter '%s' for songs.\n", filter);
         }
     }
 
@@ -428,6 +429,26 @@ public class Database {
         }
 
         LinkedList<Release> output = filter.filterReleases(releases.values(), searchValue);
+
+        output.sort(sort);
+
+        return output;
+    }
+
+    /**
+     * given a search value, will search the database for content matching that search value
+     * and returns all the artists that satisfy that search
+     * @param searchValue the value to be searched for
+     * @return the artists that match that search
+     */
+	public Collection<Artist> getArtists(String searchValue) {
+
+        if (filter == null) {
+            System.err.println("Filter not set, please use 'setfilter' to set the filter.");
+            return new LinkedList<>();
+        }
+
+        LinkedList<Artist> output = filter.filterArtists(artists.values(), searchValue);
 
         output.sort(sort);
 

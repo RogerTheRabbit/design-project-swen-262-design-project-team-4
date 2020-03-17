@@ -40,7 +40,7 @@ public class SelectRelease implements Request {
      */
     @Override
     public String getUsageDesc() {
-        return "Selects for the release in your personal library; {GUID of release to select [GUID]}";
+        return "Selects for the release in your personal library - {GUID of release to select}";
     }
 
     

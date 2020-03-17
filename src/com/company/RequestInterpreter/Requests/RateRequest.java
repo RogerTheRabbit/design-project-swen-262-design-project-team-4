@@ -51,7 +51,7 @@ public class RateRequest implements Request {
      */
     @Override
     public String getUsageDesc() {
-        return "{GUID} {rating [1-5]}";
+        return "Rate a song - {GUID} {rating [1-5]}";
     }
 
     

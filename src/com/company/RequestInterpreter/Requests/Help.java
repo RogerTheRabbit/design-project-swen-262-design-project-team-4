@@ -52,7 +52,7 @@ public class Help implements Request {
      */
     @Override
     public String getUsageDesc() {
-        return "Displays usage for each command";
+        return "Displays usage for each command - No params";
     }
 
     

@@ -40,7 +40,7 @@ public class RemoveFromLibraryRequest implements Request {
      */
     @Override
     public String getUsageDesc() {
-        return "{GUID}";
+        return "Remove a song from your personal library - {GUID}";
     }
 
     

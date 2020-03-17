@@ -40,7 +40,7 @@ public class SelectSong implements Request {
      */
     @Override
     public String getUsageDesc() {
-        return "Selects the song in your personal library; {GUID of song to select [GUID]}";
+        return "Selects the song in your personal library - {GUID of song to select}";
     }
 
 }

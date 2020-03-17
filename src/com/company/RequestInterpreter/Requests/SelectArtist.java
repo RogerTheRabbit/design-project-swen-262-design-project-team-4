@@ -43,7 +43,7 @@ public class SelectArtist implements Request {
      */
     @Override
     public String getUsageDesc() {
-        return "Selects artist in your personal library {GUID of artist to select [GUID]}";
+        return "Selects artist in your personal library - {GUID of artist to select}";
     }
 
     
