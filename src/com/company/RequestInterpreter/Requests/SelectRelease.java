@@ -4,7 +4,7 @@ import com.company.Database.Database;
 import com.company.Database.Searchable;
 
 /**
- * SelectRequest
+ * SelectRequest for the release's contents
  */
 public class SelectRelease implements Request {
 
@@ -20,6 +20,11 @@ public class SelectRelease implements Request {
         this.database = database;
     }
 
+    /**
+     * gets the list of songs for the specified release
+     * @param args  the things that you are performing the request on
+     * @return      currently nothing
+     */
     @Override
     public Response handle(String args) {
         
@@ -40,7 +45,7 @@ public class SelectRelease implements Request {
      */
     @Override
     public String getUsageDesc() {
-        return "Selects for the release in your personal library - {GUID of release to select}";
+        return "Selects the release in your personal library and displays the songs in that release - {GUID of release to select}";
     }
 
     

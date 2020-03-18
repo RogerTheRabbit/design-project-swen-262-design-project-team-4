@@ -6,7 +6,7 @@ import com.company.Database.Database;
 import com.company.Database.Searchable;
 
 /**
- * SelectRequest
+ * SelectRequest for the artist's contents in the user library
  */
 public class SelectArtist implements Request {
 
@@ -22,6 +22,11 @@ public class SelectArtist implements Request {
         this.database = database;
     }
 
+    /**
+     * gets the searchable content of the selected artist
+     * @param args  the things that you are performing the request on
+     * @return      currently nothing
+     */
     @Override
     public Response handle(String args) {
         
@@ -43,7 +48,7 @@ public class SelectArtist implements Request {
      */
     @Override
     public String getUsageDesc() {
-        return "Selects artist in your personal library - {GUID of artist to select}";
+        return "Selects artist in your personal library and retrieves music by that artist in your library - {GUID of artist to select}";
     }
 
     

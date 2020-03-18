@@ -4,7 +4,8 @@ import com.company.Database.Database;
 import com.company.Database.Searchable;
 
 /**
- * SelectRequest
+ * SelectRequest for a song in the user's library
+ * basically it just get's the rest of a song's info when selected by guid
  */
 public class SelectSong implements Request {
 
@@ -20,6 +21,11 @@ public class SelectSong implements Request {
         this.database = database;
     }
 
+    /**
+     * gets the song's info
+     * @param args  the things that you are performing the request on
+     * @return      currently nothing
+     */
     @Override
     public Response handle(final String args) {
         final Searchable output = database.getSongFromLibrary(args);
@@ -29,8 +35,6 @@ public class SelectSong implements Request {
         } else {
             System.out.printf("song,'%s', was not found in your personal library.\n", args);
         }
-
-
         return null;
     }
 

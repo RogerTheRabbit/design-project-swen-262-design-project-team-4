@@ -4,6 +4,7 @@ import com.company.Database.Database;
 
 /**
  * setSortRequest
+ * sets the sorting of the info done by the database
  */
 public class SetSortRequest implements Request {
 
@@ -19,6 +20,11 @@ public class SetSortRequest implements Request {
         this.database = database;
     }
 
+    /**
+     * takes the inputted desired sort string and passes that to the database for it to set the sorting method
+     * @param args  the things that you are performing the request on
+     * @return      currently nothing
+     */
     @Override
     public Response handle(String args) {
         

@@ -45,7 +45,7 @@ public class BrowseRequest implements Request {
      */
     @Override
     public String getUsageDesc() {
-        return "Show all songs in your personal library - No params";
+        return "Browse all music content in your library - No params";
     }
     
 }

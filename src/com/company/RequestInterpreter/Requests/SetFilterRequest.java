@@ -4,6 +4,7 @@ import com.company.Database.Database;
 
 /**
  * SetFilterRequest
+ * sets the filter for the database's response
  */
 public class SetFilterRequest implements Request {
 
@@ -19,6 +20,11 @@ public class SetFilterRequest implements Request {
         this.database = database;
     }
 
+    /**
+     * takes the inputted desired filter string and passes that to the database for it to set the filter
+     * @param args  the things that you are performing the request on
+     * @return      currently nothing
+     */
     @Override
     public Response handle(String args) {
         database.setFilter(args.trim());
