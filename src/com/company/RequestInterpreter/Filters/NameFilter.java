@@ -26,7 +26,7 @@ public class NameFilter implements Filter {
         LinkedList<Release> filteredReleases = new LinkedList<>();
 
         for (Release release : values) {
-            if (release.getName().contains(searchValue)) {
+            if (release.getName().toLowerCase().contains(searchValue.toLowerCase())) {
                 filteredReleases.add(release);
             }
         }
@@ -43,15 +43,15 @@ public class NameFilter implements Filter {
 	 */
     @Override
     public LinkedList<Song> filterSongs(Collection<Song> values, String searchValue) {
-        LinkedList<Song> filteredReleases = new LinkedList<>();
+        LinkedList<Song> filteredSongs = new LinkedList<>();
 
         for (Song song : values) {
-            if (song.getName().contains(searchValue)) {
-                filteredReleases.add(song);
+            if (song.getName().toLowerCase().contains(searchValue.toLowerCase())) {
+                filteredSongs.add(song);
             }
         }
 
-        return filteredReleases;
+        return filteredSongs;
     }
 
 	/**
@@ -66,7 +66,7 @@ public class NameFilter implements Filter {
         LinkedList<Artist> filteredReleases = new LinkedList<>();
 
         for (Artist artist : values) {
-            if (artist.getName().contains(searchValue)) {
+            if (artist.getName().toLowerCase().contains(searchValue.toLowerCase())) {
                 filteredReleases.add(artist);
             }
         }

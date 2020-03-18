@@ -44,6 +44,7 @@ public class CommandLineInterpreter {
 
         // Start main program loop
         System.out.println("Ready!");
+        System.out.println("For a list of commands, please type : \"help\"");
         while (true) {
             String input = in.nextLine();
             String command = input.split(" ")[0].toLowerCase();
