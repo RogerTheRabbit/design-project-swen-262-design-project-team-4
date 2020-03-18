@@ -27,9 +27,12 @@ public class RemoveFromLibraryRequest implements Request {
      */
     @Override
     public Response handle(String args) {
-        System.out.println("Removing from your personal Library!");
         
-        database.removeSearchableFromLibrary(args);
+        if (database.removeSearchableFromLibrary(args)) {
+            System.out.println("Removing from your personal Library!");
+        } else {
+            System.err.println("Failed to remove item from your personal library...");
+        }
         
         return null;
     }

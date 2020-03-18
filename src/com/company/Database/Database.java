@@ -296,8 +296,8 @@ public class Database {
      * given a searchable guid, remove it from a user's library
      * @param searchableGUID the guid of the searchable to be removed
      */
-    public void removeSearchableFromLibrary(String searchableGUID) {
-        library.removeSearchable(searchableGUID);
+    public boolean removeSearchableFromLibrary(String searchableGUID) {
+        return library.removeSearchable(searchableGUID);
     }
 
     /**
