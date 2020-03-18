@@ -313,7 +313,7 @@ public class Database {
      * gets the hashmap of artists contained within the library
      * @return the artist hashmap
      */
-    public HashMap<String, Collection<Searchable>> getArtistMap() {
+    public HashMap<String, ArrayList<Searchable>> getArtistMap() {
         return library.getArtistMap();
     }
 
@@ -360,10 +360,10 @@ public class Database {
      */
     public void setFilter(String filter) {
         if (FILTERS.containsKey(filter.toLowerCase())) {
-            System.out.printf("Setting filter to '%s'\n", filter);
-            this.filter = FILTERS.get(filter);
+            this.filter = FILTERS.get(filter.toLowerCase());
+            System.out.printf("Filter successfully set to '%s'\n", filter);
         } else {
-            System.err.printf("Invalid search filter '%s' for songs.\n", filter);
+            System.err.printf("'%s' is an invalid filter.\n", filter);
         }
     }
 
@@ -372,10 +372,11 @@ public class Database {
      * @param sort the name of the sort to be set
      */
     public void setSort(String sort) {
-        if (SORTS.containsKey(sort)) {
-            this.sort = SORTS.get(sort);
+        if (SORTS.containsKey(sort.toLowerCase())) {
+            this.sort = SORTS.get(sort.toLowerCase());
+            System.out.printf("Sort successfully set to '%s'.\n", sort);
         } else {
-            System.err.printf("Invalid sort '%s' for songs\n", filter);
+            System.err.printf("'%s' is not a valid sort\n", sort);
         }
     }
 
@@ -494,7 +495,7 @@ public class Database {
         }
 
         Collection<Release> someSongs = new ArrayList<>();
-        for(Searchable song: library.seperateSearchables("artist")){
+        for(Searchable song: library.seperateSearchables("release")){
             someSongs.add((Release)song);
         }
 
@@ -536,7 +537,12 @@ public class Database {
      * @return the searchables by the artist in the library
      */
 	public Collection<Searchable> getArtistFromLibrary(String args) {
-		return library.getArtistMap().get(args);
+
+        ArrayList<Searchable> output = library.getArtistMap().get(args);
+
+        output.sort(sort);
+
+		return output;
 	}
 
     /**

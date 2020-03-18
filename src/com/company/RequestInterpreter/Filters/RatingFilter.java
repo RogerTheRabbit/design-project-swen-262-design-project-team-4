@@ -62,7 +62,7 @@ public class RatingFilter implements Filter {
         }
 
         if(filteredSong.size() == 0) {
-            System.out.printf("No songs were found with ratings higher than %d\n", minRating);
+            System.out.printf("No songs were found with ratings higher than or equal to %d\n", minRating);
         }
 
         return filteredSong;

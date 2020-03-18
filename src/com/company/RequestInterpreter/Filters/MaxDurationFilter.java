@@ -25,20 +25,25 @@ public class MaxDurationFilter implements Filter {
 
         LinkedList<Release> filteredReleases = new LinkedList<>();
 
-        int maxLength = Integer.parseInt(searchValue);
+        int maxLength;
+
+        try {
+            maxLength = Integer.parseInt(searchValue);
+        } catch (NumberFormatException e) {
+            System.err.println("Invalid number.");
+            return new LinkedList<>();
+        }
 
         for (Release release : values) {
             if (release.getTotalDuration() <= maxLength) {
                 filteredReleases.add(release);
             }
         }
-        if(filteredReleases.size() != 0) {
-            return filteredReleases;
+        if(filteredReleases.size() == 0) {
+            System.out.printf("No releases less than %d ms were found.\n", maxLength);
         }
-
-        System.out.printf("No releases less than %d ms were found.\n", maxLength);
-
-        return null;
+        
+        return filteredReleases;
     }
 
 	/**
@@ -53,20 +58,25 @@ public class MaxDurationFilter implements Filter {
 
         LinkedList<Song> filteredSongs = new LinkedList<>();
 
-        int maxLength = Integer.parseInt(searchValue);
+        int maxLength;
+
+        try {
+            maxLength = Integer.parseInt(searchValue);
+        } catch (NumberFormatException e) {
+            System.err.println("Invalid number.");
+            return new LinkedList<>();
+        }
 
         for (Song song : values) {
             if (song.getTotalDuration() <= maxLength) {
                 filteredSongs.add(song);
             }
         }
-        if(filteredSongs.size() != 0) {
-            return filteredSongs;
+        if(filteredSongs.size() == 0) {
+            System.out.printf("No songs less than %d ms were found.\n", maxLength);
         }
-
-        System.out.printf("No songs less than %d ms were found.\n", maxLength);
-
-        return null;
+        
+        return filteredSongs;
     }
 
 	/**
@@ -80,19 +90,24 @@ public class MaxDurationFilter implements Filter {
     public LinkedList<Artist> filterArtists(Collection<Artist> values, String searchValue) {
         LinkedList<Artist> filteredArtists = new LinkedList<>();
 
-        int maxLength = Integer.parseInt(searchValue);
+        int maxLength;
+
+        try {
+            maxLength = Integer.parseInt(searchValue);
+        } catch (NumberFormatException e) {
+            System.err.println("Invalid number.");
+            return new LinkedList<>();
+        }
 
         for (Artist artist : values) {
             if (artist.getTotalDuration() <= maxLength) {
                 filteredArtists.add(artist);
             }
         }
-        if(filteredArtists.size() != 0) {
-            return filteredArtists;
+        if(filteredArtists.size() == 0) {
+            System.out.printf("No releases less than %d ms were found.\n", maxLength);
         }
-
-        System.out.printf("No releases less than %d ms were found.\n", maxLength);
-
-        return null;
+        
+        return filteredArtists;
     }
 }

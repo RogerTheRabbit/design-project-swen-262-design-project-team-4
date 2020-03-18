@@ -22,7 +22,7 @@ public class Library {
     private Database database;
     private FileSaver FILEWRITER;
     private HashSet<Searchable> searchables;
-    private HashMap<String, Collection<Searchable>> artistMap;
+    private HashMap<String, ArrayList<Searchable>> artistMap;
 
     Library(Database database) {
         this.database = database;
@@ -38,7 +38,7 @@ public class Library {
      * 
      * @return the hashmap of artists and their respective searchables in the user's Library.
      */
-    public HashMap<String, Collection<Searchable>> getArtistMap() {
+    public HashMap<String, ArrayList<Searchable>> getArtistMap() {
         return artistMap;
     }
 
@@ -79,12 +79,12 @@ public class Library {
         String artistguid = songToAdd.getArtistGUID();
 
         if(artistMap.containsKey(artistguid)){
-            Collection<Searchable> songs = artistMap.get(artistguid);
+            ArrayList<Searchable> songs = artistMap.get(artistguid);
             songs.add(songToAdd);
             artistMap.put(artistguid, songs);
         }
         else{
-            Collection<Searchable> songs = new ArrayList<>();
+            ArrayList<Searchable> songs = new ArrayList<>();
             songs.add(songToAdd);
             artistMap.put(artistguid, songs);
         }
@@ -131,7 +131,7 @@ public class Library {
     private void removeSongFromArtistMap(Searchable songToRemove){
         String key = songToRemove.getArtistGUID();
 
-        Collection<Searchable> songs = artistMap.get(key);
+        ArrayList<Searchable> songs = artistMap.get(key);
         songs.remove(songToRemove);
         artistMap.put(key, songs);
         if(songs.size() == 0){

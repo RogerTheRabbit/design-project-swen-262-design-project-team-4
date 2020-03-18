@@ -13,7 +13,7 @@ public class Rating implements Sort {
      */
     @Override
     public int compare(Searchable o1, Searchable o2) {
-        return o1.getRating().compareTo(o2.getRating());
+        return o2.getRating().compareTo(o1.getRating());
     }
 
 }

@@ -28,10 +28,13 @@ public class BrowseRequest implements Request {
      */
     @Override
     public Response handle(String args) {
-        
+        int counter = 0;
         for(String artistGUID : database.getArtistMap().keySet()) {
             System.out.println(database.getArtist(artistGUID));
+            counter++;
         }
+
+        System.out.printf("%d results found.\n", counter);
 
         return null;
     }
