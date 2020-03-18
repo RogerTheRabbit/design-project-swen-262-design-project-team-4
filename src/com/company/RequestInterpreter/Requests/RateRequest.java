@@ -2,6 +2,8 @@ package com.company.RequestInterpreter.Requests;
 
 import com.company.Database.Database;
 
+import jdk.jfr.events.ExceptionThrownEvent;
+
 /**
  * RateRequest implements the Request class.
  * Takes in a string argument in the handler to provide a rating for a searchable in
@@ -28,19 +30,29 @@ public class RateRequest implements Request {
      */
     @Override
     public Response handle(String args) {
-        System.out.println("Updating rating in your personal library!");
 
         String[] params = args.split(" ");
 
         try {
             int rating = Integer.parseInt(params[1]);
             if (rating < 1 || rating > 5) {
-                throw new Exception();
+                throw new ExceptionInInitializerError();
             }
             database.rateSearchableInLibrary(params[0], rating);
-        } catch (Exception e) {
+
+            System.out.println("Successfully rated song/artist in your personal library!");
+
+        } catch(NullPointerException e) {
+            System.err.println("That song/release is not in your personal library and therefore can not be rated.");
+        } catch (ArrayIndexOutOfBoundsException e) {
             System.err.println("Invalid command. Command should be used as 'rate [GUID] [rating (1-5)]'");
+        } catch (ExceptionInInitializerError e) {
+            System.err.println("Rating must be between 1 and 5 inclusive.");
+        } catch (Exception e) {
+            System.err.println("Failed to rate song...");
         }
+
+
 
         return null;
     }

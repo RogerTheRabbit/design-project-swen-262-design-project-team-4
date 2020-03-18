@@ -30,7 +30,7 @@ public class SelectArtist implements Request {
         if (output != null) {
             System.out.println(output);
         } else {
-            System.out.println("This artist was not found in your personal library");
+            System.out.printf("Artist, '%s', was not found in your personal library.\n", args);
         }
 
 

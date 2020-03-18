@@ -28,7 +28,7 @@ public class Help implements Request {
     private void genHelperString(HashMap<String, Request> commands) {
 
         for(String key : commands.keySet()) {
-            helperString += String.format("%s : %s\n", key, commands.get(key).getUsageDesc());
+            helperString += String.format("%-13s : %s\n", key, commands.get(key).getUsageDesc());
         }
 
     }

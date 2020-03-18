@@ -302,10 +302,12 @@ public class Database {
 
     /**
      * rates a searchable in a user's library
+     * 
      * @param searchableGUID the guid of the searchable to be rated
-     * @param rating the rating to be set
+     * @param rating         the rating to be set
+     * @throws Exception
      */
-    public void rateSearchableInLibrary(String searchableGUID, int rating) {
+    public void rateSearchableInLibrary(String searchableGUID, int rating) throws Exception {
         library.addRating(searchableGUID, rating);
     }
 
@@ -411,7 +413,9 @@ public class Database {
 
         LinkedList<Song> output = filter.filterSongs(songs.values(), searchValue);
 
-        output.sort(sort);
+        if(output != null) {
+            output.sort(sort);
+        }
 
         return output;
 	}
@@ -431,7 +435,9 @@ public class Database {
 
         LinkedList<Release> output = filter.filterReleases(releases.values(), searchValue);
 
-        output.sort(sort);
+        if(output != null) {
+            output.sort(sort);
+        }
 
         return output;
     }
@@ -451,7 +457,9 @@ public class Database {
 
         LinkedList<Artist> output = filter.filterArtists(artists.values(), searchValue);
 
-        output.sort(sort);
+        if(output != null) {
+            output.sort(sort);
+        }
 
         return output;
     }
@@ -536,11 +544,14 @@ public class Database {
      * @param args the name of the artist
      * @return the searchables by the artist in the library
      */
-	public Collection<Searchable> getArtistFromLibrary(String args) {
+	public ArrayList<Searchable> getArtistFromLibrary(String args) {
 
         ArrayList<Searchable> output = library.getArtistMap().get(args);
 
-        output.sort(sort);
+        if(output != null) {
+            output.sort(sort);
+            return output;
+        }
 
 		return output;
 	}

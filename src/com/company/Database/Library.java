@@ -65,8 +65,10 @@ public class Library {
             addSongToArtistMap(songToAdd);
             searchables.add(songToAdd);
             return true;
+        } else {
+            System.err.println("Failed to add to your personal library.");
+            return false;
         }
-        return false;
     }
 
     /**
@@ -98,7 +100,12 @@ public class Library {
      * @param accDate Date to add to Searchable
      */
     public void addAcquisitionDate(String guid, Date accDate){
-        database.getSearchable(guid).setAcquisitionDate(accDate);
+        Searchable searchable = database.getSearchable(guid);
+        if(searchable != null) {
+            searchable.setAcquisitionDate(accDate);
+        } else {
+            System.err.printf("Can not find song or artist with GUID %s\n", guid);
+        }
     }
 
     /**
@@ -143,9 +150,16 @@ public class Library {
      * Add a rating to a song
      * 
      * @param searchableGUID Searchable GUID to add rating to
-     * @param rating Rating to add to searchable.  Rating should be between 1 and 5 inclusive 
+     * @param rating         Rating to add to searchable. Rating should be between 1
+     *                       and 5 inclusive
+     * @throws Exception
      */
-    void addRating(String searchableGUID, Integer rating) {
+    void addRating(String searchableGUID, Integer rating) throws Exception {
+        Song song = database.getSong(searchableGUID);
+        if (song == null) {
+            System.err.printf("You can only rate songs. Song with GUID of '%s' not found.\n", searchableGUID);
+            throw new Exception();
+        }
         database.getSong(searchableGUID).setRating(rating);
     }
 

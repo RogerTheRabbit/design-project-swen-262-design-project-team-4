@@ -15,6 +15,9 @@ public class AcquisitionDate implements Sort {
      */
     @Override
     public int compare(Searchable o1, Searchable o2) {
+        if(o1.getAcquisitionDate() == null || o2.getAcquisitionDate() == null) {
+            return 0;
+        }
         return o1.getAcquisitionDate().compareTo(o2.getAcquisitionDate());
     }
 

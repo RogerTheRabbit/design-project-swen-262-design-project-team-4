@@ -27,7 +27,7 @@ public class SelectSong implements Request {
         if (output != null) {
             System.out.println(output);
         } else {
-            System.out.println("This song was not found in your personal library");
+            System.out.printf("song,'%s', was not found in your personal library.\n", args);
         }
 
 

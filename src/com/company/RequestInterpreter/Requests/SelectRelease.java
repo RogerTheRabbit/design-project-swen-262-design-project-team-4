@@ -28,7 +28,7 @@ public class SelectRelease implements Request {
         if (output != null) {
             System.out.println(output.getSongList());
         } else {
-            System.out.println("This release was not found in your personal library");
+            System.out.printf("Release, '%s', was not found in your personal library.\n", args);
         }    
 
         return null;
