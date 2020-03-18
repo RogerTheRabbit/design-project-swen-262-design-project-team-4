@@ -72,7 +72,7 @@ public class SearchDatabaseRequest implements Request {
      */
     @Override
     public String getUsageDesc() {
-        return "Search the database for a song, release or artist - {search type (song, release, artist)} {search value}";
+        return "Search the database for a song, release, or artist. The default filter being searching by name - {search type (song, release, artist)} {search value}";
     }
 
 }
