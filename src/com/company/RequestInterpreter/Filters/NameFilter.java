@@ -66,7 +66,7 @@ public class NameFilter implements Filter {
         LinkedList<Artist> filteredReleases = new LinkedList<>();
 
         for (Artist artist : values) {
-            if (artist.getGUID().contains(searchValue)) {
+            if (artist.getName().contains(searchValue)) {
                 filteredReleases.add(artist);
             }
         }

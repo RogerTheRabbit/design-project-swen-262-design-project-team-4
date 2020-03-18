@@ -2,8 +2,6 @@ package com.company.RequestInterpreter.Requests;
 
 import com.company.Database.Database;
 
-import jdk.jfr.events.ExceptionThrownEvent;
-
 /**
  * RateRequest implements the Request class.
  * Takes in a string argument in the handler to provide a rating for a searchable in
