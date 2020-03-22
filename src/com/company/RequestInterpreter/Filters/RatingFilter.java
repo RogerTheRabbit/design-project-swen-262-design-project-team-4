@@ -12,6 +12,14 @@ import java.util.LinkedList;
  * The user provides a minimum rating and this filters any Searchable objects below that rating.
  */
 public class RatingFilter implements Filter {
+    
+	/**
+	 * Defines how filter should handle Releases
+	 * 
+	 * @param values Collection of Releases to filter
+	 * @param searchValue Minimum rating
+	 * @return The filtered Releases
+	 */
     @Override
     public LinkedList<Release> filterReleases(Collection<Release> values, String searchValue) {
         
@@ -33,6 +41,13 @@ public class RatingFilter implements Filter {
         
     }
 
+	/**
+	 * Defines how filter should handle Songs
+	 * 
+	 * @param values Collection of Songs to filter
+	 * @param searchValue Minimum rating
+	 * @return The filtered Songs
+	 */
     @Override
     public LinkedList<Song> filterSongs(Collection<Song> values, String searchValue) {
         
@@ -47,12 +62,19 @@ public class RatingFilter implements Filter {
         }
 
         if(filteredSong.size() == 0) {
-            System.out.printf("No songs were found with ratings higher than %d\n", minRating);
+            System.out.printf("No songs were found with ratings higher than or equal to %d\n", minRating);
         }
 
         return filteredSong;
     }
 
+	/**
+	 * Defines how filter should handle Artists
+	 * 
+	 * @param values Collection of Artists to filter
+	 * @param searchValue Minimum rating
+	 * @return The filtered Artists
+	 */
     @Override
     public LinkedList<Artist> filterArtists(Collection<Artist> values, String searchValue) {
         

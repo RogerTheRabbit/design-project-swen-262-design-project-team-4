@@ -6,16 +6,27 @@ import com.company.Database.Database;
 import com.company.Database.Searchable;
 
 /**
- * SelectRequest
+ * SelectRequest for the artist's contents in the user library
  */
 public class SelectArtist implements Request {
 
+    /**
+     * Attributes
+     */
     Database database;
 
+    /**
+     * Constructor
+     */
     public SelectArtist(Database database) {
         this.database = database;
     }
 
+    /**
+     * gets the searchable content of the selected artist
+     * @param args  the things that you are performing the request on
+     * @return      currently nothing
+     */
     @Override
     public Response handle(String args) {
         
@@ -24,16 +35,20 @@ public class SelectArtist implements Request {
         if (output != null) {
             System.out.println(output);
         } else {
-            System.out.println("This artist was not found in your personal library");
+            System.out.printf("Artist, '%s', was not found in your personal library.\n", args);
         }
 
 
         return null;
     }
 
+    /**
+     * how the request should be formatted
+     * @return  the string representation of how the request params should be formatted
+     */
     @Override
     public String getUsageDesc() {
-        return "Selects artist in your personal library {GUID of artist to select [GUID]}";
+        return "Selects artist in your personal library and retrieves music by that artist in your library - {GUID of artist to select}";
     }
 
     

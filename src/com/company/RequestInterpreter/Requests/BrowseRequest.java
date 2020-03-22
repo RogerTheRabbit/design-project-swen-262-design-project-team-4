@@ -8,6 +8,9 @@ import com.company.Database.Database;
  */
 public class BrowseRequest implements Request {
 
+    /**
+     * Attributes
+     */
     Database database;
 
     /**
@@ -17,19 +20,32 @@ public class BrowseRequest implements Request {
         this.database = database;
     }
 
+    /**
+     * handles the request to browse the user library
+     * by looping through the artists contained in the library and printing them out
+     * @param args  does nothing with the params due to the nature of browse
+     * @return      currently returns nothing
+     */
     @Override
     public Response handle(String args) {
-        
+        int counter = 0;
         for(String artistGUID : database.getArtistMap().keySet()) {
             System.out.println(database.getArtist(artistGUID));
+            counter++;
         }
+
+        System.out.printf("%d results found.\n", counter);
 
         return null;
     }
 
+    /**
+     * how the request should be formatted
+     * @return  the string representation of how the request params should be formatted
+     */
     @Override
     public String getUsageDesc() {
-        return "No params";
+        return "Browse all music content in your library - No params";
     }
     
 }

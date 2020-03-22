@@ -83,8 +83,8 @@ public class Artist implements Searchable {
     }
 
     /**
-     * returns itself
-     * @return itself
+     * returns its guid
+     * @return its guid
      */
     @Override
     public String getArtistGUID() {
@@ -109,6 +109,10 @@ public class Artist implements Searchable {
         return guid;
     }
 
+    /**
+     * gets the average rating of all of the artist's discography
+     * @return rating
+     */
     @Override
     public Integer getRating() {
         int average = 0;
@@ -123,26 +127,44 @@ public class Artist implements Searchable {
         return average/numSongs;
     }
 
+    /**
+     * takes the artist information and puts it into a csv format
+     * in case you need to write the artist info to a file
+     * @return String in csv format
+     */
     public String formatToCsv(){
         return guid + "," + name + "," + disambiguation;
     }
 
+    /**
+     * does nothing, but exists so that acquisition dates
+     * for the songs and releases works in the context of searchables
+     * @param date the acquisition date
+     */
     @Override
     public void setAcquisitionDate(Date date) {
     }
 
+    /**
+     * artists don't contain an acquisition date
+     * @return null
+     */
     @Override
     public Date getAcquisitionDate() {
         return null;
     }
 
+    /**
+     * makes the artist printable with its important info
+     * @return
+     */
     @Override
     public String toString() {
         return "Artist{" +
                 "guid='" + guid + '\'' +
-                ", name='" + name + '\'' +
                 ", disambiguation='" + disambiguation + '\'' +
                 ", duration=" + duration +
+                ", name='" + name + '\'' +
                 "}\n";
     }
 }

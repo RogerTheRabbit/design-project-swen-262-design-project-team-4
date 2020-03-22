@@ -26,7 +26,16 @@ public class Release implements Searchable {
     private Date acquisitionDate;
 
 
-
+    /**
+     * Constructor
+     * 
+     * @param guid GUID of release
+     * @param artistGUID GUID of artist that made the release
+     * @param title Title of the release
+     * @param issueDate Date the release was made
+     * @param medium Type of medium the release is made of
+     * @param songList List of songs that are in this release
+     */
     public Release(String guid, String artistGUID, String title, Date issueDate, Medium medium, List<Searchable> songList) {
         this.title = title;
         this.guid = guid;
@@ -96,6 +105,10 @@ public class Release implements Searchable {
         return guid;
     }
 
+    /**
+     * gets the rating of the release (release rating = average of song ratings)
+     * @return rating
+     */
     @Override
     public Integer getRating() {
         int average = 0;
@@ -131,13 +144,16 @@ public class Release implements Searchable {
 
     /**
      * gets the issue date of the release
-     * 
      * @return issueDate
      */
     public Date getIssueDate() {
         return issueDate;
     }
 
+    /**
+     * Returns a release in csv notation for the @FileSaver
+     * @return csv format of a release
+     */
     public String formatToCsv(){
         String result = guid + "," + artistGUID + "," + title + "," + issueDate + "," + medium;
         for(Searchable song: songList){
@@ -146,15 +162,18 @@ public class Release implements Searchable {
         return result;
     }
 
+    /**
+     * toString() for Releases
+     */
     @Override
     public String toString() {
         return "Release{" +
                 "guid='" + guid +
-                ", title='" + title +
                 ", issueDate=" + issueDate +
                 ", medium=" + medium +
                 ", rating=" + getRating() +
                 ", duration=" + duration +
+                ", title='" + title +
                 "}\n";
     }
 

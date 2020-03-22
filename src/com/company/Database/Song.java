@@ -138,8 +138,8 @@ public class Song implements Searchable {
         return "Song{" +
                 "GUID='" + GUID + '\'' +
                 ", duration=" + duration +
-                ", title='" + title + '\'' +
                 ", rating=" + rating +
+                ", title='" + title + '\'' +
                 "}\n";
     }
 }

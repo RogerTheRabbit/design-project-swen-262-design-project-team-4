@@ -44,6 +44,7 @@ public class CommandLineInterpreter {
 
         // Start main program loop
         System.out.println("Ready!");
+        System.out.println("For a list of commands, please type : \"help\"");
         while (true) {
             String input = in.nextLine();
             String command = input.split(" ")[0].toLowerCase();
@@ -52,9 +53,13 @@ public class CommandLineInterpreter {
             } else if(input.equals("exit")) {
                 database.saveLibrary();
                 break;
+            // TODO: Make this a new command
+            } else if(input.trim().toLowerCase().equals("cls")) {
+                System.out.print("\033[H\033[2J");
+                System.out.flush();
             } else {
                 // Command is invalid so display help.
-                System.out.println("Type 'help' to get command usage");
+                System.out.println("Unknown command. Type 'help' to get command usage");
             }
         }
 

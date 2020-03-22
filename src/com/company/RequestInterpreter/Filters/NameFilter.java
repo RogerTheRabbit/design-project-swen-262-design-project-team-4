@@ -13,13 +13,20 @@ import com.company.Database.Song;
  */
 public class NameFilter implements Filter {
 
+	/**
+	 * Defines how filter should handle Releases
+	 * 
+	 * @param values Collection of Releases to filter
+	 * @param searchValue Name to search for
+	 * @return The filtered Releases
+	 */
     @Override
     public LinkedList<Release> filterReleases(Collection<Release> values, String searchValue) {
 
         LinkedList<Release> filteredReleases = new LinkedList<>();
 
         for (Release release : values) {
-            if (release.getName().contains(searchValue)) {
+            if (release.getName().toLowerCase().contains(searchValue.toLowerCase())) {
                 filteredReleases.add(release);
             }
         }
@@ -27,32 +34,44 @@ public class NameFilter implements Filter {
         return filteredReleases;
     }
 
-
+	/**
+	 * Defines how filter should handle Songs
+	 * 
+	 * @param values Collection of Songs to filter
+	 * @param searchValue Name to search for
+	 * @return The filtered Songs
+	 */
     @Override
     public LinkedList<Song> filterSongs(Collection<Song> values, String searchValue) {
-        LinkedList<Song> filteredReleases = new LinkedList<>();
+        LinkedList<Song> filteredSongs = new LinkedList<>();
 
         for (Song song : values) {
-            if (song.getName().contains(searchValue)) {
-                filteredReleases.add(song);
+            if (song.getName().toLowerCase().contains(searchValue.toLowerCase())) {
+                filteredSongs.add(song);
             }
         }
 
-        return filteredReleases;
+        return filteredSongs;
     }
 
-
+	/**
+	 * Defines how filter should handle Artists
+	 * 
+	 * @param values Collection of Artists to filter
+	 * @param searchValue Name to search for
+	 * @return The filtered Artists
+	 */
     @Override
     public LinkedList<Artist> filterArtists(Collection<Artist> values, String searchValue) {
         LinkedList<Artist> filteredReleases = new LinkedList<>();
 
         for (Artist artist : values) {
-            if (artist.getGUID().contains(searchValue)) {
+            if (artist.getName().toLowerCase().contains(searchValue.toLowerCase())) {
                 filteredReleases.add(artist);
             }
         }
 
         return filteredReleases;
     }
-    
+
 }
