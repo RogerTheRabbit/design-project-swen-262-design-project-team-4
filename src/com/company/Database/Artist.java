@@ -162,9 +162,9 @@ public class Artist implements Searchable {
     public String toString() {
         return "Artist{" +
                 "guid='" + guid + '\'' +
-                ", name='" + name + '\'' +
                 ", disambiguation='" + disambiguation + '\'' +
                 ", duration=" + duration +
+                ", name='" + name + '\'' +
                 "}\n";
     }
 }

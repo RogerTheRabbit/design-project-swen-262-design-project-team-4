@@ -169,11 +169,11 @@ public class Release implements Searchable {
     public String toString() {
         return "Release{" +
                 "guid='" + guid +
-                ", title='" + title +
                 ", issueDate=" + issueDate +
                 ", medium=" + medium +
                 ", rating=" + getRating() +
                 ", duration=" + duration +
+                ", title='" + title +
                 "}\n";
     }
 
