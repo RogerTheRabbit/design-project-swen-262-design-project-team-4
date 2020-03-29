@@ -1,6 +1,7 @@
 package com.company.RequestInterpreter.Requests;
 
 import com.company.Database.OfflineDatabase;
+import com.company.RequestInterpreter.CommandHandler;
 import com.company.RequestInterpreter.Requests.Request;
 import com.company.RequestInterpreter.Requests.Response;
 
@@ -13,13 +14,13 @@ public class BrowseRequest implements Request {
     /**
      * Attributes
      */
-    OfflineDatabase offlineDatabase;
+    private CommandHandler commandHandler;
 
     /**
      * Constructor
      */
-    public BrowseRequest(OfflineDatabase offlineDatabase) {
-        this.offlineDatabase = offlineDatabase;
+    public BrowseRequest(CommandHandler commandHandler) {
+        this.commandHandler = commandHandler;
     }
 
     /**
@@ -31,12 +32,17 @@ public class BrowseRequest implements Request {
     @Override
     public Response handle(String args) {
         int counter = 0;
-        for(String artistGUID : offlineDatabase.getArtistMap().keySet()) {
-            System.out.println(offlineDatabase.getArtist(artistGUID));
+        /**
+         *
+         *
+        for(String artistGUID : commandHandler.getArtistMap().keySet()) {
+            System.out.println(commandHandler.getArtist(artistGUID));
             counter++;
         }
+         */
+        Response response = commandHandler.browseArtist();
 
-        System.out.printf("%d results found.\n", counter);
+        System.out.printf("%d results found.\n", response.getContent().size());
 
         return null;
     }

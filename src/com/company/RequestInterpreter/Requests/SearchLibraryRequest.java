@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.company.Database.OfflineDatabase;
 import com.company.Database.Searchable;
+import com.company.RequestInterpreter.CommandHandler;
 
 /**
  * SearchLibraryRequest implements the Request class.
@@ -16,13 +17,13 @@ public class SearchLibraryRequest implements Request {
     /**
      * Attributes
      */
-    OfflineDatabase offlineDatabase;
+    private CommandHandler commandHandler;
 
     /**
      * Constructor
      */
-    public SearchLibraryRequest(OfflineDatabase offlineDatabase) {
-        this.offlineDatabase = offlineDatabase;
+    public SearchLibraryRequest(CommandHandler commandHandler) {
+        this.commandHandler = commandHandler;
     }
 
     /**
@@ -49,13 +50,13 @@ public class SearchLibraryRequest implements Request {
         // Get data
         switch (searchType) {
             case "song":
-                songs.addAll(offlineDatabase.getSongsFromLibrary(searchValue.trim()));
+                songs.addAll(commandHandler.getSongsFromLibrary(searchValue.trim()));
                 break;
             case "release":
-                songs.addAll(offlineDatabase.getReleasesFromLibrary(searchValue.trim()));
+                songs.addAll(commandHandler.getReleasesFromLibrary(searchValue.trim()));
                 break;
             case "artist":
-                songs.addAll(offlineDatabase.getArtistsFromLibrary(searchValue.trim()));
+                songs.addAll(commandHandler.getArtistsFromLibrary(searchValue.trim()));
                 break;
             default:
                 System.err.println("Invalid search type. Please specify either 'song' or 'release' or 'artist'.");

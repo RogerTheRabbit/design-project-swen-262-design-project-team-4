@@ -20,7 +20,7 @@ public class CommandHandler {
      * given a searchable guid and acquisition date, will add the searchable to the user's library
      * @param searchableGUID the guid of the searchable to add
      * @param aquDate the acquisition date of the searchable to add
-     *
+     */
     public void addSearchableToLibrary(String searchableGUID, Date aquDate) {
         if(getArtist(searchableGUID) != null) {
             System.out.println("Artist not added to library.  Only songs and releases can be added to your library.");
@@ -33,7 +33,7 @@ public class CommandHandler {
     /**
      * given a searchable guid, remove it from a user's library
      * @param searchableGUID the guid of the searchable to be removed
-     *
+     */
     public boolean removeSearchableFromLibrary(String searchableGUID) {
         return library.removeSearchable(searchableGUID);
     }
@@ -44,9 +44,9 @@ public class CommandHandler {
      * @param searchableGUID the guid of the searchable to be rated
      * @param rating         the rating to be set
      * @throws Exception
-     *
+     */
     public void rateSearchableInLibrary(String searchableGUID, int rating) throws Exception {
         library.addRating(searchableGUID, rating);
     }
-     */
+
 }

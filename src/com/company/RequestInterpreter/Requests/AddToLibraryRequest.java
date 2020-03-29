@@ -3,6 +3,7 @@ package com.company.RequestInterpreter.Requests;
 import java.util.Date;
 
 import com.company.Database.OfflineDatabase;
+import com.company.RequestInterpreter.CommandHandler;
 import com.company.RequestInterpreter.Requests.Request;
 import com.company.RequestInterpreter.Requests.Response;
 import com.company.SearchableFactory.DateMaker;
@@ -16,13 +17,13 @@ public class AddToLibraryRequest implements Request {
     /**
      * Attributes
      */
-    private OfflineDatabase offlineDatabase;
+    private CommandHandler commandHandler;
 
     /**
      * Constructor
      */
-    public AddToLibraryRequest(OfflineDatabase offlineDatabase) {
-        this.offlineDatabase = offlineDatabase;
+    public AddToLibraryRequest(CommandHandler commandHandler) {
+        this.commandHandler = commandHandler;
     }
 
     /**
@@ -52,7 +53,7 @@ public class AddToLibraryRequest implements Request {
             date = new Date();
         }
 
-        offlineDatabase.addSearchableToLibrary(params[0], date);
+        commandHandler.addSearchableToLibrary(params[0], date);
 
         return null;
     }

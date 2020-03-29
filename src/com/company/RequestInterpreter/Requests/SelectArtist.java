@@ -4,6 +4,7 @@ import java.util.Collection;
 
 import com.company.Database.OfflineDatabase;
 import com.company.Database.Searchable;
+import com.company.RequestInterpreter.CommandHandler;
 
 /**
  * SelectRequest for the artist's contents in the user library
@@ -13,13 +14,13 @@ public class SelectArtist implements Request {
     /**
      * Attributes
      */
-    OfflineDatabase offlineDatabase;
+    private CommandHandler commandHandler;
 
     /**
      * Constructor
      */
-    public SelectArtist(OfflineDatabase offlineDatabase) {
-        this.offlineDatabase = offlineDatabase;
+    public SelectArtist(CommandHandler commandHandler) {
+        this.commandHandler = commandHandler;
     }
 
     /**
@@ -30,7 +31,7 @@ public class SelectArtist implements Request {
     @Override
     public Response handle(String args) {
         
-        Collection<Searchable> output = offlineDatabase.getArtistFromLibrary(args);
+        Collection<Searchable> output = commandHandler.getArtistFromLibrary(args);
 
         if (output != null) {
             System.out.println(output);

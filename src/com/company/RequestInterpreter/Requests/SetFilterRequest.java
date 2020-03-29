@@ -1,6 +1,7 @@
 package com.company.RequestInterpreter.Requests;
 
 import com.company.Database.OfflineDatabase;
+import com.company.RequestInterpreter.CommandHandler;
 
 /**
  * SetFilterRequest
@@ -11,13 +12,13 @@ public class SetFilterRequest implements Request {
     /**
      * Attributes
      */
-    private OfflineDatabase offlineDatabase;
+    private CommandHandler commandHandler;
 
     /**
      * Constructor
      */
-    public SetFilterRequest(OfflineDatabase offlineDatabase) {
-        this.offlineDatabase = offlineDatabase;
+    public SetFilterRequest(CommandHandler commandHandler) {
+        this.commandHandler = commandHandler;
     }
 
     /**
@@ -27,7 +28,7 @@ public class SetFilterRequest implements Request {
      */
     @Override
     public Response handle(String args) {
-        offlineDatabase.setFilter(args.trim());
+        commandHandler.setFilter(args.trim());
         return null;
     }
 

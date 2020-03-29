@@ -1,6 +1,7 @@
 package com.company.RequestInterpreter.Requests;
 
 import com.company.Database.OfflineDatabase;
+import com.company.RequestInterpreter.CommandHandler;
 
 /**
  * setSortRequest
@@ -11,13 +12,13 @@ public class SetSortRequest implements Request {
     /**
      * Attributes
      */
-    private OfflineDatabase offlineDatabase;
+    private CommandHandler commandHandler;
 
     /**
      * Constructor
      */
-    public SetSortRequest(OfflineDatabase offlineDatabase) {
-        this.offlineDatabase = offlineDatabase;
+    public SetSortRequest(CommandHandler commandHandler) {
+        this.commandHandler = commandHandler;
     }
 
     /**
@@ -28,7 +29,7 @@ public class SetSortRequest implements Request {
     @Override
     public Response handle(String args) {
         
-        offlineDatabase.setSort(args.trim());
+        commandHandler.setSort(args.trim());
 
         return null;
     }

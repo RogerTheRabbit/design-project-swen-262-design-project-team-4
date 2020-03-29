@@ -1,6 +1,7 @@
 package com.company.RequestInterpreter.Requests;
 
 import com.company.Database.OfflineDatabase;
+import com.company.RequestInterpreter.CommandHandler;
 
 /**
  * RateRequest implements the Request class.
@@ -12,13 +13,13 @@ public class RateRequest implements Request {
     /**
      * Attributes
      */
-    private OfflineDatabase offlineDatabase;
+    private CommandHandler commandHandler;
 
     /**
      * Constructor
      */
-    public RateRequest(OfflineDatabase offlineDatabase) {
-        this.offlineDatabase = offlineDatabase;
+    public RateRequest(CommandHandler commandHandler) {
+        this.commandHandler = commandHandler;
     }
 
     /**
@@ -36,7 +37,7 @@ public class RateRequest implements Request {
             if (rating < 1 || rating > 5) {
                 throw new ExceptionInInitializerError();
             }
-            offlineDatabase.rateSearchableInLibrary(params[0], rating);
+            commandHandler.rateSearchableInLibrary(params[0], rating);
 
             System.out.println("Successfully rated song/artist in your personal library!");
 

@@ -40,7 +40,7 @@ public class Response {
      * gets the content contained within the response
      * @return  the array of content in response to the request
      */
-    public ArrayList<Searchable> getContent(){
+    public List<Searchable> getContent(){
         return content;
     }
 
