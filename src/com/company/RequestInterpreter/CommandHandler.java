@@ -22,12 +22,13 @@ public class CommandHandler {
      * @param aquDate the acquisition date of the searchable to add
      */
     public void addSearchableToLibrary(String searchableGUID, Date aquDate) {
-        if(getArtist(searchableGUID) != null) {
+        Library library = libraries.get(username);
+        if(library.getArtist(searchableGUID) != null) {
             System.out.println("Artist not added to library.  Only songs and releases can be added to your library.");
             return;
         }
-        library.addAcquisitionDate(searchableGUID, aquDate);
-        library.addSearchable(searchableGUID);
+        library.addAcquisitionDate(library.getSong(), aquDate);
+        library.addSearchable(searchableGUID, );
     }
 
     /**

@@ -30,7 +30,7 @@ public class CommandLineInterpreter {
         String username = in.nextLine();
 
         System.out.println("Setting everything up...");
-        CommandHandler commandHandler = new CommandHandler();
+
         CommandLineInterpreter interpreter = new CommandLineInterpreter();
 
         // Start main program loop
@@ -42,7 +42,7 @@ public class CommandLineInterpreter {
             if(interpreter.getCommandMap().containsKey(command)) {
                 interpreter.getCommand(command).handle(input.substring(command.length()).trim());
             } else if(input.equals("exit")) {
-                commandHandler.saveLibrary(username);
+                interpreter.getCommand("save").handle(username);
                 break;
             // TODO: Make this a new command
             } else if(input.trim().toLowerCase().equals("cls")) {
@@ -60,6 +60,7 @@ public class CommandLineInterpreter {
 
     private void initializeCommands(){
         commands = new HashMap<>();
+        CommandHandler commandHandler = new CommandHandler();
         // Add Commands here
         // Note: Keys should always be lowercase
         commands.put("add", new AddToLibraryRequest(commandHandler));
