@@ -1,4 +1,4 @@
-package com.company.RequestInterpreter.Filters;
+package com.company.ResponseFormatter.Filters;
 
 import com.company.Database.Artist;
 import com.company.Database.Release;
@@ -8,16 +8,16 @@ import java.util.Collection;
 import java.util.LinkedList;
 
 /**
- * MinDurationFilter. Filters based on if searchables are 
- * over a specified duration
+ * MaxDurationFilter. Filters songs based on if they are under 
+ * a specified duration.
  */
-public class MinDurationFilter implements Filter {
+public class MaxDurationFilter implements Filter {
     
 	/**
 	 * Defines how filter should handle Releases
 	 * 
 	 * @param values Collection of Releases to filter
-	 * @param searchValue Minimum duration of release
+	 * @param searchValue Maximum duration of song
 	 * @return The filtered Releases
 	 */
     @Override
@@ -25,22 +25,22 @@ public class MinDurationFilter implements Filter {
 
         LinkedList<Release> filteredReleases = new LinkedList<>();
 
-        int minLength;
+        int maxLength;
 
         try {
-            minLength = Integer.parseInt(searchValue);
+            maxLength = Integer.parseInt(searchValue);
         } catch (NumberFormatException e) {
             System.err.println("Invalid number.");
             return new LinkedList<>();
         }
 
         for (Release release : values) {
-            if (release.getTotalDuration() >= minLength) {
+            if (release.getTotalDuration() <= maxLength) {
                 filteredReleases.add(release);
             }
         }
         if(filteredReleases.size() == 0) {
-            System.out.printf("No releases longer than %d ms were found.\n", minLength);
+            System.out.printf("No releases less than %d ms were found.\n", maxLength);
         }
         
         return filteredReleases;
@@ -50,7 +50,7 @@ public class MinDurationFilter implements Filter {
 	 * Defines how filter should handle Songs
 	 * 
 	 * @param values Collection of Songs to filter
-	 * @param searchValue Minimum duration of song
+	 * @param searchValue Maximum duration of song
 	 * @return The filtered Songs
 	 */
     @Override
@@ -58,22 +58,22 @@ public class MinDurationFilter implements Filter {
 
         LinkedList<Song> filteredSongs = new LinkedList<>();
 
-        int minLength;
+        int maxLength;
 
         try {
-            minLength = Integer.parseInt(searchValue);
+            maxLength = Integer.parseInt(searchValue);
         } catch (NumberFormatException e) {
             System.err.println("Invalid number.");
             return new LinkedList<>();
         }
 
         for (Song song : values) {
-            if (song.getTotalDuration() >= minLength) {
+            if (song.getTotalDuration() <= maxLength) {
                 filteredSongs.add(song);
             }
         }
         if(filteredSongs.size() == 0) {
-            System.out.printf("No songs longer than %d ms were found.\n", minLength);
+            System.out.printf("No songs less than %d ms were found.\n", maxLength);
         }
         
         return filteredSongs;
@@ -83,29 +83,29 @@ public class MinDurationFilter implements Filter {
 	 * Defines how filter should handle Artists
 	 * 
 	 * @param values Collection of Artists to filter
-	 * @param searchValue Minimum duration of artist
+	 * @param searchValue Maximum duration of song
 	 * @return The filtered Artists
 	 */
     @Override
     public LinkedList<Artist> filterArtists(Collection<Artist> values, String searchValue) {
         LinkedList<Artist> filteredArtists = new LinkedList<>();
 
-        int minLength;
+        int maxLength;
 
         try {
-            minLength = Integer.parseInt(searchValue);
+            maxLength = Integer.parseInt(searchValue);
         } catch (NumberFormatException e) {
             System.err.println("Invalid number.");
             return new LinkedList<>();
         }
 
         for (Artist artist : values) {
-            if (artist.getTotalDuration() >= minLength) {
+            if (artist.getTotalDuration() <= maxLength) {
                 filteredArtists.add(artist);
             }
         }
         if(filteredArtists.size() == 0) {
-            System.out.printf("No releases longer than %d ms were found.\n", minLength);
+            System.out.printf("No releases less than %d ms were found.\n", maxLength);
         }
         
         return filteredArtists;

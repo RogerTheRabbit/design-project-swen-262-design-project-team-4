@@ -1,4 +1,4 @@
-package com.company.RequestInterpreter.Filters;
+package com.company.ResponseFormatter.Filters;
 
 import java.util.Collection;
 import java.util.LinkedList;

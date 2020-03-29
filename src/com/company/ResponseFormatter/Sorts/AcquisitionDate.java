@@ -1,4 +1,4 @@
-package com.company.RequestInterpreter.Sorts;
+package com.company.ResponseFormatter.Sorts;
 
 import com.company.Database.Searchable;
 

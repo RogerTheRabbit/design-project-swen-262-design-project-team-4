@@ -1,8 +1,11 @@
 package com.company.Database;
 
 import com.company.FileIO.FileParser;
-import com.company.RequestInterpreter.Filters.*;
-import com.company.RequestInterpreter.Sorts.*;
+import com.company.ResponseFormatter.Filters.*;
+import com.company.ResponseFormatter.Sorts.AcquisitionDate;
+import com.company.ResponseFormatter.Sorts.Alphabetical;
+import com.company.ResponseFormatter.Sorts.Rating;
+import com.company.ResponseFormatter.Sorts.Sort;
 import com.company.SearchableFactory.ArtistFactory;
 import com.company.SearchableFactory.DateMaker;
 import com.company.SearchableFactory.ReleaseFactory;

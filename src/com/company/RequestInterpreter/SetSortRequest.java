@@ -1,12 +1,12 @@
-package com.company.RequestInterpreter.Requests;
+package com.company.RequestInterpreter;
 
 import com.company.Database.OfflineDatabase;
 
 /**
- * SetFilterRequest
- * sets the filter for the database's response
+ * setSortRequest
+ * sets the sorting of the info done by the database
  */
-public class SetFilterRequest implements Request {
+public class SetSortRequest implements Request {
 
     /**
      * Attributes
@@ -16,18 +16,20 @@ public class SetFilterRequest implements Request {
     /**
      * Constructor
      */
-    public SetFilterRequest(OfflineDatabase offlineDatabase) {
+    public SetSortRequest(OfflineDatabase offlineDatabase) {
         this.offlineDatabase = offlineDatabase;
     }
 
     /**
-     * takes the inputted desired filter string and passes that to the database for it to set the filter
+     * takes the inputted desired sort string and passes that to the database for it to set the sorting method
      * @param args  the things that you are performing the request on
      * @return      currently nothing
      */
     @Override
     public Response handle(String args) {
-        offlineDatabase.setFilter(args.trim());
+        
+        offlineDatabase.setSort(args.trim());
+
         return null;
     }
 
@@ -37,8 +39,6 @@ public class SetFilterRequest implements Request {
      */
     @Override
     public String getUsageDesc() {
-        return String.format("Set what criteria you would like to search by - {search filter %s}", offlineDatabase.getAvailableFilterTypes());
+        return String.format("Set how you would like your search results to be ordered - {sort by %s}", offlineDatabase.getAvailableSortTypes());
     }
-
-    
 }

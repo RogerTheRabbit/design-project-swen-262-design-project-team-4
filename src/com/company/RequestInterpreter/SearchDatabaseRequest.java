@@ -1,4 +1,4 @@
-package com.company.RequestInterpreter.Requests;
+package com.company.RequestInterpreter;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -7,27 +7,27 @@ import com.company.Database.OfflineDatabase;
 import com.company.Database.Searchable;
 
 /**
- * SearchLibraryRequest implements the Request class.
- * It takes in a string from the user and searches their library for that item.
- * Handles any invalid parameters given.
+ * SearchDatabaseRequest implements the Request class.
+ * It takes in a string from the user to search for in the database.
+ * It handles any invalid parameters given.
  */
-public class SearchLibraryRequest implements Request {
+public class SearchDatabaseRequest implements Request {
 
     /**
      * Attributes
      */
-    OfflineDatabase offlineDatabase;
+    private OfflineDatabase offlineDatabase;
 
     /**
      * Constructor
      */
-    public SearchLibraryRequest(OfflineDatabase offlineDatabase) {
+    public SearchDatabaseRequest(OfflineDatabase offlineDatabase) {
         this.offlineDatabase = offlineDatabase;
     }
 
     /**
-     * searches the user's library for specified searchables depending on what filter is set within the database
-     * @param args  the search parameters to query the library
+     * searches the database for specified searchables depending on what filter is set within the database
+     * @param args  the search parameters to query the database
      * @return      currently nothing
      */
     @Override
@@ -38,7 +38,7 @@ public class SearchLibraryRequest implements Request {
         String[] params = args.split(" ");
 
         if(params.length < 2) {
-            System.err.println("Invalid number of params.  Must use 2 params: {search type (song, release)} {search value}");
+            System.err.println("Invalid number of params.  Must use 2 params: [search type (song, release, artist)] [search value]");
             return null;
         }
 
@@ -49,19 +49,19 @@ public class SearchLibraryRequest implements Request {
         // Get data
         switch (searchType) {
             case "song":
-                songs.addAll(offlineDatabase.getSongsFromLibrary(searchValue.trim()));
+                songs.addAll(offlineDatabase.getSongs(searchValue.trim()));
                 break;
             case "release":
-                songs.addAll(offlineDatabase.getReleasesFromLibrary(searchValue.trim()));
+                songs.addAll(offlineDatabase.getReleases(searchValue.trim()));
                 break;
             case "artist":
-                songs.addAll(offlineDatabase.getArtistsFromLibrary(searchValue.trim()));
+                songs.addAll(offlineDatabase.getArtists(searchValue.trim()));
                 break;
             default:
-                System.err.println("Invalid search type. Please specify either 'song' or 'release' or 'artist'.");
+                System.err.println("Invalid search type. Please specify either 'song' or 'release'.");
                 return null;
         }
-        
+
         System.out.println(songs);
         return null;
     }
@@ -72,8 +72,7 @@ public class SearchLibraryRequest implements Request {
      */
     @Override
     public String getUsageDesc() {
-        return "Search your personal library for songs, releases or artists - {search type [song, release, artist]} {search value}";
+        return "Search the database for a song, release, or artist. The default filter being searching by name - {search type (song, release, artist)} {search value}";
     }
 
-    
 }

@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Scanner;
 
 import com.company.Database.OfflineDatabase;
+import com.company.RequestInterpreter.*;
 import com.company.RequestInterpreter.Requests.*;
 
 /**

@@ -1,4 +1,4 @@
-package com.company.RequestInterpreter.Filters;
+package com.company.ResponseFormatter.Filters;
 
 import java.util.Collection;
 import java.util.LinkedList;
@@ -8,16 +8,16 @@ import com.company.Database.Release;
 import com.company.Database.Song;
 
 /**
- * GUIDFilter. Filters based on a given GUID. Returns searchables 
- * that have the same GUID as a given GUID
+ * This implementation of Filter allows you to filter search results by Name.
+ * The user provides a name and this filters out any Searchable objects that do not contain that name.
  */
-public class GUIDFilter implements Filter {
+public class NameFilter implements Filter {
 
 	/**
 	 * Defines how filter should handle Releases
 	 * 
 	 * @param values Collection of Releases to filter
-	 * @param searchValue GUID of desired release
+	 * @param searchValue Name to search for
 	 * @return The filtered Releases
 	 */
     @Override
@@ -26,7 +26,7 @@ public class GUIDFilter implements Filter {
         LinkedList<Release> filteredReleases = new LinkedList<>();
 
         for (Release release : values) {
-            if (release.getGUID().contains(searchValue)) {
+            if (release.getName().toLowerCase().contains(searchValue.toLowerCase())) {
                 filteredReleases.add(release);
             }
         }
@@ -38,28 +38,27 @@ public class GUIDFilter implements Filter {
 	 * Defines how filter should handle Songs
 	 * 
 	 * @param values Collection of Songs to filter
-	 * @param searchValue GUID of desired Song
+	 * @param searchValue Name to search for
 	 * @return The filtered Songs
 	 */
     @Override
     public LinkedList<Song> filterSongs(Collection<Song> values, String searchValue) {
-
-        LinkedList<Song> filteredReleases = new LinkedList<>();
+        LinkedList<Song> filteredSongs = new LinkedList<>();
 
         for (Song song : values) {
-            if (song.getGUID().contains(searchValue)) {
-                filteredReleases.add(song);
+            if (song.getName().toLowerCase().contains(searchValue.toLowerCase())) {
+                filteredSongs.add(song);
             }
         }
 
-        return filteredReleases;
+        return filteredSongs;
     }
 
 	/**
 	 * Defines how filter should handle Artists
 	 * 
 	 * @param values Collection of Artists to filter
-	 * @param searchValue GUID of given Artist
+	 * @param searchValue Name to search for
 	 * @return The filtered Artists
 	 */
     @Override
@@ -67,7 +66,7 @@ public class GUIDFilter implements Filter {
         LinkedList<Artist> filteredReleases = new LinkedList<>();
 
         for (Artist artist : values) {
-            if (artist.getGUID().contains(searchValue)) {
+            if (artist.getName().toLowerCase().contains(searchValue.toLowerCase())) {
                 filteredReleases.add(artist);
             }
         }

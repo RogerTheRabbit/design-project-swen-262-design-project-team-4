@@ -1,4 +1,4 @@
-package com.company.RequestInterpreter.Requests;
+package com.company.RequestInterpreter;
 
 import com.company.Database.OfflineDatabase;
 
