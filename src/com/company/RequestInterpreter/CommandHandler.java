@@ -12,6 +12,9 @@ public class CommandHandler {
     private Database database;
     private HashMap<String, Library> libraries;
 
+    public void saveLibrary(String username){
+        libraries.get(username).saveLibrary();
+    }
 
     /**
      * given a searchable guid and acquisition date, will add the searchable to the user's library

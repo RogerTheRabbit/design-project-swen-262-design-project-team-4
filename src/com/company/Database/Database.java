@@ -1,6 +1,6 @@
 package com.company.Database;
 
-import com.company.RequestInterpreter.Response;
+import com.company.RequestInterpreter.Requests.Response;
 
 public interface Database {
     public Song getSong(String GUID);

@@ -1,6 +1,7 @@
-package com.company.RequestInterpreter;
+package com.company.RequestInterpreter.Requests;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import com.company.Database.Searchable;
 
@@ -13,23 +14,26 @@ public class Response {
     /**
      * Attributes
      */
-    private ArrayList<Searchable> content;
+    private List<Searchable> content;
     private boolean successStatus;
+    private String responseMessage;
 
     /**
      * Constructor
      */
-    Response(ArrayList<Searchable> content, boolean successStatus) {
+    public Response(List<Searchable> content, boolean successStatus, String responseMessage) {
         this.content = content;
         this.successStatus = successStatus;
+        this.responseMessage = responseMessage;
     }
 
     /**
      * Overloaded Constructor
      */
-    Response(boolean successStatus) {
+    public Response(boolean successStatus, String responseMessage) {
         this.content = new ArrayList<>(1);
         this.successStatus = successStatus;
+        this.responseMessage = responseMessage;
     }
 
     /**
@@ -46,6 +50,10 @@ public class Response {
      */
     public boolean getSuccessStatus() {
         return successStatus;
+    }
+
+    public String getResponseMessage(){
+        return responseMessage;
     }
 
 }

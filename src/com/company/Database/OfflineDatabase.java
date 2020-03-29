@@ -1,17 +1,14 @@
 package com.company.Database;
 
 import com.company.FileIO.FileParser;
-import com.company.RequestInterpreter.Response;
+import com.company.RequestInterpreter.Requests.Response;
 import com.company.SearchableFactory.ArtistFactory;
-import com.company.SearchableFactory.DateMaker;
 import com.company.SearchableFactory.ReleaseFactory;
 import com.company.SearchableFactory.SongFactory;
 
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Date;
 import java.util.HashMap;
-import java.util.LinkedList;
+import java.util.List;
 
 /**
  * @author mjh9131
@@ -200,8 +197,8 @@ public class OfflineDatabase implements Database{
      */
     @Override
     public Response getSongs() {
-        songs.values();
-        return null;
+        List<Searchable> searchables = new ArrayList<>(songs.values());
+        return new Response( searchables, true, "List of every Song");
     }
 
     /**
@@ -211,8 +208,8 @@ public class OfflineDatabase implements Database{
      */
     @Override
     public Response getReleases() {
-        releases.values();
-        return null;
+        List<Searchable> searchables = new ArrayList<>(releases.values());
+        return new Response(searchables, true, "List of every Release");
     }
 
     /**
@@ -222,8 +219,9 @@ public class OfflineDatabase implements Database{
      */
     @Override
     public Response getArtists() {
-        artists.values();
-        return null;
+        List<Searchable> searchables = new ArrayList<>(artists.values());
+
+        return new Response(searchables, true, "List of all Releases");
     }
 
 }

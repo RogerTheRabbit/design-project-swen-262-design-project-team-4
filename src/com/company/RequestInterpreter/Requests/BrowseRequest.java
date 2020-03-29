@@ -1,6 +1,8 @@
-package com.company.RequestInterpreter;
+package com.company.RequestInterpreter.Requests;
 
 import com.company.Database.OfflineDatabase;
+import com.company.RequestInterpreter.Requests.Request;
+import com.company.RequestInterpreter.Requests.Response;
 
 /**
  * BrowseRequest implements the Request class.

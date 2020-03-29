@@ -1,13 +1,12 @@
-package com.company.RequestInterpreter;
+package com.company.RequestInterpreter.Requests;
 
 import com.company.Database.OfflineDatabase;
 import com.company.Database.Searchable;
 
 /**
- * SelectRequest for a song in the user's library
- * basically it just get's the rest of a song's info when selected by guid
+ * SelectRequest for the release's contents
  */
-public class SelectSong implements Request {
+public class SelectRelease implements Request {
 
     /**
      * Attributes
@@ -17,24 +16,26 @@ public class SelectSong implements Request {
     /**
      * Constructor
      */
-    public SelectSong(final OfflineDatabase offlineDatabase) {
+    public SelectRelease(OfflineDatabase offlineDatabase) {
         this.offlineDatabase = offlineDatabase;
     }
 
     /**
-     * gets the song's info
+     * gets the list of songs for the specified release
      * @param args  the things that you are performing the request on
      * @return      currently nothing
      */
     @Override
-    public Response handle(final String args) {
-        final Searchable output = offlineDatabase.getSongFromLibrary(args);
+    public Response handle(String args) {
+        
+        Searchable output = offlineDatabase.getReleaseFromLibrary(args);
 
         if (output != null) {
-            System.out.println(output);
+            System.out.println(output.getSongList());
         } else {
-            System.out.printf("song,'%s', was not found in your personal library.\n", args);
-        }
+            System.out.printf("Release, '%s', was not found in your personal library.\n", args);
+        }    
+
         return null;
     }
 
@@ -44,7 +45,8 @@ public class SelectSong implements Request {
      */
     @Override
     public String getUsageDesc() {
-        return "Selects the song in your personal library - {GUID of song to select}";
+        return "Selects the release in your personal library and displays the songs in that release - {GUID of release to select}";
     }
 
+    
 }

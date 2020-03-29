@@ -1,8 +1,10 @@
-package com.company.RequestInterpreter;
+package com.company.RequestInterpreter.Requests;
 
 import java.util.Date;
 
 import com.company.Database.OfflineDatabase;
+import com.company.RequestInterpreter.Requests.Request;
+import com.company.RequestInterpreter.Requests.Response;
 import com.company.SearchableFactory.DateMaker;
 
 /**

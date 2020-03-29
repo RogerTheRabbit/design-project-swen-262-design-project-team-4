@@ -7,7 +7,7 @@ import java.util.HashSet;
 
 import com.company.FileIO.FileParser;
 import com.company.FileIO.FileSaver;
-import com.company.RequestInterpreter.Response;
+import com.company.RequestInterpreter.Requests.Response;
 import com.company.SearchableFactory.ArtistFactory;
 import com.company.SearchableFactory.DateMaker;
 import com.company.SearchableFactory.ReleaseFactory;
@@ -318,17 +318,17 @@ public class Library implements Database{
 
     @Override
     public Response getSongs() {
-        return null;
+        return new Response(seperateSearchables("Song"), true, "List of all Songs");
     }
 
     @Override
     public Response getReleases() {
-        return null;
+        return new Response(seperateSearchables("Release"), true, "List of all Releases");
     }
 
     @Override
     public Response getArtists() {
-        return null;
+        return new Response(seperateSearchables("Artist"), true, "List of all Artists");
     }
 
 

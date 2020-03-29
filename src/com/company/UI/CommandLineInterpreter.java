@@ -3,8 +3,8 @@ package com.company.UI;
 import java.util.HashMap;
 import java.util.Scanner;
 
-import com.company.Database.OfflineDatabase;
 import com.company.RequestInterpreter.*;
+import com.company.RequestInterpreter.Requests.*;
 
 /**
  * CommandLineInterpreter
@@ -13,36 +13,25 @@ public class CommandLineInterpreter {
     
     // Initialize everything here
 
-    private static OfflineDatabase offlineDatabase = new OfflineDatabase();
-
     // Map of all commands: key = command that user types into terminal | value =
     // Request to handle that command.
-    private static final HashMap<String, Request> COMMANDS;
-    static {
-        COMMANDS = new HashMap<>();
-        // Add Commands here
-        // Note: Keys should always be lowercase
-        COMMANDS.put("add", new AddToLibraryRequest(offlineDatabase));
-        COMMANDS.put("rate", new RateRequest(offlineDatabase));
-        COMMANDS.put("remove", new RemoveFromLibraryRequest(offlineDatabase));
-        COMMANDS.put("search", new SearchDatabaseRequest(offlineDatabase));
-        COMMANDS.put("searchlibrary", new SearchLibraryRequest(offlineDatabase));
-        COMMANDS.put("setfilter", new SetFilterRequest(offlineDatabase));
-        COMMANDS.put("setsort", new SetSortRequest(offlineDatabase));
-        COMMANDS.put("browse", new BrowseRequest(offlineDatabase));
-        COMMANDS.put("selectartist", new SelectArtist(offlineDatabase));
-        COMMANDS.put("selectrelease", new SelectRelease(offlineDatabase));
-        COMMANDS.put("selectsong", new SelectSong(offlineDatabase));
-        COMMANDS.put("help", new Help(COMMANDS));
+    private HashMap<String, Request> commands;
+
+
+
+    public CommandLineInterpreter() {
+        initializeCommands();
     }
 
     public static void main(String[] args) {
-
-        System.out.println("Setting everything up...");
-
         Scanner in = new Scanner(System.in);
 
         System.out.println("Please input a username");
+        String username = in.nextLine();
+
+        System.out.println("Setting everything up...");
+        CommandHandler commandHandler = new CommandHandler();
+        CommandLineInterpreter interpreter = new CommandLineInterpreter();
 
         // Start main program loop
         System.out.println("Ready!");
@@ -50,10 +39,10 @@ public class CommandLineInterpreter {
         while (true) {
             String input = in.nextLine();
             String command = input.split(" ")[0].toLowerCase();
-            if(COMMANDS.containsKey(command)) {
-                COMMANDS.get(command).handle(input.substring(command.length()).trim());
+            if(interpreter.getCommandMap().containsKey(command)) {
+                interpreter.getCommand(command).handle(input.substring(command.length()).trim());
             } else if(input.equals("exit")) {
-                offlineDatabase.saveLibrary();
+                commandHandler.saveLibrary(username);
                 break;
             // TODO: Make this a new command
             } else if(input.trim().toLowerCase().equals("cls")) {
@@ -68,5 +57,32 @@ public class CommandLineInterpreter {
         in.close();
 
     }
+
+    private void initializeCommands(){
+        commands = new HashMap<>();
+        // Add Commands here
+        // Note: Keys should always be lowercase
+        commands.put("add", new AddToLibraryRequest(commandHandler));
+        commands.put("rate", new RateRequest(commandHandler));
+        commands.put("remove", new RemoveFromLibraryRequest(commandHandler));
+        commands.put("search", new SearchDatabaseRequest(commandHandler));
+        commands.put("searchlibrary", new SearchLibraryRequest(commandHandler));
+        commands.put("setfilter", new SetFilterRequest(commandHandler));
+        commands.put("setsort", new SetSortRequest(commandHandler));
+        commands.put("browse", new BrowseRequest(commandHandler));
+        commands.put("selectartist", new SelectArtist(commandHandler));
+        commands.put("selectrelease", new SelectRelease(commandHandler));
+        commands.put("selectsong", new SelectSong(commandHandler));
+        commands.put("help", new Help(commands));
+    }
+
+    public Request getCommand(String name){
+        return commands.get(name);
+    }
+
+    public HashMap<String, Request> getCommandMap(){
+        return commands;
+    }
+
 
 }

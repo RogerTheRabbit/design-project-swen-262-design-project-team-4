@@ -1,4 +1,4 @@
-package com.company.RequestInterpreter;
+package com.company.RequestInterpreter.Requests;
 
 import java.util.HashMap;
 
