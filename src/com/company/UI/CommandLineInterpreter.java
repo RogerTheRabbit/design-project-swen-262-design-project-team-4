@@ -5,7 +5,6 @@ import java.util.Scanner;
 
 import com.company.Database.OfflineDatabase;
 import com.company.RequestInterpreter.*;
-import com.company.RequestInterpreter.Requests.*;
 
 /**
  * CommandLineInterpreter
@@ -42,6 +41,8 @@ public class CommandLineInterpreter {
         System.out.println("Setting everything up...");
 
         Scanner in = new Scanner(System.in);
+
+        System.out.println("Please input a username");
 
         // Start main program loop
         System.out.println("Ready!");

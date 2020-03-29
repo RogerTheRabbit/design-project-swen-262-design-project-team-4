@@ -13,12 +13,12 @@ public class ReleaseFactory {
      * @param fields The attributes of the release
      * @return The Release object (a Searchable)
      */
-    public Release makeReleaseFromCsv(String[] fields, OfflineDatabase offlineDatabase) {
+    public Release makeReleaseFromCsv(String[] fields, Database database) {
         try {
             ArrayList<Searchable> songs = new ArrayList<>();
 
             for (int i = 5; i < fields.length; i++) {
-                Song song = offlineDatabase.getSong(fields[i]);
+                Song song = database.getSong(fields[i]);
                 songs.add(song);
             }
 

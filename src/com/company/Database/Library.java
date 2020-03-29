@@ -8,7 +8,10 @@ import java.util.HashSet;
 import com.company.FileIO.FileParser;
 import com.company.FileIO.FileSaver;
 import com.company.RequestInterpreter.Response;
+import com.company.SearchableFactory.ArtistFactory;
 import com.company.SearchableFactory.DateMaker;
+import com.company.SearchableFactory.ReleaseFactory;
+import com.company.SearchableFactory.SongFactory;
 
 import java.io.File;
 import java.util.*;
@@ -336,9 +339,9 @@ public class Library implements Database{
      * @param signedInUser
      */
     private void initializeLibrary(String signedInUser) {
-        addSearchableToLibraryFromFile(signedInUser, "Artists");
-        addSearchableToLibraryFromFile(signedInUser, "Songs");
-        addSearchableToLibraryFromFile(signedInUser, "Releases");
+        addArtistToLibraryFromFile(signedInUser);
+        addSongsToLibraryFromFile(signedInUser);
+        addReleasesToLibraryFromFile(signedInUser);
         addRatingToSongFromFile(signedInUser);
         addAcquisitionDateFromFile(signedInUser);
     }
@@ -351,14 +354,52 @@ public class Library implements Database{
         FILEREADER.setFileName(signedInUser + "Artist.csv");
         FILEREADER.setFilePath("src/data/user/");
         try {
+            ArtistFactory maker = new ArtistFactory();
             ArrayList<String[]> splitData = FILEREADER.readFile();
             for (String[] fields : splitData) {
-                addSearchable(fields[0]);
+                addArtistToArtistMapFromFile(maker.makeArtistFromCsv(fields));
             }
         } catch (java.io.IOException e) {
             // System.err.println(e);
         }
     }
+    /**
+     * reads the user's associated searchable files and adds them to their library
+     * @param signedInUser      the user's username
+     */
+    private void addSongsToLibraryFromFile(String signedInUser) {
+        FILEREADER.setFileName(signedInUser + "Songs.csv");
+        FILEREADER.setFilePath("src/data/user/");
+        try {
+            SongFactory maker = new SongFactory();
+            ArrayList<String[]> splitData = FILEREADER.readFile();
+            for (String[] fields : splitData) {
+                Song songToAdd = maker.makeSongFromCsv(fields);
+                addSearchable(songToAdd, getArtist(songToAdd.getGUID()));
+            }
+        } catch (java.io.IOException e) {
+            // System.err.println(e);
+        }
+    }
+    /**
+     * reads the user's associated searchable files and adds them to their library
+     * @param signedInUser      the user's username
+     */
+    private void addReleasesToLibraryFromFile(String signedInUser) {
+        FILEREADER.setFileName(signedInUser + "Releases.csv");
+        FILEREADER.setFilePath("src/data/user/");
+        try {
+            ReleaseFactory maker = new ReleaseFactory();
+            ArrayList<String[]> splitData = FILEREADER.readFile();
+            for (String[] fields : splitData) {
+                Release releaseToAdd = maker.makeReleaseFromCsv(fields, this);
+                addSearchable(releaseToAdd, getArtist(releaseToAdd.getGUID()));
+            }
+        } catch (java.io.IOException e) {
+            // System.err.println(e);
+        }
+    }
+
 
     /**
      * reads the user's associated rating files and adds them to the corresponding searchable

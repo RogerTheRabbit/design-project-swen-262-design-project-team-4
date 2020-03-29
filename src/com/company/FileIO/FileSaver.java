@@ -40,7 +40,7 @@ public class FileSaver {
         try {
             FileWriter myWriter = new FileWriter(file);
             for(Searchable entry: searchables){
-                myWriter.write(entry.getGUID() + "\n");
+                myWriter.write(entry.formatToCsv() + "\n");
             }
             myWriter.close();
         } catch (IOException e) {
