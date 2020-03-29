@@ -1,7 +1,7 @@
 package com.company.SearchableFactory;
 
 import com.company.Database.*;
-import org.w3c.dom.CDATASection;
+import com.company.MusicBrainz.ReleaseSearch;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -13,12 +13,12 @@ public class ReleaseFactory {
      * @param fields The attributes of the release
      * @return The Release object (a Searchable)
      */
-    public Release makeReleaseFromCsv(String[] fields, Database database) {
+    public Release makeReleaseFromCsv(String[] fields, OfflineDatabase offlineDatabase) {
         try {
             ArrayList<Searchable> songs = new ArrayList<>();
 
             for (int i = 5; i < fields.length; i++) {
-                Song song = database.getSong(fields[i]);
+                Song song = offlineDatabase.getSong(fields[i]);
                 songs.add(song);
             }
 
@@ -43,5 +43,9 @@ public class ReleaseFactory {
             System.err.println(e);
             return null;
         }
+    }
+
+    public Release makeRealeaseFromMusicBrainz(ReleaseSearch release){
+        return null;
     }
 }

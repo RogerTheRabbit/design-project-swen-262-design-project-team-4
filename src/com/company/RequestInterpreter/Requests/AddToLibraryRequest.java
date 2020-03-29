@@ -2,7 +2,7 @@ package com.company.RequestInterpreter.Requests;
 
 import java.util.Date;
 
-import com.company.Database.Database;
+import com.company.Database.OfflineDatabase;
 import com.company.SearchableFactory.DateMaker;
 
 /**
@@ -14,13 +14,13 @@ public class AddToLibraryRequest implements Request {
     /**
      * Attributes
      */
-    private Database database;
+    private OfflineDatabase offlineDatabase;
 
     /**
      * Constructor
      */
-    public AddToLibraryRequest(Database database) {
-        this.database = database;
+    public AddToLibraryRequest(OfflineDatabase offlineDatabase) {
+        this.offlineDatabase = offlineDatabase;
     }
 
     /**
@@ -50,7 +50,7 @@ public class AddToLibraryRequest implements Request {
             date = new Date();
         }
 
-        database.addSearchableToLibrary(params[0], date);
+        offlineDatabase.addSearchableToLibrary(params[0], date);
 
         return null;
     }

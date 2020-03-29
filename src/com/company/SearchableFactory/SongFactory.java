@@ -2,6 +2,7 @@ package com.company.SearchableFactory;
 
 import com.company.Database.Searchable;
 import com.company.Database.Song;
+import com.company.MusicBrainz.RecordingSearch;
 
 public class SongFactory {
 
@@ -13,5 +14,9 @@ public class SongFactory {
     public Song makeSongFromCsv(String[] fields){
         Song searchable = new Song(fields[0], fields[1], Integer.parseInt(fields[2]), fields[3]);
         return searchable;
+    }
+
+    public Song makeSongFromMusicBrainz(RecordingSearch song){
+        return null;
     }
 }

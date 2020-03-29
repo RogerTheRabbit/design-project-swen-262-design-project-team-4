@@ -2,6 +2,7 @@ package com.company.SearchableFactory;
 
 import com.company.Database.Artist;
 import com.company.Database.Searchable;
+import com.company.MusicBrainz.ArtistSearch;
 
 public class ArtistFactory {
 
@@ -12,5 +13,9 @@ public class ArtistFactory {
      */
     public Artist makeArtistFromCsv(String[] fields){
         return new Artist(fields[0], fields[1], fields[2]);
+    }
+
+    public Artist makeArtistFromMusicBrainz(ArtistSearch artist){
+        return null;
     }
 }

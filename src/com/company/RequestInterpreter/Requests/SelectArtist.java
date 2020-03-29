@@ -2,7 +2,7 @@ package com.company.RequestInterpreter.Requests;
 
 import java.util.Collection;
 
-import com.company.Database.Database;
+import com.company.Database.OfflineDatabase;
 import com.company.Database.Searchable;
 
 /**
@@ -13,13 +13,13 @@ public class SelectArtist implements Request {
     /**
      * Attributes
      */
-    Database database;
+    OfflineDatabase offlineDatabase;
 
     /**
      * Constructor
      */
-    public SelectArtist(Database database) {
-        this.database = database;
+    public SelectArtist(OfflineDatabase offlineDatabase) {
+        this.offlineDatabase = offlineDatabase;
     }
 
     /**
@@ -30,7 +30,7 @@ public class SelectArtist implements Request {
     @Override
     public Response handle(String args) {
         
-        Collection<Searchable> output = database.getArtistFromLibrary(args);
+        Collection<Searchable> output = offlineDatabase.getArtistFromLibrary(args);
 
         if (output != null) {
             System.out.println(output);

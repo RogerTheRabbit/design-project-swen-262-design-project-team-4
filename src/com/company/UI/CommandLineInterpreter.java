@@ -3,7 +3,7 @@ package com.company.UI;
 import java.util.HashMap;
 import java.util.Scanner;
 
-import com.company.Database.Database;
+import com.company.Database.OfflineDatabase;
 import com.company.RequestInterpreter.Requests.*;
 
 /**
@@ -13,7 +13,7 @@ public class CommandLineInterpreter {
     
     // Initialize everything here
 
-    private static Database database = new Database();
+    private static OfflineDatabase offlineDatabase = new OfflineDatabase();
 
     // Map of all commands: key = command that user types into terminal | value =
     // Request to handle that command.
@@ -22,17 +22,17 @@ public class CommandLineInterpreter {
         COMMANDS = new HashMap<>();
         // Add Commands here
         // Note: Keys should always be lowercase
-        COMMANDS.put("add", new AddToLibraryRequest(database));
-        COMMANDS.put("rate", new RateRequest(database));
-        COMMANDS.put("remove", new RemoveFromLibraryRequest(database));
-        COMMANDS.put("search", new SearchDatabaseRequest(database));
-        COMMANDS.put("searchlibrary", new SearchLibraryRequest(database));
-        COMMANDS.put("setfilter", new SetFilterRequest(database));
-        COMMANDS.put("setsort", new SetSortRequest(database));
-        COMMANDS.put("browse", new BrowseRequest(database));
-        COMMANDS.put("selectartist", new SelectArtist(database));
-        COMMANDS.put("selectrelease", new SelectRelease(database));
-        COMMANDS.put("selectsong", new SelectSong(database));
+        COMMANDS.put("add", new AddToLibraryRequest(offlineDatabase));
+        COMMANDS.put("rate", new RateRequest(offlineDatabase));
+        COMMANDS.put("remove", new RemoveFromLibraryRequest(offlineDatabase));
+        COMMANDS.put("search", new SearchDatabaseRequest(offlineDatabase));
+        COMMANDS.put("searchlibrary", new SearchLibraryRequest(offlineDatabase));
+        COMMANDS.put("setfilter", new SetFilterRequest(offlineDatabase));
+        COMMANDS.put("setsort", new SetSortRequest(offlineDatabase));
+        COMMANDS.put("browse", new BrowseRequest(offlineDatabase));
+        COMMANDS.put("selectartist", new SelectArtist(offlineDatabase));
+        COMMANDS.put("selectrelease", new SelectRelease(offlineDatabase));
+        COMMANDS.put("selectsong", new SelectSong(offlineDatabase));
         COMMANDS.put("help", new Help(COMMANDS));
     }
 
@@ -51,7 +51,7 @@ public class CommandLineInterpreter {
             if(COMMANDS.containsKey(command)) {
                 COMMANDS.get(command).handle(input.substring(command.length()).trim());
             } else if(input.equals("exit")) {
-                database.saveLibrary();
+                offlineDatabase.saveLibrary();
                 break;
             // TODO: Make this a new command
             } else if(input.trim().toLowerCase().equals("cls")) {

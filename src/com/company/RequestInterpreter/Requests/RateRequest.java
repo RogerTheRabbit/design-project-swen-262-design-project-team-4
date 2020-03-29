@@ -1,6 +1,6 @@
 package com.company.RequestInterpreter.Requests;
 
-import com.company.Database.Database;
+import com.company.Database.OfflineDatabase;
 
 /**
  * RateRequest implements the Request class.
@@ -12,13 +12,13 @@ public class RateRequest implements Request {
     /**
      * Attributes
      */
-    private Database database;
+    private OfflineDatabase offlineDatabase;
 
     /**
      * Constructor
      */
-    public RateRequest(Database database) {
-        this.database = database;
+    public RateRequest(OfflineDatabase offlineDatabase) {
+        this.offlineDatabase = offlineDatabase;
     }
 
     /**
@@ -36,7 +36,7 @@ public class RateRequest implements Request {
             if (rating < 1 || rating > 5) {
                 throw new ExceptionInInitializerError();
             }
-            database.rateSearchableInLibrary(params[0], rating);
+            offlineDatabase.rateSearchableInLibrary(params[0], rating);
 
             System.out.println("Successfully rated song/artist in your personal library!");
 

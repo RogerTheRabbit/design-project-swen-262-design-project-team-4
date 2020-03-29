@@ -1,6 +1,6 @@
 package com.company.RequestInterpreter.Requests;
 
-import com.company.Database.Database;
+import com.company.Database.OfflineDatabase;
 
 /**
  * SetFilterRequest
@@ -11,13 +11,13 @@ public class SetFilterRequest implements Request {
     /**
      * Attributes
      */
-    private Database database;
+    private OfflineDatabase offlineDatabase;
 
     /**
      * Constructor
      */
-    public SetFilterRequest(Database database) {
-        this.database = database;
+    public SetFilterRequest(OfflineDatabase offlineDatabase) {
+        this.offlineDatabase = offlineDatabase;
     }
 
     /**
@@ -27,7 +27,7 @@ public class SetFilterRequest implements Request {
      */
     @Override
     public Response handle(String args) {
-        database.setFilter(args.trim());
+        offlineDatabase.setFilter(args.trim());
         return null;
     }
 
@@ -37,7 +37,7 @@ public class SetFilterRequest implements Request {
      */
     @Override
     public String getUsageDesc() {
-        return String.format("Set what criteria you would like to search by - {search filter %s}", database.getAvailableFilterTypes());
+        return String.format("Set what criteria you would like to search by - {search filter %s}", offlineDatabase.getAvailableFilterTypes());
     }
 
     

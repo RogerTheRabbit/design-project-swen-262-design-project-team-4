@@ -1,6 +1,6 @@
 package com.company.RequestInterpreter.Requests;
 
-import com.company.Database.Database;
+import com.company.Database.OfflineDatabase;
 
 /**
  * BrowseRequest implements the Request class.
@@ -11,13 +11,13 @@ public class BrowseRequest implements Request {
     /**
      * Attributes
      */
-    Database database;
+    OfflineDatabase offlineDatabase;
 
     /**
      * Constructor
      */
-    public BrowseRequest(Database database) {
-        this.database = database;
+    public BrowseRequest(OfflineDatabase offlineDatabase) {
+        this.offlineDatabase = offlineDatabase;
     }
 
     /**
@@ -29,8 +29,8 @@ public class BrowseRequest implements Request {
     @Override
     public Response handle(String args) {
         int counter = 0;
-        for(String artistGUID : database.getArtistMap().keySet()) {
-            System.out.println(database.getArtist(artistGUID));
+        for(String artistGUID : offlineDatabase.getArtistMap().keySet()) {
+            System.out.println(offlineDatabase.getArtist(artistGUID));
             counter++;
         }
 

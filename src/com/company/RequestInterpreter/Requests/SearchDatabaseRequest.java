@@ -3,7 +3,7 @@ package com.company.RequestInterpreter.Requests;
 import java.util.LinkedList;
 import java.util.List;
 
-import com.company.Database.Database;
+import com.company.Database.OfflineDatabase;
 import com.company.Database.Searchable;
 
 /**
@@ -16,13 +16,13 @@ public class SearchDatabaseRequest implements Request {
     /**
      * Attributes
      */
-    private Database database;
+    private OfflineDatabase offlineDatabase;
 
     /**
      * Constructor
      */
-    public SearchDatabaseRequest(Database database) {
-        this.database = database;
+    public SearchDatabaseRequest(OfflineDatabase offlineDatabase) {
+        this.offlineDatabase = offlineDatabase;
     }
 
     /**
@@ -49,13 +49,13 @@ public class SearchDatabaseRequest implements Request {
         // Get data
         switch (searchType) {
             case "song":
-                songs.addAll(database.getSongs(searchValue.trim()));
+                songs.addAll(offlineDatabase.getSongs(searchValue.trim()));
                 break;
             case "release":
-                songs.addAll(database.getReleases(searchValue.trim()));
+                songs.addAll(offlineDatabase.getReleases(searchValue.trim()));
                 break;
             case "artist":
-                songs.addAll(database.getArtists(searchValue.trim()));
+                songs.addAll(offlineDatabase.getArtists(searchValue.trim()));
                 break;
             default:
                 System.err.println("Invalid search type. Please specify either 'song' or 'release'.");

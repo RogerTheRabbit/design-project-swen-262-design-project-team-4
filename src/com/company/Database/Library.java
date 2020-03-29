@@ -19,13 +19,13 @@ import java.util.*;
 public class Library {
 
     private String username = "Jimmy";
-    private Database database;
+    private OfflineDatabase offlineDatabase;
     private FileSaver FILEWRITER;
     private HashSet<Searchable> searchables;
     private HashMap<String, ArrayList<Searchable>> artistMap;
 
-    Library(Database database) {
-        this.database = database;
+    Library(OfflineDatabase offlineDatabase) {
+        this.offlineDatabase = offlineDatabase;
         FILEWRITER = FileSaver.getInstance();
         searchables = new HashSet<>();
         artistMap = new HashMap<>();
@@ -59,7 +59,7 @@ public class Library {
      */
     public boolean addSearchable(String searchableGUID) {
 
-        Searchable songToAdd = database.getSearchable(searchableGUID);
+        Searchable songToAdd = offlineDatabase.getSearchable(searchableGUID);
 
         if(songToAdd != null) {
             addSongToArtistMap(songToAdd);
@@ -100,7 +100,7 @@ public class Library {
      * @param accDate Date to add to Searchable
      */
     public void addAcquisitionDate(String guid, Date accDate){
-        Searchable searchable = database.getSearchable(guid);
+        Searchable searchable = offlineDatabase.getSearchable(guid);
         if(searchable != null) {
             searchable.setAcquisitionDate(accDate);
         } else {
@@ -116,7 +116,7 @@ public class Library {
      * @return true of successful, false otherwise
      */
     public boolean removeSearchable(String searchableGUID) {
-        Searchable songToRemove = database.getSearchable(searchableGUID);
+        Searchable songToRemove = offlineDatabase.getSearchable(searchableGUID);
 
         if(songToRemove != null) {
 
@@ -155,12 +155,12 @@ public class Library {
      * @throws Exception
      */
     void addRating(String searchableGUID, Integer rating) throws Exception {
-        Song song = database.getSong(searchableGUID);
+        Song song = offlineDatabase.getSong(searchableGUID);
         if (song == null) {
             System.err.printf("You can only rate songs. Song with GUID of '%s' not found.\n", searchableGUID);
             throw new Exception();
         }
-        database.getSong(searchableGUID).setRating(rating);
+        offlineDatabase.getSong(searchableGUID).setRating(rating);
     }
 
     /**

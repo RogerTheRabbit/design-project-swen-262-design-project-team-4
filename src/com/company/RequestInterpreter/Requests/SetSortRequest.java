@@ -1,6 +1,6 @@
 package com.company.RequestInterpreter.Requests;
 
-import com.company.Database.Database;
+import com.company.Database.OfflineDatabase;
 
 /**
  * setSortRequest
@@ -11,13 +11,13 @@ public class SetSortRequest implements Request {
     /**
      * Attributes
      */
-    private Database database;
+    private OfflineDatabase offlineDatabase;
 
     /**
      * Constructor
      */
-    public SetSortRequest(Database database) {
-        this.database = database;
+    public SetSortRequest(OfflineDatabase offlineDatabase) {
+        this.offlineDatabase = offlineDatabase;
     }
 
     /**
@@ -28,7 +28,7 @@ public class SetSortRequest implements Request {
     @Override
     public Response handle(String args) {
         
-        database.setSort(args.trim());
+        offlineDatabase.setSort(args.trim());
 
         return null;
     }
@@ -39,6 +39,6 @@ public class SetSortRequest implements Request {
      */
     @Override
     public String getUsageDesc() {
-        return String.format("Set how you would like your search results to be ordered - {sort by %s}", database.getAvailableSortTypes());
+        return String.format("Set how you would like your search results to be ordered - {sort by %s}", offlineDatabase.getAvailableSortTypes());
     }
 }

@@ -1,6 +1,6 @@
 package com.company.RequestInterpreter.Requests;
 
-import com.company.Database.Database;
+import com.company.Database.OfflineDatabase;
 import com.company.Database.Searchable;
 
 /**
@@ -11,13 +11,13 @@ public class SelectRelease implements Request {
     /**
      * Attributes
      */
-    private Database database;
+    private OfflineDatabase offlineDatabase;
 
     /**
      * Constructor
      */
-    public SelectRelease(Database database) {
-        this.database = database;
+    public SelectRelease(OfflineDatabase offlineDatabase) {
+        this.offlineDatabase = offlineDatabase;
     }
 
     /**
@@ -28,7 +28,7 @@ public class SelectRelease implements Request {
     @Override
     public Response handle(String args) {
         
-        Searchable output = database.getReleaseFromLibrary(args);
+        Searchable output = offlineDatabase.getReleaseFromLibrary(args);
 
         if (output != null) {
             System.out.println(output.getSongList());

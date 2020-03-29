@@ -1,6 +1,6 @@
 package com.company.RequestInterpreter.Requests;
 
-import com.company.Database.Database;
+import com.company.Database.OfflineDatabase;
 import com.company.Database.Searchable;
 
 /**
@@ -12,13 +12,13 @@ public class SelectSong implements Request {
     /**
      * Attributes
      */
-    private Database database;
+    private OfflineDatabase offlineDatabase;
 
     /**
      * Constructor
      */
-    public SelectSong(final Database database) {
-        this.database = database;
+    public SelectSong(final OfflineDatabase offlineDatabase) {
+        this.offlineDatabase = offlineDatabase;
     }
 
     /**
@@ -28,7 +28,7 @@ public class SelectSong implements Request {
      */
     @Override
     public Response handle(final String args) {
-        final Searchable output = database.getSongFromLibrary(args);
+        final Searchable output = offlineDatabase.getSongFromLibrary(args);
 
         if (output != null) {
             System.out.println(output);

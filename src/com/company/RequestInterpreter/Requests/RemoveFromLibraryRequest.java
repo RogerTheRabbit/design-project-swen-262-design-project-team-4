@@ -1,6 +1,6 @@
 package com.company.RequestInterpreter.Requests;
 
-import com.company.Database.Database;
+import com.company.Database.OfflineDatabase;
 
 /**
  * RemoveFromLibraryRequest implements the Request class and removes
@@ -11,13 +11,13 @@ public class RemoveFromLibraryRequest implements Request {
     /**
      * Attributes
      */
-    private Database database;
+    private OfflineDatabase offlineDatabase;
 
     /**
      * Constructor
      */
-    public RemoveFromLibraryRequest(Database database) {
-        this.database = database;
+    public RemoveFromLibraryRequest(OfflineDatabase offlineDatabase) {
+        this.offlineDatabase = offlineDatabase;
     }
 
     /**
@@ -28,7 +28,7 @@ public class RemoveFromLibraryRequest implements Request {
     @Override
     public Response handle(String args) {
         
-        if (database.removeSearchableFromLibrary(args)) {
+        if (offlineDatabase.removeSearchableFromLibrary(args)) {
             System.out.println("Removing from your personal Library!");
         } else {
             System.err.println("Failed to remove item from your personal library...");
