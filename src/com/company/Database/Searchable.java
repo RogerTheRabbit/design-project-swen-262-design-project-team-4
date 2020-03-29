@@ -20,4 +20,5 @@ public interface Searchable {
     public String formatToCsv();
     public void setAcquisitionDate(Date date);
     public Date getAcquisitionDate();
+    public int hashCode();
 }

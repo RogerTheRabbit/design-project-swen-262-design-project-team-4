@@ -5,7 +5,10 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 
+import com.company.FileIO.FileParser;
 import com.company.FileIO.FileSaver;
+import com.company.RequestInterpreter.Response;
+import com.company.SearchableFactory.DateMaker;
 
 import java.io.File;
 import java.util.*;
@@ -16,19 +19,21 @@ import java.util.*;
  * This class represents a user's personal library.
  * 
  */
-public class Library {
+public class Library implements Database{
 
+    private FileParser FILEREADER;
     private String username = "Jimmy";
-    private OfflineDatabase offlineDatabase;
     private FileSaver FILEWRITER;
     private HashSet<Searchable> searchables;
-    private HashMap<String, ArrayList<Searchable>> artistMap;
+    private HashMap<Artist, ArrayList<Searchable>> artistMap;
 
-    Library(OfflineDatabase offlineDatabase) {
-        this.offlineDatabase = offlineDatabase;
+    Library(String username) {
+        this.username = username;
+        this.FILEREADER = new FileParser();
         FILEWRITER = FileSaver.getInstance();
         searchables = new HashSet<>();
         artistMap = new HashMap<>();
+        initializeLibrary(username);
     }
 
     /**
@@ -38,7 +43,7 @@ public class Library {
      * 
      * @return the hashmap of artists and their respective searchables in the user's Library.
      */
-    public HashMap<String, ArrayList<Searchable>> getArtistMap() {
+    public HashMap<Artist, ArrayList<Searchable>> getArtistMap() {
         return artistMap;
     }
 
@@ -54,15 +59,13 @@ public class Library {
     /**
      * Adds Searchables to the user's library based on their GUID.
      * 
-     * @param searchableGUID the GUID of the searchable to add to the user's library
+     * @param songToAdd the searchable to add to the user's library
      * @return true if added successfully, false otherwise.
      */
-    public boolean addSearchable(String searchableGUID) {
-
-        Searchable songToAdd = offlineDatabase.getSearchable(searchableGUID);
+    public boolean addSearchable(Searchable songToAdd, Artist artist) {
 
         if(songToAdd != null) {
-            addSongToArtistMap(songToAdd);
+            addSongToArtistMap(songToAdd, artist);
             searchables.add(songToAdd);
             return true;
         } else {
@@ -77,34 +80,37 @@ public class Library {
      * 
      * @param songToAdd Searchable to add to user's ArtistMap.
      */
-    private void addSongToArtistMap(Searchable songToAdd){
-        String artistguid = songToAdd.getArtistGUID();
+    private void addSongToArtistMap(Searchable songToAdd, Artist songArtist){
 
-        if(artistMap.containsKey(artistguid)){
-            ArrayList<Searchable> songs = artistMap.get(artistguid);
+        if(artistMap.containsKey(songArtist)){
+            ArrayList<Searchable> songs = artistMap.get(songArtist);
             songs.add(songToAdd);
-            artistMap.put(artistguid, songs);
+            artistMap.put(songArtist, songs);
         }
         else{
             ArrayList<Searchable> songs = new ArrayList<>();
             songs.add(songToAdd);
-            artistMap.put(artistguid, songs);
+            artistMap.put(songArtist, songs);
         }
+    }
+
+    private void addArtistToArtistMapFromFile(Artist artist){
+        ArrayList<Searchable> songs = new ArrayList<>();
+        artistMap.put(artist, songs);
     }
 
     /**
      * Add an Acquisition date to a song.
      * Acquisition dates are added after a searchable is made.
      * 
-     * @param guid GUID of searchable to add an acquisition date
+     * @param searchable searchable to add an acquisition date
      * @param accDate Date to add to Searchable
      */
-    public void addAcquisitionDate(String guid, Date accDate){
-        Searchable searchable = offlineDatabase.getSearchable(guid);
+    public void addAcquisitionDate(Searchable searchable, Date accDate){
         if(searchable != null) {
             searchable.setAcquisitionDate(accDate);
         } else {
-            System.err.printf("Can not find song or artist with GUID %s\n", guid);
+            System.err.printf("Can not find song or artist with GUID %s\n", searchable.getGUID());
         }
     }
 
@@ -112,15 +118,14 @@ public class Library {
      * Remove a searchable from a user's library and update the 
      * ArtistMap accordingly
      * 
-     * @param searchableGUID GUID of searchable to remove from library
+     * @param songToRemove searchable to remove from library
      * @return true of successful, false otherwise
      */
-    public boolean removeSearchable(String searchableGUID) {
-        Searchable songToRemove = offlineDatabase.getSearchable(searchableGUID);
+    public boolean removeSearchable(Searchable songToRemove, Artist songArtist) {
 
         if(songToRemove != null) {
 
-            removeSongFromArtistMap(songToRemove);
+            removeSongFromArtistMap(songToRemove, songArtist);
 
             searchables.remove(songToRemove);
 
@@ -135,32 +140,30 @@ public class Library {
      * 
      * @param songToRemove Searchable song to remove from library
      */
-    private void removeSongFromArtistMap(Searchable songToRemove){
-        String key = songToRemove.getArtistGUID();
+    private void removeSongFromArtistMap(Searchable songToRemove, Artist songArtist){
 
-        ArrayList<Searchable> songs = artistMap.get(key);
+        ArrayList<Searchable> songs = artistMap.get(songArtist);
         songs.remove(songToRemove);
-        artistMap.put(key, songs);
+        artistMap.put(songArtist, songs);
         if(songs.size() == 0){
-            artistMap.remove(key);
+            artistMap.remove(songArtist);
         }
     }
 
     /**
      * Add a rating to a song
      * 
-     * @param searchableGUID Searchable GUID to add rating to
+     * @param song Searchable to add rating to
      * @param rating         Rating to add to searchable. Rating should be between 1
      *                       and 5 inclusive
      * @throws Exception
      */
-    void addRating(String searchableGUID, Integer rating) throws Exception {
-        Song song = offlineDatabase.getSong(searchableGUID);
+    void addRating(Song song, Integer rating) throws Exception {
         if (song == null) {
-            System.err.printf("You can only rate songs. Song with GUID of '%s' not found.\n", searchableGUID);
+            System.err.printf("You can only rate songs. Song with GUID of '%s' not found.\n", song.getGUID());
             throw new Exception();
         }
-        offlineDatabase.getSong(searchableGUID).setRating(rating);
+        song.setRating(rating);
     }
 
     /**
@@ -266,12 +269,11 @@ public class Library {
      * @param GUID GUID of artist to get
      * @return Artist with GUID. Null if artist not in user's library.
      */
+    @Override
 	public Artist getArtist(String GUID) {
-        System.out.println(GUID);
-        System.out.println(searchables);
-        for(Searchable artist : searchables) {
+        for(Artist artist : artistMap.keySet()) {
             if(artist.getGUID().equals(GUID)) {
-                return (Artist) artist;
+                return artist;
             }
         }
 		return null;
@@ -283,14 +285,16 @@ public class Library {
      * @param GUID GUID of release to get
      * @return Release with GUID. Null if release not in user's library.
      */
+    @Override
 	public Release getRelease(String GUID) {
-        for(Searchable artist : searchables) {
-            if(artist.getGUID().equals(GUID)) {
-                return (Release) artist;
+        for(Searchable release : searchables) {
+            if(release.getGUID().equals(GUID)) {
+                return (Release) release;
             }
         }
 		return null;
 	}
+
 
     /**
      * Returns the song with the given GUID
@@ -298,12 +302,105 @@ public class Library {
      * @param GUID GUID of song to get
      * @return Song with GUID. Null if song not in user's library.
      */
+    @Override
 	public Song getSong(String GUID) {
-        for(Searchable artist : searchables) {
-            if(artist.getGUID().equals(GUID)) {
-                return (Song) artist;
+        for(Searchable song : searchables) {
+            if(song.getGUID().equals(GUID)) {
+                return (Song) song;
             }
         }
 		return null;
 	}
+
+
+    @Override
+    public Response getSongs() {
+        return null;
+    }
+
+    @Override
+    public Response getReleases() {
+        return null;
+    }
+
+    @Override
+    public Response getArtists() {
+        return null;
+    }
+
+
+    /**
+     * builds the library by adding each type of searchable to it from their
+     * coresponding files adds
+     *
+     * @param signedInUser
+     */
+    private void initializeLibrary(String signedInUser) {
+        addSearchableToLibraryFromFile(signedInUser, "Artists");
+        addSearchableToLibraryFromFile(signedInUser, "Songs");
+        addSearchableToLibraryFromFile(signedInUser, "Releases");
+        addRatingToSongFromFile(signedInUser);
+        addAcquisitionDateFromFile(signedInUser);
+    }
+
+    /**
+     * reads the user's associated searchable files and adds them to their library
+     * @param signedInUser      the user's username
+     */
+    private void addArtistToLibraryFromFile(String signedInUser) {
+        FILEREADER.setFileName(signedInUser + "Artist.csv");
+        FILEREADER.setFilePath("src/data/user/");
+        try {
+            ArrayList<String[]> splitData = FILEREADER.readFile();
+            for (String[] fields : splitData) {
+                addSearchable(fields[0]);
+            }
+        } catch (java.io.IOException e) {
+            // System.err.println(e);
+        }
+    }
+
+    /**
+     * reads the user's associated rating files and adds them to the corresponding searchable
+     * @param signedInUser the user's username
+     */
+    private void addRatingToSongFromFile(String signedInUser){
+        FILEREADER.setFileName(signedInUser + "Ratings" + ".csv");
+        FILEREADER.setFilePath("src/data/user/");
+        try {
+            ArrayList<String[]> splitData = FILEREADER.readFile();
+            for (String[] fields : splitData) {
+                Song songToAddRating = getSong(fields[0]);
+                songToAddRating.setRating(Integer.parseInt(fields[1]));
+            }
+        } catch (java.io.IOException e) {
+            // System.err.println(e);
+        }
+    }
+
+    /**
+     * reads the user's associated acquisition date files and adds them to the corresponding searchable
+     * @param signedInUser the user's username
+     */
+    private void addAcquisitionDateFromFile(String signedInUser) {
+        FILEREADER.setFileName(signedInUser + "Dates" + ".csv");
+        FILEREADER.setFilePath("src/data/user/");
+        try {
+            ArrayList<String[]> splitData = FILEREADER.readFile();
+            DateMaker maker = new DateMaker();
+            for (String[] fields : splitData) {
+                Searchable songToAddDate = getSong(fields[0]);
+                Searchable releaseToAddDate = getRelease(fields[0]);
+                if(songToAddDate != null){
+                    songToAddDate.setAcquisitionDate(maker.makeDate(fields[1]));
+                }
+                if(releaseToAddDate != null){
+                    releaseToAddDate.setAcquisitionDate(maker.makeDate(fields[1]));
+
+                }
+            }
+        } catch (Exception e) {
+            // System.err.println(e);
+        }
+    }
 }

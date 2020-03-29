@@ -3,6 +3,7 @@ package com.company.Database;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * @author mjh9131
@@ -166,5 +167,21 @@ public class Artist implements Searchable {
                 ", duration=" + duration +
                 ", name='" + name + '\'' +
                 "}\n";
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Artist artist = (Artist) o;
+        return duration == artist.duration &&
+                guid.equals(artist.guid) &&
+                name.equals(artist.name) &&
+                disambiguation.equals(artist.disambiguation);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(guid, name, disambiguation, duration);
     }
 }

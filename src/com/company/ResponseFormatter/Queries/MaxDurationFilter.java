@@ -1,4 +1,4 @@
-package com.company.ResponseFormatter.Filters;
+package com.company.ResponseFormatter.Queries;
 
 import com.company.Database.Artist;
 import com.company.Database.Release;

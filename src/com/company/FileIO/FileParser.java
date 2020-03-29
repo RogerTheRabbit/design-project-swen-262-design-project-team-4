@@ -75,7 +75,6 @@ public class FileParser {
      */
     public ArrayList<String[]> readFile() throws java.io.IOException{
         Path path = Paths.get(filePath, fileName);
-        File file = path.toFile();
         String fileContents = new String(Files.readAllBytes(path));
         Scanner scan = new Scanner(fileContents);
 

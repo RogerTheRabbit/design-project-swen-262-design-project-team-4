@@ -2,6 +2,7 @@ package com.company.Database;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * @author mjh9131
@@ -177,4 +178,20 @@ public class Release implements Searchable {
                 "}\n";
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Release release = (Release) o;
+        return duration == release.duration &&
+                guid.equals(release.guid) &&
+                artistGUID.equals(release.artistGUID) &&
+                title.equals(release.title) &&
+                medium == release.medium;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(guid, artistGUID, title, medium, duration);
+    }
 }
