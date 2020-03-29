@@ -3,7 +3,7 @@ package com.company.RequestInterpreter.Requests;
 import java.util.Date;
 
 import com.company.Database.Database;
-import com.company.Database.SearchableMaker;
+import com.company.SearchableFactory.DateMaker;
 
 /**
  * AddToLibraryRequest is an implementation of the Request class.
@@ -40,7 +40,8 @@ public class AddToLibraryRequest implements Request {
 
         if(params.length > 1) {
             try {
-                date = SearchableMaker.makeDate(params[1]);
+                DateMaker maker = new DateMaker();
+                date = maker.makeDate(params[1]);
             } catch (Exception e) {
                 System.err.println("Music not added. Invalid date format. Make sure date is in format YYYY-MM-DD.");
                 return null;

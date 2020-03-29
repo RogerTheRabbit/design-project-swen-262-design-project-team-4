@@ -5,8 +5,8 @@ import java.util.LinkedList;
 
 import com.company.Database.Artist;
 import com.company.Database.Release;
-import com.company.Database.SearchableMaker;
 import com.company.Database.Song;
+import com.company.SearchableFactory.DateMaker;
 
 /**
  * DateRangeFilter. Filters based on a given date range. Songs within 
@@ -35,8 +35,9 @@ public class DateRangeFilter implements Filter {
         Long endDate;
 
         try {
-            startDate = SearchableMaker.makeDate(params[0].trim()).getTime();
-            endDate = SearchableMaker.makeDate(params[1].trim()).getTime();
+            DateMaker maker = new DateMaker();
+            startDate = maker.makeDate(params[0].trim()).getTime();
+            endDate = maker.makeDate(params[1].trim()).getTime();
         } catch (Exception e) {
             System.err.println(
                     "One or both of the dates provided was in the incorrect format. Please specify dates as (YYYY-MM-DD)|(YYYY-MM)|(YYYY)");

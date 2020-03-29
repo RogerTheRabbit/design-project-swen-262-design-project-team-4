@@ -3,6 +3,10 @@ package com.company.Database;
 import com.company.FileIO.FileParser;
 import com.company.RequestInterpreter.Filters.*;
 import com.company.RequestInterpreter.Sorts.*;
+import com.company.SearchableFactory.ArtistFactory;
+import com.company.SearchableFactory.DateMaker;
+import com.company.SearchableFactory.ReleaseFactory;
+import com.company.SearchableFactory.SongFactory;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -66,10 +70,9 @@ public class Database {
      * library
      */
     private void initializeDatabase() {
-        SearchableMaker maker = new SearchableMaker(this);
-        initializeArtists(maker);
-        initializeSongs(maker);
-        initializeAlbums(maker);
+        initializeArtists(new ArtistFactory());
+        initializeSongs(new SongFactory());
+        initializeAlbums(new ReleaseFactory());
         initializeLibrary(library.getUsername());
     }
 
@@ -91,14 +94,14 @@ public class Database {
      *  adds all the songs to the database from the files
      * @param maker the factory
      */
-    private void initializeSongs(SearchableMaker maker) {
+    private void initializeSongs(SongFactory maker) {
         FILEREADER.setFileName("songs.csv");
         FILEREADER.setFilePath("src/data/global/");
         try {
             ArrayList<String[]> splitData = FILEREADER.readFile();
             for (String[] fields : splitData) {
-                Searchable entry = maker.makeSearchable("Song", fields);
-                songs.put(entry.getGUID(), (Song) entry);
+                Song entry = maker.makeSongFromCsv(fields);
+                songs.put(entry.getGUID(), entry);
                 addToArtistDiscography(entry);
             }
         } catch (java.io.IOException e) {
@@ -110,14 +113,14 @@ public class Database {
      * adds all the artists to the database from the files
      * @param maker the factory
      */
-    private void initializeArtists(SearchableMaker maker) {
+    private void initializeArtists(ArtistFactory maker) {
         FILEREADER.setFileName("artists.csv");
         FILEREADER.setFilePath("src/data/global/");
         try {
             ArrayList<String[]> splitData = FILEREADER.readFile();
             for (String[] fields : splitData) {
-                Searchable entry = maker.makeSearchable("Artist", fields);
-                artists.put(entry.getGUID(), (Artist) entry);
+                Artist entry = maker.makeArtistFromCsv(fields);
+                artists.put(entry.getGUID(), entry);
             }
         } catch (java.io.IOException e) {
             System.err.println(e);
@@ -128,14 +131,14 @@ public class Database {
      * adds all the releases to the database from the files
      * @param maker the factory
      */
-    private void initializeAlbums(SearchableMaker maker) {
+    private void initializeAlbums(ReleaseFactory maker) {
         FILEREADER.setFileName("releases.csv");
         FILEREADER.setFilePath("src/data/global/");
         try {
             ArrayList<String[]> splitData = FILEREADER.readFile();
             for (String[] fields : splitData) {
-                Searchable entry = maker.makeSearchable("Release", fields);
-                releases.put(entry.getGUID(), (Release) entry);
+                Release entry = maker.makeReleaseFromCsv(fields, this);
+                releases.put(entry.getGUID(), entry);
                 addToArtistDiscography(entry);
             }
         } catch (Exception e) {
@@ -198,14 +201,15 @@ public class Database {
         FILEREADER.setFilePath("src/data/user/");
         try {
             ArrayList<String[]> splitData = FILEREADER.readFile();
+            DateMaker maker = new DateMaker();
             for (String[] fields : splitData) {
                 Searchable songToAddDate = songs.get(fields[0]);
                 Searchable releaseToAddDate = releases.get(fields[0]);
                 if(songToAddDate != null){
-                    songToAddDate.setAcquisitionDate(SearchableMaker.makeDate(fields[1]));
+                    songToAddDate.setAcquisitionDate(maker.makeDate(fields[1]));
                 }
                 if(releaseToAddDate != null){
-                    releaseToAddDate.setAcquisitionDate(SearchableMaker.makeDate(fields[1]));
+                    releaseToAddDate.setAcquisitionDate(maker.makeDate(fields[1]));
 
                 }
             }
