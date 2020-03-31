@@ -1,5 +1,7 @@
 package com.company.Database;
 
+import com.company.ResponseFormatter.Queries.Filter;
+
 import java.util.Date;
 import java.util.List;
 
@@ -21,4 +23,5 @@ public interface Searchable {
     public void setAcquisitionDate(Date date);
     public Date getAcquisitionDate();
     public int hashCode();
+    public void accept(Filter filter);
 }

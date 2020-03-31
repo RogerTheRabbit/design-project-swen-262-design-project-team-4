@@ -7,7 +7,7 @@ import java.util.HashSet;
 
 import com.company.FileIO.FileParser;
 import com.company.FileIO.FileSaver;
-import com.company.RequestInterpreter.Requests.Response;
+import com.company.RequestInterpreter.Response;
 import com.company.SearchableFactory.ArtistFactory;
 import com.company.SearchableFactory.DateMaker;
 import com.company.SearchableFactory.ReleaseFactory;
@@ -25,12 +25,12 @@ import java.util.*;
 public class Library implements Database{
 
     private FileParser FILEREADER;
-    private String username = "Jimmy";
+    private String username;
     private FileSaver FILEWRITER;
     private HashSet<Searchable> searchables;
     private HashMap<Artist, ArrayList<Searchable>> artistMap;
 
-    Library(String username) {
+    public Library(String username) {
         this.username = username;
         this.FILEREADER = new FileParser();
         FILEWRITER = FileSaver.getInstance();

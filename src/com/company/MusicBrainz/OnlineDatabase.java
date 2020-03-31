@@ -4,7 +4,7 @@ import com.company.Database.Artist;
 import com.company.Database.Database;
 import com.company.Database.Release;
 import com.company.Database.Song;
-import com.company.RequestInterpreter.Requests.Response;
+import com.company.RequestInterpreter.Response;
 
 public class OnlineDatabase implements Database {
     @Override

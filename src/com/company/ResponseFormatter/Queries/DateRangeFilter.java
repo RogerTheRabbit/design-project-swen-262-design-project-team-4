@@ -1,10 +1,13 @@
 package com.company.ResponseFormatter.Queries;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedList;
+import java.util.List;
 
 import com.company.Database.Artist;
 import com.company.Database.Release;
+import com.company.Database.Searchable;
 import com.company.Database.Song;
 import com.company.SearchableFactory.DateMaker;
 
@@ -13,6 +16,13 @@ import com.company.SearchableFactory.DateMaker;
  * the specified date range 
  */
 public class DateRangeFilter implements Filter {
+    private List<Searchable> searchables;
+    private String searchValue;
+
+    public DateRangeFilter() {
+        this.searchables = new ArrayList<>();
+        this.searchValue = "";
+    }
 
     /**
 	 * Defines how filter should handle Releases
@@ -22,13 +32,12 @@ public class DateRangeFilter implements Filter {
 	 * @return The filtered Releases
 	 */
     @Override
-    public LinkedList<Release> filterReleases(Collection<Release> values, String searchValue) {
+    public void visitRelease(Release release) {
 
         String[] params = searchValue.split(" ");
         if (params.length != 2) {
             System.err.println(
                     "Invalid date range format.  Please specify date as [start date (YYYY-MM-DD)|(YYYY-MM)|(YYYY)] [end date (YYYY-MM-DD)|(YYYY-MM)|(YYYY)] inclusive");
-            return new LinkedList<Release>();
         }
 
         Long startDate;
@@ -38,21 +47,17 @@ public class DateRangeFilter implements Filter {
             DateMaker maker = new DateMaker();
             startDate = maker.makeDate(params[0].trim()).getTime();
             endDate = maker.makeDate(params[1].trim()).getTime();
+            if (release.getIssueDate().getTime() >= startDate && release.getIssueDate().getTime() <= endDate) {
+                searchables.add(release);
+            }
         } catch (Exception e) {
             System.err.println(
                     "One or both of the dates provided was in the incorrect format. Please specify dates as (YYYY-MM-DD)|(YYYY-MM)|(YYYY)");
-            return new LinkedList<Release>();
         }
 
-        LinkedList<Release> filteredReleases = new LinkedList<>();
 
-        for (Release release : values) {
-            if (release.getIssueDate().getTime() >= startDate && release.getIssueDate().getTime() <= endDate) {
-                filteredReleases.add(release);
-            }
-        }
 
-        return filteredReleases;
+
     }
 
 	/**
@@ -63,9 +68,8 @@ public class DateRangeFilter implements Filter {
 	 * @return The filtered Songs
 	 */
     @Override
-    public LinkedList<Song> filterSongs(Collection<Song> values, String searchValue) {
+    public void visitSong(Song searchable) {
         System.err.println("Error: Trying to filter songs by date range. This is not possible. You can only filter releases by date-range");
-        return new LinkedList<Song>();
     }
 
 	/**
@@ -76,8 +80,22 @@ public class DateRangeFilter implements Filter {
 	 * @return The filtered Artists
 	 */
     @Override
-    public LinkedList<Artist> filterArtists(Collection<Artist> someSongs, String searchValue) {
+    public void visitArtist(Artist artist) {
         System.err.println("Error: Trying to filter artists by date range. This is not possible. You can only filter releases by date-range");
-        return new LinkedList<Artist>();
+    }
+
+    @Override
+    public List<Searchable> getContents() {
+        return searchables;
+    }
+
+    @Override
+    public void clearContents() {
+        searchables = new ArrayList<>();
+    }
+
+    @Override
+    public void setFilterParam(String filterParam) {
+        this.searchValue = filterParam;
     }
 }

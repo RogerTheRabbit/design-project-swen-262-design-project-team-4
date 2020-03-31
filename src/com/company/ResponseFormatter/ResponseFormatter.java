@@ -1,13 +1,14 @@
 package com.company.ResponseFormatter;
 
+import com.company.Database.Searchable;
+import com.company.RequestInterpreter.Response;
 import com.company.ResponseFormatter.Queries.*;
 import com.company.ResponseFormatter.Sorts.AcquisitionDate;
 import com.company.ResponseFormatter.Sorts.Alphabetical;
 import com.company.ResponseFormatter.Sorts.Rating;
 import com.company.ResponseFormatter.Sorts.Sort;
 
-import java.util.HashMap;
-import java.util.Set;
+import java.util.*;
 
 public class ResponseFormatter {
     private Filter filter;
@@ -15,9 +16,11 @@ public class ResponseFormatter {
     private HashMap<String, Filter> filters;
     private HashMap<String, Sort> sorts;
 
-    public ResponseFormatter(Filter filter, Sort sort) {
+    public ResponseFormatter() {
         this.filter = new NameFilter();     // Set default filtering
         this.sort = new Alphabetical();     // Set default sorting
+        initializeFilters();
+        initializeSorts();
     }
 
     /**
@@ -57,6 +60,7 @@ public class ResponseFormatter {
         } else {
             System.err.printf("'%s' is an invalid filter.\n", filter);
         }
+
     }
 
     /**
@@ -88,5 +92,23 @@ public class ResponseFormatter {
         return filters.keySet();
     }
 
+    public Response formatResponse(Response response){
+        Response filteredResponse = filterResponse(response);
+        filteredResponse.getContent().sort(sort);
+        return response;
+    }
+
+    public Response filterResponse(Response response){
+
+        List<Searchable> contents = response.getContent();
+
+        for (Searchable searchable: contents){
+            searchable.accept(filter);
+        }
+
+        Response newResponse = new Response(filter.getContents(), response);
+        filter.clearContents();
+        return newResponse;
+    }
 
 }

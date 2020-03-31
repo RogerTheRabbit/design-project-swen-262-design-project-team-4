@@ -2,9 +2,11 @@ package com.company.ResponseFormatter.Queries;
 
 import java.util.Collection;
 import java.util.LinkedList;
+import java.util.List;
 
 import com.company.Database.Artist;
 import com.company.Database.Release;
+import com.company.Database.Searchable;
 import com.company.Database.Song;
 
 /**
@@ -19,7 +21,7 @@ public interface Filter {
 	 * @param searchValue Any args that the filter needs
 	 * @return The filtered Releases
 	 */
-    public LinkedList<Release> filterReleases(Collection<Release> values, String searchValue);
+    public void visitRelease(Release searchable);
 
 	/**
 	 * Defines how filter should handle Songs
@@ -28,7 +30,7 @@ public interface Filter {
 	 * @param searchValue Any args that the filter needs
 	 * @return The filtered Songs
 	 */
-	public LinkedList<Song> filterSongs(Collection<Song> values, String searchValue);
+	public void visitSong(Song searchable);
 
 	/**
 	 * Defines how filter should handle Artists
@@ -37,5 +39,11 @@ public interface Filter {
 	 * @param searchValue Any args that the filter needs
 	 * @return The filtered Artists
 	 */
-	public LinkedList<Artist> filterArtists(Collection<Artist> values, String searchValue);
+	public void visitArtist(Artist searchable);
+
+	public List<Searchable> getContents();
+
+	public void clearContents();
+
+	public void setFilterParam(String filterParam);
 }

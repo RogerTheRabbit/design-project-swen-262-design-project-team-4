@@ -1,10 +1,13 @@
 package com.company.ResponseFormatter.Queries;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedList;
+import java.util.List;
 
 import com.company.Database.Artist;
 import com.company.Database.Release;
+import com.company.Database.Searchable;
 import com.company.Database.Song;
 
 /**
@@ -13,7 +16,15 @@ import com.company.Database.Song;
  */
 public class GUIDFilter implements Filter {
 
-	/**
+    private List<Searchable> searchables;
+    private String searchValue;
+
+    public GUIDFilter() {
+        this.searchables = new ArrayList<>();
+        this.searchValue = "";
+    }
+
+    /**
 	 * Defines how filter should handle Releases
 	 * 
 	 * @param values Collection of Releases to filter
@@ -21,17 +32,14 @@ public class GUIDFilter implements Filter {
 	 * @return The filtered Releases
 	 */
     @Override
-    public LinkedList<Release> filterReleases(Collection<Release> values, String searchValue) {
+    public void visitRelease(Release searchable) {
 
-        LinkedList<Release> filteredReleases = new LinkedList<>();
 
-        for (Release release : values) {
-            if (release.getGUID().contains(searchValue)) {
-                filteredReleases.add(release);
-            }
+            if (searchable.getGUID().contains(searchValue)) {
+                searchables.add(searchable);
+
         }
 
-        return filteredReleases;
     }
 
 	/**
@@ -42,17 +50,12 @@ public class GUIDFilter implements Filter {
 	 * @return The filtered Songs
 	 */
     @Override
-    public LinkedList<Song> filterSongs(Collection<Song> values, String searchValue) {
+    public void visitSong(Song searchable) {
 
-        LinkedList<Song> filteredReleases = new LinkedList<>();
-
-        for (Song song : values) {
-            if (song.getGUID().contains(searchValue)) {
-                filteredReleases.add(song);
+            if (searchable.getGUID().contains(searchValue)) {
+                searchables.add(searchable);
             }
-        }
 
-        return filteredReleases;
     }
 
 	/**
@@ -63,16 +66,26 @@ public class GUIDFilter implements Filter {
 	 * @return The filtered Artists
 	 */
     @Override
-    public LinkedList<Artist> filterArtists(Collection<Artist> values, String searchValue) {
-        LinkedList<Artist> filteredReleases = new LinkedList<>();
+    public void visitArtist(Artist artist) {
 
-        for (Artist artist : values) {
             if (artist.getGUID().contains(searchValue)) {
-                filteredReleases.add(artist);
+                searchables.add(artist);
             }
-        }
 
-        return filteredReleases;
+    }
+
+    @Override
+    public List<Searchable> getContents(){
+        return searchables;
+    }
+
+    @Override
+    public void clearContents() {
+        searchables = new ArrayList<>();
+    }
+
+    public void setFilterParam(String filterParam){
+        this.searchValue = filterParam;
     }
 
 }

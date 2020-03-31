@@ -1,5 +1,7 @@
 package com.company.Database;
 
+import com.company.ResponseFormatter.Queries.Filter;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -183,5 +185,10 @@ public class Artist implements Searchable {
     @Override
     public int hashCode() {
         return Objects.hash(guid, name, disambiguation, duration);
+    }
+
+    @Override
+    public void accept(Filter filter) {
+        filter.visitArtist(this);
     }
 }

@@ -8,9 +8,18 @@ import java.util.Date;
 import java.util.HashMap;
 
 public class CommandHandler {
-    private ResponseFormatter responseFormatter;
     private Database database;
     private HashMap<String, Library> libraries;
+    private HashMap<String, ResponseFormatter> formatters;
+
+    public CommandHandler() {
+
+    }
+
+    public void initializeUser(String username){
+        libraries.put(username, new Library(username));
+        formatters.put(username, new ResponseFormatter());
+    }
 
     public void saveLibrary(String username){
         libraries.get(username).saveLibrary();
@@ -21,8 +30,9 @@ public class CommandHandler {
      * @param searchableGUID the guid of the searchable to add
      * @param aquDate the acquisition date of the searchable to add
      */
-    public void addSearchableToLibrary(String searchableGUID, Date aquDate) {
+    public Response addSearchableToLibrary(String searchableGUID, Date aquDate, String username) {
         Library library = libraries.get(username);
+
         if(library.getArtist(searchableGUID) != null) {
             System.out.println("Artist not added to library.  Only songs and releases can be added to your library.");
             return;
@@ -35,7 +45,7 @@ public class CommandHandler {
      * given a searchable guid, remove it from a user's library
      * @param searchableGUID the guid of the searchable to be removed
      */
-    public boolean removeSearchableFromLibrary(String searchableGUID) {
+    public Response removeSearchableFromLibrary(String searchableGUID, String username) {
         return library.removeSearchable(searchableGUID);
     }
 
@@ -46,8 +56,43 @@ public class CommandHandler {
      * @param rating         the rating to be set
      * @throws Exception
      */
-    public void rateSearchableInLibrary(String searchableGUID, int rating) throws Exception {
+    public Response rateSearchableInLibrary(String searchableGUID, int rating, String username) throws Exception {
         library.addRating(searchableGUID, rating);
     }
 
+    public Response browseArtist(String[] params){
+        return null;
+    }
+
+    public Response getSongFromLibrary(String[] params){
+        return null;
+    }
+
+    public Response getReleaseFromLibrary(String[] params){
+        return null;
+    }
+
+    public Response getArtistFromLibrary(String[] params){
+        return null;
+    }
+
+    public Response getSongsFromLibrary(String[] params){
+        return null;
+    }
+
+    public Response getReleasesFromLibrary(String[] params){
+        return null;
+    }
+
+    public Response getArtistsFromLibrary(String[] params){
+        return null;
+    }
+
+    public Response setFilter(String[] params){
+        return null;
+    }
+
+    public Response setSort(String[] params){
+        return null;
+    }
 }

@@ -2,18 +2,28 @@ package com.company.ResponseFormatter.Queries;
 
 import com.company.Database.Artist;
 import com.company.Database.Release;
+import com.company.Database.Searchable;
 import com.company.Database.Song;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedList;
+import java.util.List;
 
 /**
  * MinDurationFilter. Filters based on if searchables are 
  * over a specified duration
  */
 public class MinDurationFilter implements Filter {
-    
-	/**
+    private List<Searchable> searchables;
+    private String searchValue;
+
+    public MinDurationFilter() {
+        this.searchables = new ArrayList<>();
+        this.searchValue = "";
+    }
+
+    /**
 	 * Defines how filter should handle Releases
 	 * 
 	 * @param values Collection of Releases to filter
@@ -21,29 +31,22 @@ public class MinDurationFilter implements Filter {
 	 * @return The filtered Releases
 	 */
     @Override
-    public LinkedList<Release> filterReleases(Collection<Release> values, String searchValue) {
+    public void visitRelease(Release release) {
 
-        LinkedList<Release> filteredReleases = new LinkedList<>();
 
         int minLength;
 
         try {
             minLength = Integer.parseInt(searchValue);
+            if (release.getTotalDuration() >= minLength) {
+                searchables.add(release);
+            }
         } catch (NumberFormatException e) {
             System.err.println("Invalid number.");
-            return new LinkedList<>();
         }
 
-        for (Release release : values) {
-            if (release.getTotalDuration() >= minLength) {
-                filteredReleases.add(release);
-            }
-        }
-        if(filteredReleases.size() == 0) {
-            System.out.printf("No releases longer than %d ms were found.\n", minLength);
-        }
-        
-        return filteredReleases;
+
+
     }
 
 	/**
@@ -54,29 +57,22 @@ public class MinDurationFilter implements Filter {
 	 * @return The filtered Songs
 	 */
     @Override
-    public LinkedList<Song> filterSongs(Collection<Song> values, String searchValue) {
+    public void visitSong(Song song) {
 
-        LinkedList<Song> filteredSongs = new LinkedList<>();
 
         int minLength;
 
         try {
             minLength = Integer.parseInt(searchValue);
+            if (song.getTotalDuration() >= minLength) {
+                searchables.add(song);
+            }
         } catch (NumberFormatException e) {
             System.err.println("Invalid number.");
-            return new LinkedList<>();
         }
 
-        for (Song song : values) {
-            if (song.getTotalDuration() >= minLength) {
-                filteredSongs.add(song);
-            }
-        }
-        if(filteredSongs.size() == 0) {
-            System.out.printf("No songs longer than %d ms were found.\n", minLength);
-        }
-        
-        return filteredSongs;
+
+
     }
 
 	/**
@@ -87,27 +83,35 @@ public class MinDurationFilter implements Filter {
 	 * @return The filtered Artists
 	 */
     @Override
-    public LinkedList<Artist> filterArtists(Collection<Artist> values, String searchValue) {
-        LinkedList<Artist> filteredArtists = new LinkedList<>();
+    public void visitArtist(Artist artist) {
 
         int minLength;
 
         try {
             minLength = Integer.parseInt(searchValue);
+            if (artist.getTotalDuration() >= minLength) {
+                searchables.add(artist);
+            }
         } catch (NumberFormatException e) {
             System.err.println("Invalid number.");
-            return new LinkedList<>();
         }
 
-        for (Artist artist : values) {
-            if (artist.getTotalDuration() >= minLength) {
-                filteredArtists.add(artist);
-            }
-        }
-        if(filteredArtists.size() == 0) {
-            System.out.printf("No releases longer than %d ms were found.\n", minLength);
-        }
-        
-        return filteredArtists;
+
+
+    }
+
+    @Override
+    public List<Searchable> getContents() {
+        return searchables;
+    }
+
+    @Override
+    public void clearContents() {
+        searchables = new ArrayList<>();
+    }
+
+    @Override
+    public void setFilterParam(String filterParam) {
+        searchValue = filterParam;
     }
 }

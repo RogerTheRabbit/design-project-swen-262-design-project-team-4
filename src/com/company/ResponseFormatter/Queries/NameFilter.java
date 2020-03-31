@@ -1,10 +1,13 @@
 package com.company.ResponseFormatter.Queries;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedList;
+import java.util.List;
 
 import com.company.Database.Artist;
 import com.company.Database.Release;
+import com.company.Database.Searchable;
 import com.company.Database.Song;
 
 /**
@@ -12,8 +15,15 @@ import com.company.Database.Song;
  * The user provides a name and this filters out any Searchable objects that do not contain that name.
  */
 public class NameFilter implements Filter {
+    private List<Searchable> searchables;
+    private String searchValue;
 
-	/**
+    public NameFilter() {
+        this.searchables = new ArrayList<>();
+        this.searchValue = "";
+    }
+
+    /**
 	 * Defines how filter should handle Releases
 	 * 
 	 * @param values Collection of Releases to filter
@@ -21,17 +31,12 @@ public class NameFilter implements Filter {
 	 * @return The filtered Releases
 	 */
     @Override
-    public LinkedList<Release> filterReleases(Collection<Release> values, String searchValue) {
+    public void visitRelease(Release release) {
 
-        LinkedList<Release> filteredReleases = new LinkedList<>();
-
-        for (Release release : values) {
             if (release.getName().toLowerCase().contains(searchValue.toLowerCase())) {
-                filteredReleases.add(release);
+                searchables.add(release);
             }
-        }
 
-        return filteredReleases;
     }
 
 	/**
@@ -42,16 +47,12 @@ public class NameFilter implements Filter {
 	 * @return The filtered Songs
 	 */
     @Override
-    public LinkedList<Song> filterSongs(Collection<Song> values, String searchValue) {
-        LinkedList<Song> filteredSongs = new LinkedList<>();
+    public void visitSong(Song song) {
 
-        for (Song song : values) {
             if (song.getName().toLowerCase().contains(searchValue.toLowerCase())) {
-                filteredSongs.add(song);
+                searchables.add(song);
             }
-        }
 
-        return filteredSongs;
     }
 
 	/**
@@ -62,16 +63,26 @@ public class NameFilter implements Filter {
 	 * @return The filtered Artists
 	 */
     @Override
-    public LinkedList<Artist> filterArtists(Collection<Artist> values, String searchValue) {
-        LinkedList<Artist> filteredReleases = new LinkedList<>();
+    public void visitArtist(Artist artist) {
 
-        for (Artist artist : values) {
             if (artist.getName().toLowerCase().contains(searchValue.toLowerCase())) {
-                filteredReleases.add(artist);
+                searchables.add(artist);
             }
-        }
-
-        return filteredReleases;
     }
 
+
+    @Override
+    public List<Searchable> getContents() {
+        return searchables;
+    }
+
+    @Override
+    public void clearContents() {
+        searchables = new ArrayList<>();
+    }
+
+    @Override
+    public void setFilterParam(String filterParam) {
+        searchValue = filterParam;
+    }
 }

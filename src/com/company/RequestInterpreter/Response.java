@@ -1,4 +1,4 @@
-package com.company.RequestInterpreter.Requests;
+package com.company.RequestInterpreter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,6 +25,12 @@ public class Response {
         this.content = content;
         this.successStatus = successStatus;
         this.responseMessage = responseMessage;
+    }
+
+    public Response(List<Searchable> newContent, Response oldResponse){
+        this.content = newContent;
+        this.successStatus = oldResponse.getSuccessStatus();
+        this.responseMessage = oldResponse.getResponseMessage();
     }
 
     /**

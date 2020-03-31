@@ -1,7 +1,7 @@
 package com.company.Database;
 
 import com.company.FileIO.FileParser;
-import com.company.RequestInterpreter.Requests.Response;
+import com.company.RequestInterpreter.Response;
 import com.company.SearchableFactory.ArtistFactory;
 import com.company.SearchableFactory.ReleaseFactory;
 import com.company.SearchableFactory.SongFactory;

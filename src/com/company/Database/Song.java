@@ -1,5 +1,7 @@
 package com.company.Database;
 
+import com.company.ResponseFormatter.Queries.Filter;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -158,5 +160,10 @@ public class Song implements Searchable {
     @Override
     public int hashCode() {
         return Objects.hash(GUID, artistGUID, duration, title);
+    }
+
+    @Override
+    public void accept(Filter filter) {
+        filter.visitSong(this);
     }
 }
